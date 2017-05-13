@@ -5,3 +5,4 @@ bin/x64/UtilityUnitTestd.pdb
 bin/x86/
 *.db
 bin/x64/
+*.opendb

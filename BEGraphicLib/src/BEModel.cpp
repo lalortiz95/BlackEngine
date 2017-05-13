@@ -105,7 +105,7 @@ namespace BlackEngine
 						TempMesh->m_IB.AddIndex((int16)Face.mIndices[2]);
 					}
 				}
-
+				//Hice un cambio
 			/*	if (Scene->HasMaterials())
 				{
 					for (SIZE_T i = 0; i < Scene->mNumMaterials; i++)
