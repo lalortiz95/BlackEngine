@@ -38,6 +38,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtilityUnitTest", "UtilityU
 		{C883BFCD-2B31-4818-A6C6-D6E6257979D9} = {C883BFCD-2B31-4818-A6C6-D6E6257979D9}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BEEngine", "BEEngine\BEEngine.vcxproj", "{FC7AE2C2-F9D3-4B01-978F-B5287839E138}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -132,6 +134,18 @@ Global
 		{1DBC5DB1-AE4A-451A-A2F2-DE657F4094F0}.Release|x64.Build.0 = Release|x64
 		{1DBC5DB1-AE4A-451A-A2F2-DE657F4094F0}.Release|x86.ActiveCfg = Release|Win32
 		{1DBC5DB1-AE4A-451A-A2F2-DE657F4094F0}.Release|x86.Build.0 = Release|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Debug|Win32.Build.0 = Debug|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Debug|x64.ActiveCfg = Debug|x64
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Debug|x64.Build.0 = Debug|x64
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Debug|x86.ActiveCfg = Debug|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Debug|x86.Build.0 = Debug|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Release|Win32.ActiveCfg = Release|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Release|Win32.Build.0 = Release|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Release|x64.ActiveCfg = Release|x64
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Release|x64.Build.0 = Release|x64
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Release|x86.ActiveCfg = Release|Win32
+		{FC7AE2C2-F9D3-4B01-978F-B5287839E138}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
