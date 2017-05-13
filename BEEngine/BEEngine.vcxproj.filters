@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BEPrerequisitesEngine.h">
+    <ClInclude Include="include\BEMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BEMaterial.h">
+    <ClInclude Include="include\BEPrerequisitesEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

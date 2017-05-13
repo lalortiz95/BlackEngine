@@ -54,8 +54,6 @@ namespace BlackEngine
 		m_ColorSampler->Initialize();
 		m_Model = new BEModel();
 
-		String Addr("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Textures\\bihull.bmp");
-
 		///constant buffers.
 		m_BNeverChanges = new BEConstantBuffer();
 		m_BNeverChanges->Initialize();
@@ -92,7 +90,7 @@ namespace BlackEngine
 		m_ResourceManager->m_GA = m_GraphicsAPI;
 		///cargo los recursos y los introduzco en el vector.
 		//LoadResource("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Models\\airplane 2.x");
-		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("airplane 2.x"));
+		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\airplane 2.x"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
 		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
@@ -148,6 +146,8 @@ namespace BlackEngine
 		}
 		m_BChangeOnResize->CreateBuffer(m_GraphicsAPI->m_pGraphicsAPIData);
 		m_BChangesEveryFrame->CreateBuffer(m_GraphicsAPI->m_pGraphicsAPIData);
+
+		String Addr("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp");
 
 		///creo el shader resource view.
 		m_ColorMap->Create(m_GraphicsAPI->m_pGraphicsAPIData, &Addr);

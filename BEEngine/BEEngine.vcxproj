@@ -161,8 +161,8 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BEPrerequisitesEngine.h" />
     <ClInclude Include="include\BEMaterial.h" />
+    <ClInclude Include="include\BEPrerequisitesEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BEMaterial.cpp" />

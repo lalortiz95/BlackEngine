@@ -14,6 +14,8 @@ namespace BlackEngine
 		void Initialize();
 		void Destroy();
 
+		//TODO: mover el mesh a ete proyecto.
+
 		BEResource* m_Diffuse;
 	};
 }
