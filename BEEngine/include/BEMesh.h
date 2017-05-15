@@ -1,11 +1,11 @@
 #pragma once
-#include "BEPrerequisitesGraphics.h"
-#include "BEVertexBuffer.h"
-#include "BEIndexBuffer.h"
+#include "BEPrerequisitesEngine.h"
+#include <BEVertexBuffer.h>
+#include <BEIndexBuffer.h>
 
 namespace BlackEngine
 {
-	class BE_GRAPHICS_EXPORT BEMesh
+	class BE_ENGINE_EXPORT BEMesh
 	{
 	public:
 		BEMesh();

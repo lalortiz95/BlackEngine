@@ -71,7 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(SolutionDir)BECore\include\;$(SolutionDir)BEUtilityLib\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)BEGraphiclib\include\;$(SolutionDir)BECore\include\;$(SolutionDir)BEUtilityLib\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
@@ -84,7 +84,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(SolutionDir)BECore\include\;$(SolutionDir)BEUtilityLib\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)BEGraphiclib\include\;$(SolutionDir)BECore\include\;$(SolutionDir)BEUtilityLib\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
@@ -106,7 +106,7 @@
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
     </BuildLog>
     <Link>
-      <AdditionalDependencies>BEUtilityLibd.lib;BECored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEUtilityLibd.lib;BECored.lib;BEGraphicsLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -121,7 +121,7 @@
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
     </BuildLog>
     <Link>
-      <AdditionalDependencies>BEUtilityLibd.lib;BECored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEUtilityLibd.lib;BECored.lib;BEGraphicsLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,7 +136,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>BEUtilityLib.lib;BECore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEUtilityLib.lib;BECore.lib;BEGraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
@@ -154,7 +154,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>BEUtilityLib.lib;BECore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEUtilityLib.lib;BECore.lib;BEGraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
@@ -162,10 +162,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\BEMaterial.h" />
+    <ClInclude Include="include\BEMesh.h" />
     <ClInclude Include="include\BEPrerequisitesEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BEMaterial.cpp" />
+    <ClCompile Include="src\BEMesh.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

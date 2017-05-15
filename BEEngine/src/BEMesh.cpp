@@ -1,6 +1,6 @@
 #include "BEMesh.h"
-#include "BEIndexBuffer.h"
-#include "BEVertexBuffer.h"
+#include <BEIndexBuffer.h>
+#include <BEVertexBuffer.h>
 
 namespace BlackEngine
 {

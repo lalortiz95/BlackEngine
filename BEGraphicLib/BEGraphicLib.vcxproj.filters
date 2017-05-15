@@ -66,9 +66,6 @@
     <ClInclude Include="include\BESampler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BEMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\BEVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>

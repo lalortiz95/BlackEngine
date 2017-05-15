@@ -1,6 +1,6 @@
 #pragma once
 #include "BEPrerequisitesGraphics.h"
-#include "BEMesh.h"
+#include <BEMesh.h>
 
 namespace BlackEngine
 {

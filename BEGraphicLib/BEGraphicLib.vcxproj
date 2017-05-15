@@ -25,7 +25,6 @@
     <ClInclude Include="include\BEGraphicsAPI.h" />
     <ClInclude Include="include\BEIndexBuffer.h" />
     <ClInclude Include="include\BEInputLayout.h" />
-    <ClInclude Include="include\BEMesh.h" />
     <ClInclude Include="include\BEModel.h" />
     <ClInclude Include="include\BEModule.h" />
     <ClInclude Include="include\BEPixelShader.h" />
