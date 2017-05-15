@@ -47,7 +47,6 @@
     <ClCompile Include="src\BEGraphicsAPI.cpp" />
     <ClCompile Include="src\BEIndexBuffer.cpp" />
     <ClCompile Include="src\BEInputLayout.cpp" />
-    <ClCompile Include="src\BEMesh.cpp" />
     <ClCompile Include="src\BEModel.cpp" />
     <ClCompile Include="src\BEPixelShader.cpp" />
     <ClCompile Include="src\BERasterizerState.cpp" />

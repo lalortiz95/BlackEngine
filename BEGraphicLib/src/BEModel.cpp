@@ -1,6 +1,4 @@
 #include "BEModel.h"
-#include "BEVertexBuffer.h"
-#include "BEIndexBuffer.h"
 #include "DirectXData.h"
 #include "BEVertex.h"
 #include <assimp/Importer.hpp>
@@ -26,9 +24,16 @@ namespace BlackEngine
 
 	void BEModel::Destroy()
 	{
-		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
+		//for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
+		//{
+		//	m_Meshes[i].Destroy();
+		//}
+		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
-			m_Meshes[i].Destroy();
+			m_IBVector[i].Destroy();
+			m_VBVector[i].Destroy();
+			/*m_IB.Destroy();
+			m_VB.Destroy();*/
 		}
 	}
 
@@ -58,14 +63,16 @@ namespace BlackEngine
 		if (Scene->HasMeshes())
 		{
 			///agregamos el mesh temporal al vector de meshes.
-			m_Meshes.resize(Scene->mNumMeshes);
-
+			//m_Meshes.resize(Scene->mNumMeshes);
+			m_VBVector.resize(Scene->mNumMeshes);
+			m_IBVector.resize(Scene->mNumMeshes);
+			
 			for (SIZE_T k = 0; k < Scene->mNumMeshes; ++k)
 			{
 				///mesh con el que voy a llenar el vector de meshes.
-				BEMesh* TempMesh = &m_Meshes[k];
+				//BEMesh* TempMesh = &m_Meshes[k];
 				///le asignamos memoria a sus variables miembras.
-				TempMesh->Initialize();
+				//TempMesh->Initialize();
 
 				///guardamos el mesh de la escena en la variable local de tipo aiMesh.
 				Mesh = Scene->mMeshes[k];
@@ -87,7 +94,8 @@ namespace BlackEngine
 					}
 
 					///agregamos el vertice a la lista de vertices del mesh.
-					TempMesh->m_VB.AddVertex(tempVertex);
+					//tempmesh->m_vb.addvertex(tempvertex);
+					m_VBVector[k].AddVertex(tempVertex);
 				}
 
 				///recorremos las caras que tiene el mesh.
@@ -100,9 +108,12 @@ namespace BlackEngine
 					if (Face.mNumIndices == 3)
 					{
 						///los metemos al vector de indices del mesh temporal.
-						TempMesh->m_IB.AddIndex((int16)Face.mIndices[0]);
-						TempMesh->m_IB.AddIndex((int16)Face.mIndices[1]);
-						TempMesh->m_IB.AddIndex((int16)Face.mIndices[2]);
+						//TempMesh->m_IB.AddIndex((int16)Face.mIndices[0]);
+						//TempMesh->m_IB.AddIndex((int16)Face.mIndices[1]);
+						//TempMesh->m_IB.AddIndex((int16)Face.mIndices[2]);
+						m_IBVector[k].AddIndex((int16)Face.mIndices[0]);
+						m_IBVector[k].AddIndex((int16)Face.mIndices[1]);
+						m_IBVector[k].AddIndex((int16)Face.mIndices[2]);
 					}
 				}
 				//Hice un cambio
@@ -145,9 +156,14 @@ namespace BlackEngine
 
 	void BEModel::CreateVB(const GraphicsAPIData * pGraphicData)
 	{
-		for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//{
+		//	m_Meshes[i].m_VB.CreateBuffer(pGraphicData);
+		//}
+		//m_VB.CreateBuffer(pGraphicData);
+		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
-			m_Meshes[i].m_VB.CreateBuffer(pGraphicData);
+			m_VBVector[i].CreateBuffer(pGraphicData);
 		}
 	}
 
@@ -155,33 +171,66 @@ namespace BlackEngine
 	{
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
-		///recorro el vetor de meshes
-		for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		/////recorro el vetor de meshes
+		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//{
+		//	///seteo el vertex buffer.
+		//	pGraphicData->m_DeviceContext->IASetVertexBuffers
+		//	(
+		//		0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
+		//		&stride, &offset
+		//	);
+		//}
+		//pGraphicData->m_DeviceContext->IASetVertexBuffers
+		//(
+		//	0, 1, &m_VB.m_BufferData->m_Buffer, &stride, &offset
+		//);
+
+		for (SIZE_T i = 0; i < m_VBVector.size(); ++i)
 		{
-			///seteo el vertex buffer.
 			pGraphicData->m_DeviceContext->IASetVertexBuffers
 			(
-				0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
-				&stride, &offset
+				0, 1, &m_VBVector[i].m_BufferData->m_Buffer, &stride, &offset
 			);
 		}
 	}
 
 	void BEModel::CreateIB(const GraphicsAPIData * pGraphicData)
 	{
-		for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//{
+		//	m_Meshes[i].m_IB.CreateBuffer(pGraphicData);
+		//}
+		//m_IB.CreateBuffer(pGraphicData);
+		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
-			m_Meshes[i].m_IB.CreateBuffer(pGraphicData);
+			m_IBVector[i].CreateBuffer(pGraphicData);
 		}
 	}
 
 	void BEModel::SetIB(const GraphicsAPIData * pGraphicData)
 	{
-		for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//{
+		//	pGraphicData->m_DeviceContext->IASetIndexBuffer
+		//	(
+		//		m_Meshes[i].m_IB.m_BufferData->m_Buffer,
+		//		DXGI_FORMAT_R32_UINT,
+		//		0
+		//	);
+		//}
+		//pGraphicData->m_DeviceContext->IASetIndexBuffer
+		//(
+		//	m_IB.m_BufferData->m_Buffer,
+		//	DXGI_FORMAT_R32_UINT,
+		//	0
+		//);
+
+		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
 			pGraphicData->m_DeviceContext->IASetIndexBuffer
 			(
-				m_Meshes[i].m_IB.m_BufferData->m_Buffer,
+				m_IBVector[i].m_BufferData->m_Buffer,
 				DXGI_FORMAT_R32_UINT,
 				0
 			);
@@ -193,22 +242,39 @@ namespace BlackEngine
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
 
-		for (SIZE_T i = 0; i < m_Meshes.size(); i++)
+		//{
+		//	pGraphicData->m_DeviceContext->IASetIndexBuffer
+		//	(
+		//		m_Meshes[i].m_IB.m_BufferData->m_Buffer,
+		//		DXGI_FORMAT_R32_UINT,
+		//		0
+		//	);
+
+		//	pGraphicData->m_DeviceContext->IASetVertexBuffers
+		//	(
+		//		0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
+		//		&stride, &offset
+		//	);
+
+		//	pGraphicData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);
+		//}
+
+		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
 			pGraphicData->m_DeviceContext->IASetIndexBuffer
 			(
-				m_Meshes[i].m_IB.m_BufferData->m_Buffer,
+				m_IBVector[i].m_BufferData->m_Buffer,
 				DXGI_FORMAT_R32_UINT,
 				0
 			);
 
 			pGraphicData->m_DeviceContext->IASetVertexBuffers
 			(
-				0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
+				0, 1, &m_VBVector[i].m_BufferData->m_Buffer,
 				&stride, &offset
 			);
 
-			pGraphicData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);
+			pGraphicData->m_DeviceContext->DrawIndexed(m_IBVector[i].GetIndicesSize(), 0, 0);
 		}
 	}
 }
