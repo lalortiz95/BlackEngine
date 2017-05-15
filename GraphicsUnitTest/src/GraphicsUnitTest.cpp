@@ -67,12 +67,6 @@ namespace BlackEngine
 		m_RasterizerState->Initialize();
 		m_ResourceManager = new BEResourceManager();
 		m_ResourceManager->Initialize();
-		//m_TextureResources = new BETextureResource();
-		//m_TextureResources->Initialize();
-		//m_ModelResources = new BEModelResource();
-		//m_ModelResources->Initialize();
-
-		//BEModelResource* tempModel;
 
 		m_MeshColor.X = 0.7f;
 		m_MeshColor.Y = 0.7f;
@@ -89,51 +83,12 @@ namespace BlackEngine
 		///guardo la graphic api en la variable miembra del resource manager.
 		m_ResourceManager->m_GA = m_GraphicsAPI;
 		///cargo los recursos y los introduzco en el vector.
-		//LoadResource("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Models\\airplane 2.x");
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\airplane 2.x"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
 		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
 		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\wings.bmp"));
-		//LoadResource("airplane 2.x");
-		//LoadResource("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp");
-		//LoadResource("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\wings.bmp");
-		/////recorro el mapa de recursos y creo los buffers de todos los modelos.
-		//for (auto const &it : m_ResourcesMap)
-		//{
-		//	if (it.first == RT_MODEL)
-		//	{
-		//		dynamic_cast<BEModelResource*>(it.second)->m_Model->CreateBuffers(
-		//			m_GraphicsAPI->m_pGraphicsAPIData);
-		//	}
-		//}
-		//TODO: cargar los buffers dentro de la funcion de crear recurso dentro de model resource.
-		//creamos los buffers de indices y de vertices.
-		//for each (BEModelResource* texRes in m_ResourceVector)
-		//{
-		//	if (!texRes->m_Model->CreateBuffers(m_GraphicsAPI->m_pGraphicsAPIData))
-		//	{
-		//		//falló esta madre.
-		//	}
-		//}
-		//cargamos el modelo
-		//m_Model->LoadModel("airplane 2.x");
-		//TODO: cambia todos los m_Model para que funcione con el vector de modelos.
-		//for (int i = 0; i < m_ResourceVector.size(); ++i)
-		//{
-		//	//TODO: hacer que revise si es modelo o textura, y dependiendo de eso, que decida
-		//	//si crear los buffers.
-		//	tempModel = dynamic_cast<BEModelResource*>(m_ResourceVector[i]);
-		//	if (!tempModel->m_Model->CreateBuffers(m_GraphicsAPI->m_pGraphicsAPIData))
-		//	{
-		//		//TODO: hacer algo que de verdad me indique dónde está fallando.
-		//		//esto no está jalando.	
-		//	}
-		//}
-		//if (!m_Model->CreateBuffers(m_GraphicsAPI->m_pGraphicsAPIData))
-		//{
-		//	//esto no está jalando.
-		//}
+
 		/// select which primtive type we are using
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->IASetPrimitiveTopology
 		(
@@ -170,25 +125,6 @@ namespace BlackEngine
 		///matriz de proyección.
 		m_Projection = m_Projection.PerspectiveFOVLH
 		(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
-		//BEResource* TempResource;
-		//TempResource = m_ResourceManager->LoadResourceFromFile(
-		//	"C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Models\\airplane 2.x");
-		//m_ModelResources = (BEModelResource*)TempResource;
-		//m_ResourceVector.push_back(m_ModelResources);
-		//m_ModelResources = new BEModelResource();
-		//m_ModelResources->Initialize();
-		//TempResource = m_ResourceManager->LoadResourceFromFile(
-		//	"C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp");
-		//m_TextureResources = (BETextureResource*)TempResource;
-		//m_ResourceVector.push_back(m_TextureResources);
-		//m_TextureResources = new BETextureResource();
-		//m_TextureResources->Initialize();
-		//TempResource = m_ResourceManager->LoadResourceFromFile(
-		//	"C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\wings.bmp");
-		//m_TextureResources = (BETextureResource*)TempResource;
-		//m_ResourceVector.push_back(m_TextureResources);
-		//m_TextureResources = new BETextureResource();
-		//m_TextureResources->Initialize();
 	}
 
 	void GraphicsUnitTest::Update(float /*delta*/)
@@ -251,9 +187,6 @@ namespace BlackEngine
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetSamplers
 		(0, 1, &m_ColorSampler->m_SD->m_samplerState);
 
-		//m_Model->Render(m_GraphicsAPI->m_pGraphicsAPIData);
-		//for each (BEModelResource* modelRes in m_ResourceVector)
-		//for (auto &modelRes = m_ResourceVector.begin(); modelRes != m_ResourceVector.end(); ++modelRes)
 		for(auto& res : m_ResourceVector)
 		{
 			if (res->GetResourceType() == RT_MODEL)
@@ -273,11 +206,11 @@ namespace BlackEngine
 		m_PS = new BEPixelShader();
 		m_PS->Initialize();
 
-		if (!m_VS->CreateShader(m_GraphicsAPI->m_pGraphicsAPIData, "VertexShader.hlsl", "vs_5_0", "VSMain"))
+		if (!m_VS->CreateShader(m_GraphicsAPI->m_pGraphicsAPIData, "Resources\\Shaders\\VertexShader.hlsl", "vs_5_0", "VSMain"))
 		{
 			std::cout << "no se pudo crear VS" << std::endl;
 		}
-		if (!m_PS->CreateShader(m_GraphicsAPI->m_pGraphicsAPIData, "PixelShader.hlsl", "ps_5_0", "PSMain"))
+		if (!m_PS->CreateShader(m_GraphicsAPI->m_pGraphicsAPIData, "Resources\\Shaders\\PixelShader.hlsl", "ps_5_0", "PSMain"))
 		{
 			std::cout << "no se puedo crear PS" << std::endl;
 		}
@@ -285,47 +218,6 @@ namespace BlackEngine
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->VSSetShader(m_VS->m_VSData->m_VertexShader, 0, 0);
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetShader(m_PS->m_PSData->m_PixelShader, 0, 0);
 
-		//VS->Destroy();
-		//PS->Destroy();
 		return true;
-	}
-
-	void GraphicsUnitTest::LoadResource(const String& FileAddr)
-	{
-		BEResource* TempResource;
-		BEParser parser;
-		Vector<String> data;
-
-		///obtengo la extension del archivo que envio.
-		//data = RM.GetExtension(FileAddr);
-
-		///guardo que tipo de recurso es el que mando a cargar.
-		//RESOURCE_TYPE resType = RM.GetResourceTypeFromExtension(data.at(data.size() - 1));
-
-		//switch (resType)
-		//{
-		//case RT_TEXTURE:
-		//	///inicializo el recurso de textura.
-		//	m_TextureResources = new BETextureResource();
-		//	m_TextureResources->Initialize();
-		//	///lo guardo en el vector.
-		//	TempResource = m_ResourceManager->LoadResourceFromFile(FileAddr);
-		//	m_TextureResources = (BETextureResource*)TempResource;
-		//	//m_ResourcesMap[RT_TEXTURE] = m_TextureResources;
-		//	m_ResourceVector.push_back(m_TextureResources);
-		//	break;
-		//case RT_MODEL:
-		//	///inicializo el recurso de modelo.
-		//	m_ModelResources = new BEModelResource();
-		//	m_ModelResources->Initialize();
-		//	///lo guardo en el vector.
-		//	TempResource = m_ResourceManager->LoadResourceFromFile(FileAddr);
-		//	m_ModelResources = (BEModelResource*)TempResource;
-		//	//m_ResourcesMap[RT_MODEL] = m_ModelResources;
-		//	m_ResourceVector.push_back(m_ModelResources);
-		//	break;
-		//default:
-		//	break;
-		//}
 	}
 }

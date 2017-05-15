@@ -62,18 +62,12 @@ namespace BlackEngine
 		///otra revisión para ver que tenga meshes el modelo.
 		if (Scene->HasMeshes())
 		{
-			///agregamos el mesh temporal al vector de meshes.
-			//m_Meshes.resize(Scene->mNumMeshes);
+			///reasignamos el tamañode los vectores de buffers, al numero de meshes que hay.
 			m_VBVector.resize(Scene->mNumMeshes);
 			m_IBVector.resize(Scene->mNumMeshes);
 			
 			for (SIZE_T k = 0; k < Scene->mNumMeshes; ++k)
 			{
-				///mesh con el que voy a llenar el vector de meshes.
-				//BEMesh* TempMesh = &m_Meshes[k];
-				///le asignamos memoria a sus variables miembras.
-				//TempMesh->Initialize();
-
 				///guardamos el mesh de la escena en la variable local de tipo aiMesh.
 				Mesh = Scene->mMeshes[k];
 
@@ -93,7 +87,7 @@ namespace BlackEngine
 						tempVertex.TexCoord.Y = Mesh->mTextureCoords[0][i].y;
 					}
 
-					///agregamos el vertice a la lista de vertices del mesh.
+					///agregamos el vertice a la lista de vertices.
 					//tempmesh->m_vb.addvertex(tempvertex);
 					m_VBVector[k].AddVertex(tempVertex);
 				}
@@ -107,7 +101,7 @@ namespace BlackEngine
 					///vemos si los indices que tiene son 3.
 					if (Face.mNumIndices == 3)
 					{
-						///los metemos al vector de indices del mesh temporal.
+						///los metemos al vector de indices del index buffer.
 						//TempMesh->m_IB.AddIndex((int16)Face.mIndices[0]);
 						//TempMesh->m_IB.AddIndex((int16)Face.mIndices[1]);
 						//TempMesh->m_IB.AddIndex((int16)Face.mIndices[2]);
@@ -156,11 +150,7 @@ namespace BlackEngine
 
 	void BEModel::CreateVB(const GraphicsAPIData * pGraphicData)
 	{
-		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
-		//{
-		//	m_Meshes[i].m_VB.CreateBuffer(pGraphicData);
-		//}
-		//m_VB.CreateBuffer(pGraphicData);
+		///creamos los index buffers. Uno por cada mesh.
 		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
 			m_VBVector[i].CreateBuffer(pGraphicData);
@@ -171,21 +161,8 @@ namespace BlackEngine
 	{
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
-		/////recorro el vetor de meshes
-		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
-		//{
-		//	///seteo el vertex buffer.
-		//	pGraphicData->m_DeviceContext->IASetVertexBuffers
-		//	(
-		//		0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
-		//		&stride, &offset
-		//	);
-		//}
-		//pGraphicData->m_DeviceContext->IASetVertexBuffers
-		//(
-		//	0, 1, &m_VB.m_BufferData->m_Buffer, &stride, &offset
-		//);
 
+		///seteamos todos los vertex buffers que hay.
 		for (SIZE_T i = 0; i < m_VBVector.size(); ++i)
 		{
 			pGraphicData->m_DeviceContext->IASetVertexBuffers
@@ -197,11 +174,7 @@ namespace BlackEngine
 
 	void BEModel::CreateIB(const GraphicsAPIData * pGraphicData)
 	{
-		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
-		//{
-		//	m_Meshes[i].m_IB.CreateBuffer(pGraphicData);
-		//}
-		//m_IB.CreateBuffer(pGraphicData);
+		///creamos los index buffers. Uno por cada mesh.
 		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
 			m_IBVector[i].CreateBuffer(pGraphicData);
@@ -210,22 +183,7 @@ namespace BlackEngine
 
 	void BEModel::SetIB(const GraphicsAPIData * pGraphicData)
 	{
-		//for (SIZE_T i = 0; i < m_Meshes.size(); i++)
-		//{
-		//	pGraphicData->m_DeviceContext->IASetIndexBuffer
-		//	(
-		//		m_Meshes[i].m_IB.m_BufferData->m_Buffer,
-		//		DXGI_FORMAT_R32_UINT,
-		//		0
-		//	);
-		//}
-		//pGraphicData->m_DeviceContext->IASetIndexBuffer
-		//(
-		//	m_IB.m_BufferData->m_Buffer,
-		//	DXGI_FORMAT_R32_UINT,
-		//	0
-		//);
-
+		///seteamos todos los index buffers. Uno por cada mesh.
 		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
 			pGraphicData->m_DeviceContext->IASetIndexBuffer
@@ -242,23 +200,6 @@ namespace BlackEngine
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
 
-		//{
-		//	pGraphicData->m_DeviceContext->IASetIndexBuffer
-		//	(
-		//		m_Meshes[i].m_IB.m_BufferData->m_Buffer,
-		//		DXGI_FORMAT_R32_UINT,
-		//		0
-		//	);
-
-		//	pGraphicData->m_DeviceContext->IASetVertexBuffers
-		//	(
-		//		0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
-		//		&stride, &offset
-		//	);
-
-		//	pGraphicData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);
-		//}
-
 		for (SIZE_T i = 0; i < m_IBVector.size(); ++i)
 		{
 			pGraphicData->m_DeviceContext->IASetIndexBuffer
@@ -267,7 +208,6 @@ namespace BlackEngine
 				DXGI_FORMAT_R32_UINT,
 				0
 			);
-
 			pGraphicData->m_DeviceContext->IASetVertexBuffers
 			(
 				0, 1, &m_VBVector[i].m_BufferData->m_Buffer,

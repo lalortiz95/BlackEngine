@@ -40,7 +40,6 @@ namespace BlackEngine
 
 	private:
 		bool CreatePixelAndVertexShader();
-		void LoadResource(const String& FileAddr);
 
 		BEVertexShader* m_VS;
 		BEPixelShader* m_PS;
