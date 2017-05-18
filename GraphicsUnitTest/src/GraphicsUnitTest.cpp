@@ -83,11 +83,16 @@ namespace BlackEngine
 		///guardo la graphic api en la variable miembra del resource manager.
 		m_ResourceManager->m_GA = m_GraphicsAPI;
 		///cargo los recursos y los introduzco en el vector.
-		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\airplane 2.x"));
+		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\airplane 2.x"));
+		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\samus.dae"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
-		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp"));
+		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_a.jpg"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
-		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\wings.bmp"));
+		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\mask\\ao.jpg"));
+		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
+		//("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp"));
+		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
+		//("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\wings.bmp"));
 
 		/// select which primtive type we are using
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->IASetPrimitiveTopology
@@ -102,7 +107,7 @@ namespace BlackEngine
 		m_BChangeOnResize->CreateBuffer(m_GraphicsAPI->m_pGraphicsAPIData);
 		m_BChangesEveryFrame->CreateBuffer(m_GraphicsAPI->m_pGraphicsAPIData);
 
-		String Addr("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp");
+		String Addr("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_a.jpg");
 
 		///creo el shader resource view.
 		m_ColorMap->Create(m_GraphicsAPI->m_pGraphicsAPIData, &Addr);
@@ -117,7 +122,7 @@ namespace BlackEngine
 
 		Matrix4D M;
 		///inicializamos la matriz de vista.
-		Vector4D Eye(25.0f, 30.0f, -25.0f, 0.0f);
+		Vector4D Eye(5.0f, 5.0f, -5.0f, 0.0f);
 		Vector4D At(0.0f, 0.0f, 0.0f, 0.0f);
 		Vector4D Up(0.0f, 1.0f, 0.0f, 0.0f);
 		m_View = M.LookAtLH(Eye, At, Up);

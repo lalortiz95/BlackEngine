@@ -51,7 +51,8 @@ namespace BlackEngine
 			aiProcess_JoinIdenticalVertices |
 			aiProcess_Triangulate |
 			aiProcess_GenSmoothNormals |
-			aiProcess_SortByPType);
+			aiProcess_SortByPType |
+			aiProcess_FlipUVs);
 
 		///revisamos que se haya guardado bien.
 		if (!Scene)

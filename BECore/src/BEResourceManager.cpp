@@ -95,6 +95,8 @@ namespace BlackEngine
 		extensionsType[".png"] = RT_TEXTURE;
 		extensionsType[".jpg"] = RT_TEXTURE;
 		extensionsType[".fbx"] = RT_MODEL;
+		extensionsType[".dae"] = RT_MODEL;
+		extensionsType[".obj"] = RT_MODEL;
 		extensionsType[".x"] = RT_MODEL;
 
 		//TODO: arreglar esto.

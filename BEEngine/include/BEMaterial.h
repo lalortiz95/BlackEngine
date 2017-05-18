@@ -14,8 +14,13 @@ namespace BlackEngine
 		void Initialize();
 		void Destroy();
 
-		//TODO: mover el mesh a este proyecto.
-
 		BEResource* m_Diffuse;
+		BEResource* m_Ambiental;
+		BEResource* m_Specular;
+		BEResource* m_Emisive;
+
+		///coeficiente de brillo.
+		float m_Shininess;
+		float m_ShininessStrenght;
 	};
 }
