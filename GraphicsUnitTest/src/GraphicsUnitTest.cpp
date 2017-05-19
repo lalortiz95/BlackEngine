@@ -88,7 +88,7 @@ namespace BlackEngine
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
 		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_a.jpg"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
-		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\mask\\ao.jpg"));
+		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_ao.jpg"));
 		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
 		//("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp"));
 		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile

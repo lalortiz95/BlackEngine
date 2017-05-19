@@ -52,7 +52,9 @@ namespace BlackEngine
 			aiProcess_Triangulate |
 			aiProcess_GenSmoothNormals |
 			aiProcess_SortByPType |
-			aiProcess_FlipUVs);
+			aiProcess_FlipUVs |
+			aiProcess_FlipWindingOrder
+			);
 
 		///revisamos que se haya guardado bien.
 		if (!Scene)
