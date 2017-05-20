@@ -1,5 +1,5 @@
 #pragma once
-#include "BEPrerequisitesCore.h"
+#include "BEPrerequisitesEngine.h"
 
 namespace BlackEngine
 {
@@ -11,7 +11,7 @@ namespace BlackEngine
 		RT_NUMMAX
 	};
 
-	class BE_CORE_EXPORT BEResource
+	class BE_ENGINE_EXPORT BEResource
 	{
 	public:
 		virtual ~BEResource();

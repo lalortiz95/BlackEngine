@@ -1,5 +1,4 @@
 #include "BEIndexBuffer.h"
-#include "BEModel.h"
 #include "DirectXData.h"
 
 namespace BlackEngine

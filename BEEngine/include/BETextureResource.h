@@ -1,5 +1,5 @@
 #pragma once
-#include "BEPrerequisitesCore.h"
+#include "BEPrerequisitesEngine.h"
 #include "BEResource.h"
 
 namespace BlackEngine
@@ -7,7 +7,7 @@ namespace BlackEngine
 	class BETexture;
 	class BEGraphicsAPI;
 
-	class BE_CORE_EXPORT BETextureResource : public BEResource
+	class BE_ENGINE_EXPORT BETextureResource : public BEResource
 	{
 	public:
 		BETextureResource();

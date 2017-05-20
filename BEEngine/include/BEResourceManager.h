@@ -5,15 +5,7 @@ namespace BlackEngine
 {
 	class BEGraphicsAPI;
 
-	//enum RESOURCE_TYPE
-	//{
-	//	RT_UNKNOWN,
-	//	RT_TEXTURE,
-	//	RT_MODEL,
-	//	RT_NUMMAX
-	//};
-
-	class BE_CORE_EXPORT BEResourceManager
+	class BE_ENGINE_EXPORT BEResourceManager
 	{
 	public:
 		BEResourceManager();

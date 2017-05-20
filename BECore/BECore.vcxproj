@@ -20,20 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BEApplication.cpp" />
-    <ClCompile Include="src\BEModelResource.cpp" />
     <ClCompile Include="src\BEParser.cpp" />
-    <ClCompile Include="src\BEResource.cpp" />
-    <ClCompile Include="src\BEResourceManager.cpp" />
-    <ClCompile Include="src\BETextureResource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BEApplication.h" />
-    <ClInclude Include="include\BEModelResource.h" />
     <ClInclude Include="include\BEParser.h" />
     <ClInclude Include="include\BEPrerequisitesCore.h" />
-    <ClInclude Include="include\BEResource.h" />
-    <ClInclude Include="include\BEResourceManager.h" />
-    <ClInclude Include="include\BETextureResource.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EE631E70-6E4F-4CB5-B52F-4D3344C9DCB0}</ProjectGuid>
@@ -116,7 +108,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>BE_CORE_EXPORTS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
@@ -139,7 +131,7 @@
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>BE_CORE_EXPORTS;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
@@ -163,7 +155,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PreprocessorDefinitions>BE_CORE_EXPORTS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
     </ClCompile>
@@ -187,7 +179,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PreprocessorDefinitions>BE_CORE_EXPORTS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
     </ClCompile>

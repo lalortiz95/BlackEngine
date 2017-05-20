@@ -9,7 +9,7 @@
 #include "BEInputLayout.h"
 #include "BERenderTargetView.h"
 #include "BEDepthStencilView.h"
-#include "BEModel.h"
+//#include "BEModel.h"
 
 #include <Vector4D.h>
 

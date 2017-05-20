@@ -1,13 +1,13 @@
 #pragma once
-#include "BEPrerequisitesGraphics.h"
-#include "BEVertexBuffer.h"
-#include "BEIndexBuffer.h"
+#include "BEPrerequisitesEngine.h"
+#include <BEVertexBuffer.h>
+#include <BEIndexBuffer.h>
 
 namespace BlackEngine
 {
 	struct GraphicsAPIData;
 
-	class BE_GRAPHICS_EXPORT BEModel
+	class BE_ENGINE_EXPORT BEModel
 	{
 	public:
 		BEModel();

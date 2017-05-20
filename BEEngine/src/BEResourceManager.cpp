@@ -1,11 +1,11 @@
-#include "BEPrerequisitesCore.h"
+//#include "BEPrerequisitesCore.h"
 #include "BEResourceManager.h"
 
 #include "BETextureResource.h"
 #include "BEModelResource.h"
-#include "BEParser.h"
+#include <BEParser.h>
 
-#include <BEModel.h>
+#include "BEModel.h"
 #include <BETexture.h>
 #include <BEFile.h>
 

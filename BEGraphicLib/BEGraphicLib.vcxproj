@@ -25,7 +25,6 @@
     <ClInclude Include="include\BEGraphicsAPI.h" />
     <ClInclude Include="include\BEIndexBuffer.h" />
     <ClInclude Include="include\BEInputLayout.h" />
-    <ClInclude Include="include\BEModel.h" />
     <ClInclude Include="include\BEModule.h" />
     <ClInclude Include="include\BEPixelShader.h" />
     <ClInclude Include="include\BEPrerequisitesGraphics.h" />
@@ -47,7 +46,6 @@
     <ClCompile Include="src\BEGraphicsAPI.cpp" />
     <ClCompile Include="src\BEIndexBuffer.cpp" />
     <ClCompile Include="src\BEInputLayout.cpp" />
-    <ClCompile Include="src\BEModel.cpp" />
     <ClCompile Include="src\BEPixelShader.cpp" />
     <ClCompile Include="src\BERasterizerState.cpp" />
     <ClCompile Include="src\BERenderTargetView.cpp" />
@@ -126,13 +124,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)BEUtilityLib\include\;$(DXSDK_DIR)include;$(FREEIMAGE_DIR_LIB)Source\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\$(PlatformTarget)\;$(ASSIMP_DIR_LIB)lib\$(PlatformTarget)\$(Configuration)\;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\$(PlatformTarget)\;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)BEUtilityLib\include\;$(DXSDK_DIR)include;$(FREEIMAGE_DIR_LIB)Source\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\$(PlatformTarget)\;$(ASSIMP_DIR_LIB)lib\$(PlatformTarget)\$(Configuration)\;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\$(PlatformTarget)\;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
@@ -142,7 +140,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>BE_GRAPHICS_EXPORTS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -163,7 +161,7 @@
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;BE_GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies>FreeImaged.lib;assimp-vc140-mt.lib;BEUtilityLibd.lib;dxgi.lib;d3dcompiler.lib;dxguid.lib;d3d11.lib;d3dx11.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -183,7 +181,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>BE_GRAPHICS_EXPORTS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -206,7 +204,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>BE_GRAPHICS_EXPORTS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
