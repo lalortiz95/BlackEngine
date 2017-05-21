@@ -35,6 +35,7 @@ namespace BlackEngine
 		if (m_Texture != nullptr)
 		{
 			m_Texture->Destroy();
+			delete m_Texture;
 		}
 	}
 }

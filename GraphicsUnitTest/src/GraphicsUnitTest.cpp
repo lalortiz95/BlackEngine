@@ -83,16 +83,11 @@ namespace BlackEngine
 		///guardo la graphic api en la variable miembra del resource manager.
 		m_ResourceManager->m_GA = m_GraphicsAPI;
 		///cargo los recursos y los introduzco en el vector.
-		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\airplane 2.x"));
-		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\samus.dae"));
-		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
+		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\samus.fbx"));
+		/*m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
 		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_a.jpg"));
 		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
-		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_ao.jpg"));
-		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
-		//("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\bihull.bmp"));
-		//m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile
-		//("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\wings.bmp"));
+		("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_ao.jpg"));*/
 
 		/// select which primtive type we are using
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->IASetPrimitiveTopology

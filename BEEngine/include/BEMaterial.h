@@ -4,6 +4,7 @@
 namespace BlackEngine
 {
 	class BEResource;
+	struct GraphicsAPIData;
 
 	class BE_ENGINE_EXPORT BEMaterial
 	{
@@ -18,6 +19,7 @@ namespace BlackEngine
 		BEResource* m_Ambiental;
 		BEResource* m_Specular;
 		BEResource* m_Emisive;
+		BEResource* m_Normal;
 
 		///coeficiente de brillo.
 		float m_Shininess;

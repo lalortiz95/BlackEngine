@@ -15,22 +15,27 @@ namespace BlackEngine
 {
 	BEResourceManager::BEResourceManager()
 	{
-
+		m_GA = nullptr;
 	}
 
 	BEResourceManager::~BEResourceManager()
 	{
-
+		Destroy();
 	}
 
 	void BEResourceManager::Initialize()
 	{
+		Destroy();
 
+		m_GA = new BEGraphicsAPI();
 	}
 
 	void BEResourceManager::Destroy()
 	{
-
+		if (m_GA != nullptr)
+		{
+			delete m_GA;
+		}
 	}
 
 	BEResource* BEResourceManager::LoadResourceFromFile(const String& fileName)
@@ -100,7 +105,7 @@ namespace BlackEngine
 		extensionsType[".x"] = RT_MODEL;
 
 		//TODO: arreglar esto.
-		//		stringToCompare = UtilString.ToLowerCase(extension);
+		stringToCompare = UtilString.ToLowerCase(extension);
 
 		for (auto iter : extensionsType)
 		{

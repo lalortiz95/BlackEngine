@@ -1,6 +1,7 @@
 #include "BEMaterial.h"
 
-#include <BEResource.h>
+#include "BEResource.h"
+#include "BETextureResource.h"
 
 namespace BlackEngine
 {
@@ -16,7 +17,16 @@ namespace BlackEngine
 
 	void BEMaterial::Initialize()
 	{
-
+		m_Diffuse = new BETextureResource();
+		m_Diffuse->Initialize();
+		m_Ambiental = new BETextureResource();
+		m_Ambiental->Initialize();
+		m_Emisive = new BETextureResource();
+		m_Emisive->Initialize();
+		m_Normal = new BETextureResource();
+		m_Normal->Initialize();
+		m_Specular = new BETextureResource();
+		m_Specular->Initialize();
 	}
 
 	void BEMaterial::Destroy()
