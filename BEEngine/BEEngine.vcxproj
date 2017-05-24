@@ -177,6 +177,7 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BEMaterialResource.h" />
     <ClInclude Include="include\BEMaterial.h" />
     <ClInclude Include="include\BEMesh.h" />
     <ClInclude Include="include\BEModel.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="include\BETextureResource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BEMaterialResource.cpp" />
     <ClCompile Include="src\BEMaterial.cpp" />
     <ClCompile Include="src\BEMesh.cpp" />
     <ClCompile Include="src\BEModel.cpp" />

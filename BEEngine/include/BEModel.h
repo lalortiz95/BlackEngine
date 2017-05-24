@@ -34,6 +34,8 @@ namespace BlackEngine
 		Vector<BEMesh> m_Meshes;
 		Vector<BEMaterial> m_Materials;
 
+		Vector<String> m_Textures;
+
 		void CreateVB(const GraphicsAPIData * pGraphicData);
 		void SetVB(const GraphicsAPIData * pGraphicData);
 		void CreateIB(const GraphicsAPIData * pGraphicData);

@@ -43,7 +43,7 @@ namespace BlackEngine
 
 		BEVertexShader* m_VS;
 		BEPixelShader* m_PS;
-		BEShaderResourceView* m_ColorMap;
+		//BEShaderResourceView* m_ColorMap;
 		BESampler* m_ColorSampler;
 		BERasterizerState* m_RasterizerState;
 		BEResourceManager* m_ResourceManager;

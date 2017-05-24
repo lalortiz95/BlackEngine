@@ -61,8 +61,8 @@ namespace BlackEngine
 		m_BChangeOnResize->Initialize();
 		m_BChangesEveryFrame = new BEConstantBuffer();
 		m_BChangesEveryFrame->Initialize();
-		m_ColorMap = new BEShaderResourceView();
-		m_ColorMap->Initialize();
+		//m_ColorMap = new BEShaderResourceView();
+		//m_ColorMap->Initialize();
 		m_RasterizerState = new BERasterizerState();
 		m_RasterizerState->Initialize();
 		m_ResourceManager = new BEResourceManager();
@@ -102,10 +102,10 @@ namespace BlackEngine
 		m_BChangeOnResize->CreateBuffer(m_GraphicsAPI->m_pGraphicsAPIData);
 		m_BChangesEveryFrame->CreateBuffer(m_GraphicsAPI->m_pGraphicsAPIData);
 
-		String Addr("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_a.jpg");
+		//String Addr("C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\Textures\\samus\\mat2_a.jpg");
 
-		///creo el shader resource view.
-		m_ColorMap->Create(m_GraphicsAPI->m_pGraphicsAPIData, &Addr);
+		/////creo el shader resource view.
+		//m_ColorMap->Create(m_GraphicsAPI->m_pGraphicsAPIData, &Addr);
 
 		/// Create the sample state
 		m_ColorSampler->Create(m_GraphicsAPI->m_pGraphicsAPIData);
@@ -181,8 +181,8 @@ namespace BlackEngine
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetShader
 		(m_PS->m_PSData->m_PixelShader, NULL, 0);
 
-		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetShaderResources
-		(0, 1, &m_ColorMap->m_SRVData->m_SRV);
+		//m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetShaderResources
+		//(0, 1, &m_ColorMap->m_SRVData->m_SRV);
 
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetSamplers
 		(0, 1, &m_ColorSampler->m_SD->m_samplerState);
