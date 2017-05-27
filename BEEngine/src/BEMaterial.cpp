@@ -2,12 +2,16 @@
 
 #include "BEResource.h"
 #include "BETextureResource.h"
+#include "BEShaderResourceView.h"
 
 namespace BlackEngine
 {
 	BEMaterial::BEMaterial()
 	{
-		m_Diffuse = nullptr;
+		for (auto& iter : m_Textures)
+		{
+			iter = nullptr;
+		}
 	}
 
 	BEMaterial::~BEMaterial()
@@ -17,24 +21,23 @@ namespace BlackEngine
 
 	void BEMaterial::Initialize()
 	{
-		m_Diffuse = new BETextureResource();
-		m_Diffuse->Initialize();
-		m_Ambiental = new BETextureResource();
-		m_Ambiental->Initialize();
-		m_Emisive = new BETextureResource();
-		m_Emisive->Initialize();
-		m_Normal = new BETextureResource();
-		m_Normal->Initialize();
-		m_Specular = new BETextureResource();
-		m_Specular->Initialize();
+		for (SIZE_T i = 0; i < aiTextureType_UNKNOWN; ++i)
+		{
+			m_Textures[i] = new BEShaderResourceView();
+			m_Textures[i]->Initialize();
+		}
 	}
 
 	void BEMaterial::Destroy()
 	{
-		if (m_Diffuse != nullptr)
+		for (auto& iter : m_Textures)
 		{
-			m_Diffuse->Destroy();
-			m_Diffuse = nullptr;
+			if (iter)
+			{
+				iter->Destroy();
+				delete iter;
+				iter = NULL;
+			}
 		}
 	}
 }

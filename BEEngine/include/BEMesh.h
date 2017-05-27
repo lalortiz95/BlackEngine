@@ -1,6 +1,8 @@
 #pragma once
 #include "BEPrerequisitesEngine.h"
 #include <BEVertexBuffer.h>
+#include "BEMaterial.h"
+
 #include <BEIndexBuffer.h>
 
 namespace BlackEngine
@@ -16,5 +18,6 @@ namespace BlackEngine
 
 		BEVertexBuffer m_VB;
 		BEIndexBuffer m_IB;
+		BEMaterial m_Material;
 	};
 }

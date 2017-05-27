@@ -17,15 +17,9 @@ namespace BlackEngine
 		Destroy();
 	}
 
-	void BEModelResource::Load(const String& fileAddr)
+	void BEModelResource::Load(const String& fileName)
 	{
-		//TODO: corregir esto, me lo está parseando mal, no entiendo por que.
-		//BEParser parser;
-		//Vector<String> FileName;
-		//FileName = parser.ParseToStr(fileAddr, "\\", 0);
-		//m_model->loadmodel(filename[filename.size() - 1]);
-
-		m_Model->LoadModel(fileAddr, m_GA->m_pGraphicsAPIData);
+		m_Model->LoadModel(fileName, m_GA->m_pGraphicsAPIData);
 		///carga los buffers de vertices y de indices.
 		m_Model->CreateBuffers(m_GA->m_pGraphicsAPIData);
 	}

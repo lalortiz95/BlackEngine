@@ -23,6 +23,7 @@ namespace BlackEngine
 		}
 
 		m_SRVData = new ShaderResourceViewData();
+	
 		return true;
 	}
 
@@ -35,16 +36,18 @@ namespace BlackEngine
 		}
 	}
 
-	bool BEShaderResourceView::Create(const GraphicsAPIData * GData, const String * Addr)
+	bool BEShaderResourceView::Create(const GraphicsAPIData * GData, BETexture resource)
 	{
 		HRESULT hRes;
-		D3DX11CreateShaderResourceViewFromFile(
-			GData->m_Device,
-			Addr->c_str(),
-			NULL,
-			NULL,
-			&m_SRVData->m_SRV,
-			&hRes);
+		hRes = GData->m_Device->CreateShaderResourceView(resource.m_TextureData->m_Texture2D ,NULL, &m_SRVData->m_SRV);
+		//TODO: change this, do not use this shit ass function!!
+		//D3DX11CreateShaderResourceViewFromFile(
+		//	GData->m_Device,
+		//	Addr.c_str(),
+		//	NULL,
+		//	NULL,
+		//	&m_SRVData->m_SRV,
+		//	&hRes);
 
 		if (FAILED(hRes))
 		{

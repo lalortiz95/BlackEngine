@@ -17,6 +17,8 @@ namespace BlackEngine
 	{
 		m_VB.Initialize();
 		m_IB.Initialize();
+		m_Material.Initialize();
+
 		return true;
 	}
 
@@ -24,5 +26,6 @@ namespace BlackEngine
 	{
 		m_IB.Destroy();
 		m_VB.Destroy();
+		m_Material.Destroy();
 	}
 }

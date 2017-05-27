@@ -4,6 +4,7 @@
 #include "BEResource.h"
 #include "BEResourceManager.h"
 #include "BEShaderResourceView.h"
+#include "BETextureResource.h"
 #include <BEGraphicsAPI.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -23,7 +24,10 @@ namespace BlackEngine
 
 	void BEModel::Initialize()
 	{
-
+		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
+		{
+			m_Meshes[i].Initialize();
+		}
 	}
 
 	void BEModel::Destroy()
@@ -43,6 +47,7 @@ namespace BlackEngine
 
 	bool BEModel::LoadModel(const String& pFile, const GraphicsAPIData * pGraphicData)
 	{
+		//TODO: corregir que no use toda la ruta sino sólo desde bin.
 		BEResourceManager* RM = new BEResourceManager();
 		RM->Initialize();
 		RM->m_GA->m_pGraphicsAPIData = const_cast<GraphicsAPIData*>(pGraphicData);
@@ -118,79 +123,71 @@ namespace BlackEngine
 						tempMesh->m_IB.AddIndex((int16)Face.mIndices[2]);
 					}
 				}
-			}
-		
-			if (Scene->HasMaterials())
-			{
-				m_Materials.resize(Scene->mNumMaterials);
-				//m_Textures.resize(Scene->mNumMaterials);
 
-				for (SIZE_T i = 0; i < Scene->mNumMaterials; i++)
+				///revisamos que la escena tenga materiales con los que trabajar.
+				if (Scene->HasMaterials())
 				{
-					BEMaterial* tempMat = &m_Materials[i];
-					tempMat->Initialize();
-
-					///creamos un material y un string de assimp.
-					aiMaterial* material;
-					aiString fileAdrr = (aiString)"";
-
-					///obtenemos la textura diffuse.
-					material = Scene->mMaterials[i];
-
-					//recorro los tipos de textura que hay pa ver cual estoy usando
-					for (SIZE_T ktt = 0; ktt < aiTextureType_UNKNOWN; ++ktt)
+					if (k <= Scene->mNumMaterials)
 					{
-						uint32 textCount = material->GetTextureCount(static_cast<aiTextureType>(ktt));
+						//a nuestro vector de materiales  le asignamos el tamaño con la información
+						//cargada dentro de la escena.
+						//m_Materials.resize(Scene->mNumMaterials);
+						//for (SIZE_T i = 0; i < Scene->mNumMaterials; i++)
+						//{
+							///creamos un material y un string de assimp.
+						aiMaterial* material;
+						aiString fileAdrr = (aiString)"";
 
-						//agarro todas las del tipo.
-						for (SIZE_T j = 0; j < textCount; ++j)
+						///obtenemos la textura diffuse.
+						material = Scene->mMaterials[k/*i*/];
+
+						if (material)
 						{
-							material->GetTexture(static_cast<aiTextureType>(ktt), j, &fileAdrr);
-
-							///TextureName guarda el nombre de la textura que se va a cargar
-							///como lo proporciona assimp al leerlo del modelo.
-							String TextureName = fileAdrr.C_Str();
-							///TextureToLoad almacena la ruta completa donde se encuentra la textura.
-							String TextureToLoad = "";
-
-							///veo que tipo de textura se cargo, y lo guardo en el material
-							///que corresponde.
-							if (TextureName.length() > 0)
+							///recorro los tipos de textura que hay pa ver cual estoy usando
+							for (SIZE_T ktt = 0; ktt < aiTextureType_UNKNOWN; ++ktt)
 							{
-								TextureToLoad = "C:\\Users\\Lalo\\Documents\\School\\6to cuatrimestre\\Motores\\BlackEngine\\bin\\Resources\\";
-								TextureName.erase(0, 3);
-								TextureToLoad += TextureName;
-								m_Textures.push_back(TextureToLoad);
+								uint32 textCount = material->GetTextureCount(static_cast<aiTextureType>(ktt));
 
-								switch (ktt)
+								///agarro todas las del tipo.
+								for (SIZE_T j = 0; j < textCount; ++j)
 								{
-								case 1:
-									m_Materials[j].m_Diffuse = RM->LoadResourceFromFile(TextureToLoad);
-									//m_Materials[i].m_Diffuse->Load(TextureToLoad);
-									break;
-								case 2:
-									m_Materials[j].m_Specular = RM->LoadResourceFromFile(TextureToLoad);
-									//m_Materials[i].m_Specular->Load(TextureToLoad);
-									break;
-								case 3:
-									m_Materials[j].m_Ambiental = RM->LoadResourceFromFile(TextureToLoad);
-									//m_Materials[i].m_Ambiental->Load(TextureToLoad);
-									break;
-								case 4:
-									m_Materials[j].m_Emisive = RM->LoadResourceFromFile(TextureToLoad);
-									//m_Materials[i].m_Emisive->Load(TextureToLoad);
-									break;
-								case 6:
-									m_Materials[j].m_Normal = RM->LoadResourceFromFile(TextureToLoad);
-									//m_Materials[i].m_Normal->Load(TextureToLoad);
-								default:
-									break;
+									material->GetTexture(static_cast<aiTextureType>(ktt), j, &fileAdrr);
+
+									///TextureName guarda el nombre de la textura que se va a cargar
+									///como lo proporciona assimp al leerlo del modelo.
+									String TextureName = fileAdrr.C_Str();
+									///TextureToLoad almacena la ruta completa donde se encuentra la textura.
+									String TextureToLoadStr = "";
+
+									///veo que tipo de textura se cargó. Cuardo la ruta desde bin.
+									if (TextureName.length() > 0)
+									{
+										//objeto de clase BETexture que almacena la  textura que se está cargando del modelo
+										BETexture TextureToLoad;
+										//recurso donde se almacena la textura. E inicializamos.
+										BEResource* TextureResource = new BETextureResource();
+										TextureResource->Initialize();
+										//guardamos el nombre de la textura con la dirección que le corresponde.
+										TextureToLoadStr = "Resources\\";
+										TextureName.erase(0, 3);
+										TextureToLoadStr += TextureName;
+
+										TextureResource = RM->LoadResourceFromFile(TextureToLoadStr);
+										TextureToLoad = *dynamic_cast<BETextureResource&>(*TextureResource).m_Texture;
+										m_Meshes[j].m_Material.m_Textures[ktt] = new BEShaderResourceView();
+										m_Meshes[j].m_Material.m_Textures[ktt]->Initialize();
+										m_Meshes[j].m_Material.m_Textures[ktt]->Create(pGraphicData, TextureToLoad);
+										//m_Materials[j].m_Textures[ktt] = new BEShaderResourceView();
+										//m_Materials[j].m_Textures[ktt]->Initialize();
+										//m_Materials[j].m_Textures[ktt]->Create(pGraphicData, TextureToLoad);
+									}//cierre if textureName.lenght() > 0
 								}
 							}
 						}
-					}
-				}
-			}//cierre if tiene materiales.
+					}//cierre if numero de materiales.
+						//}
+				}//cierre if tiene materiales.
+			}
 		}
 		return true;
 	}
@@ -266,20 +263,6 @@ namespace BlackEngine
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
 
-		BEShaderResourceView* ColorMap;
-		ColorMap = new BEShaderResourceView();
-		ColorMap->Initialize();
-
-		for (SIZE_T i = 0; i < m_Materials.size(); ++i)
-		{
-			ColorMap->Create(pGraphicData, &m_Textures[i]);
-
-			pGraphicData->m_DeviceContext->PSSetShaderResources
-			(
-				i, 1, &ColorMap->m_SRVData->m_SRV
-			);
-		}
-
 		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
 		{
 			pGraphicData->m_DeviceContext->IASetIndexBuffer
@@ -292,6 +275,11 @@ namespace BlackEngine
 			(
 				0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
 				&stride, &offset
+			);
+
+			pGraphicData->m_DeviceContext->PSSetShaderResources
+			(
+				i, 1, &m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE]->m_SRVData->m_SRV
 			);
 
 			pGraphicData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);

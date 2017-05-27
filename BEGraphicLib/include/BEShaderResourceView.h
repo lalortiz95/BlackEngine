@@ -1,5 +1,6 @@
 #pragma once
 #include "BEPrerequisitesGraphics.h"
+#include "BETexture.h"
 
 namespace BlackEngine
 {
@@ -15,7 +16,7 @@ namespace BlackEngine
 		bool Initialize();
 		void Destroy();
 
-		bool Create(const GraphicsAPIData* GData, const String* Addr);
+		bool Create(const GraphicsAPIData* GData,/*, const String& Addr*/BETexture data);
 
 		ShaderResourceViewData* m_SRVData;
 	};
