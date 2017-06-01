@@ -8,6 +8,7 @@ namespace BlackEngine
 		RT_UNKNOWN,
 		RT_TEXTURE,
 		RT_MODEL,
+		RT_MATERIAL,
 		RT_NUMMAX
 	};
 
