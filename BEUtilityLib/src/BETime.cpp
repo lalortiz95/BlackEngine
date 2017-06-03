@@ -1,4 +1,3 @@
-#include "BEUtilityPCH.h"
 #include "BETime.h"
 
 #if BE_COMPILER == BE_COMPILER_MSVC

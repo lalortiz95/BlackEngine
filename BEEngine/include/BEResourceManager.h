@@ -1,11 +1,12 @@
 #pragma once
 #include "BEResource.h"
+#include <BEModule.h>
 
 namespace BlackEngine
 {
 	class BEGraphicsAPI;
 
-	class BE_ENGINE_EXPORT BEResourceManager
+	class BE_ENGINE_EXPORT BEResourceManager : public Module<BEResourceManager>
 	{
 	public:
 		BEResourceManager();
@@ -23,6 +24,8 @@ namespace BlackEngine
 		BEGraphicsAPI* m_GA;
 
 	private:
-		BEResource* m_resourceToLoad;
+		//BEResource* m_resourceToLoad;
 	};
+
+	BE_ENGINE_EXPORT BEResourceManager& g_ResourceManager();
 }

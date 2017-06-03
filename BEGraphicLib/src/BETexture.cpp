@@ -6,12 +6,6 @@
 
 namespace BlackEngine
 {
-	//struct TextureData
-	//{
-	//	ID3D11Texture2D* m_BackBuffer;
-	//};
-
-
 	static void FreeImageErrorHandler(FREE_IMAGE_FORMAT fif, const char *message)
 	{
 		if (fif != FIF_UNKNOWN) {
@@ -27,18 +21,20 @@ namespace BlackEngine
 
 	BETexture::~BETexture()
 	{
+		Destroy();
 	}
+
 
 	void BETexture::Initialize()
 	{
+		Destroy();
+
 		m_TextureData = new TextureData();
-		//m_DSV = new BETexture();
 	}
 
 	bool BETexture::CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height, BETexture*& DSVTexture)
 	{
 		Initialize();
-		//m_DSV->Initialize();
 
 		///descriptor de la textura
 		D3D11_TEXTURE2D_DESC descDepth;
@@ -100,16 +96,41 @@ namespace BlackEngine
 
 	bool BETexture::CreateTextureFromFile(const String& name, const GraphicsAPIData *GData)
 	{
+		BETexture FlippedTexture;
+
 		Initialize();
 		D3D11_TEXTURE2D_DESC TextureDesc;
 		D3D11_SUBRESOURCE_DATA SubresourceData;
 		FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(name.c_str(), 0);
 		FreeImage_SetOutputMessage(FreeImageErrorHandler);
+		
 		FIBITMAP* bitmap = FreeImage_Load(fif, name.c_str());
-
 		if (!bitmap)
 		{
 			throw std::exception("cámara no se cargó la textura.");
+		}
+
+		FIBITMAP* temp = bitmap;
+		bitmap = FreeImage_ConvertTo32Bits(bitmap);
+		FreeImage_Unload(temp);
+
+		uint32 bpp = FreeImage_GetBPP(bitmap);
+		uint32 channels = bpp / 8;
+		uint32 finalFormat = static_cast<DXGI_FORMAT>(DXGI_FORMAT_R8G8B8A8_UNORM);
+		
+		char* bitmapBytes = (char*)FreeImage_GetBits(bitmap);
+		SIZE_T bitmapSize = FreeImage_GetWidth(bitmap) * FreeImage_GetHeight(bitmap);
+		bool asigned = false;
+
+		if (true)
+		{ //Invierte canales Rojo y Azul
+			for (int j = 0; j < bitmapSize; ++j) {
+				uint8 R = bitmapBytes[j * 4 + 2];
+				uint8 B = bitmapBytes[j * 4 + 0];
+				bitmapBytes[j * 4 + 0] = R;
+				bitmapBytes[j * 4 + 2] = B;
+			}
+			FreeImage_FlipVertical(bitmap);
 		}
 
 		ZeroMemory(&TextureDesc, sizeof(D3D11_TEXTURE2D_DESC));
@@ -126,17 +147,21 @@ namespace BlackEngine
 		TextureDesc.Height = FreeImage_GetHeight(bitmap);
 
 		ZeroMemory(&SubresourceData, sizeof(D3D11_SUBRESOURCE_DATA));
-		if (bitmap)
+			SubresourceData.pSysMem = bitmapBytes;
+			//se calcula cuantos bits tiene por pixel, 
+			SubresourceData.SysMemPitch = FreeImage_GetLine(bitmap) /** (p/8)*/;
+		
+		HRESULT hRes = GData->m_Device->CreateTexture2D(&TextureDesc, &SubresourceData, &m_TextureData->m_Texture2D);
+
+		if(asigned) delete bitmapBytes;
+
+		if (FAILED(hRes))
 		{
-			SubresourceData.pSysMem = bitmap->data;
-			SubresourceData.SysMemPitch = FreeImage_GetPitch(bitmap);
-			//SubresourceData.SysMemSlicePitch = FreeImage_GetLine(bitmap);
+			return false;
 		}
 
-		GData->m_Device->CreateTexture2D(&TextureDesc, &SubresourceData, &m_TextureData->m_Texture2D);
-		
 		FreeImage_Unload(bitmap);
-		
+
 		return true;
 	}
 }

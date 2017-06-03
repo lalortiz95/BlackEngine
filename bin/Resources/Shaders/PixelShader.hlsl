@@ -11,5 +11,6 @@ float4 PSMain(PS_INPUT psInput) : SV_Target
 {
 	//return float4 (psInput.texCoord, 0.0f, 1.0f);
 	//psInput.texCoord.y = -psInput.texCoord.y;
+
 	return DiffuseTexture.Sample(DiffuseSampler, psInput.texCoord);
 };

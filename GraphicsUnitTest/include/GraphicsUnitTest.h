@@ -12,7 +12,6 @@ namespace BlackEngine
 	class BETexture;
 	class BEShaderResourceView;
 	class BERasterizerState;
-	class BEResourceManager;
 	class BEResource;
 	class BETextureResource;
 	class BEModelResource;
@@ -46,16 +45,8 @@ namespace BlackEngine
 		//BEShaderResourceView* m_ColorMap;
 		BESampler* m_ColorSampler;
 		BERasterizerState* m_RasterizerState;
-		BEResourceManager* m_ResourceManager;
 
 		//TODO: cambiar todo lo del vector de recursos y usar el resource manager
-		///Almacenará los recursos que se carguen.
-		//BEResource* m_Resource;
-		//BETextureResource*  m_TextureResources;
-		//BEModelResource* m_ModelResources;
 		Vector<BEResource*> m_ResourceVector;
-		///mapa donde almaceno todos los recursos, el int32 es el ID, y el recurso, puede ser
-		///textura o modelo.
-		//Map<String, BEResource*> m_ResourcesMap;
 	};
 }

@@ -48,6 +48,11 @@ namespace BlackEngine
 
 	void GraphicsUnitTest::OnInitialize()
 	{
+		//Inicializacion de modulos sistema
+		g_ResourceManager().StartUp();
+		g_ResourceManager().Initialize();
+		g_ResourceManager().m_GA = m_GraphicsAPI;
+
 		//Esto debería ser un modulo.
 
 		m_ColorSampler = new BESampler();
@@ -63,8 +68,6 @@ namespace BlackEngine
 		m_BChangesEveryFrame->Initialize();
 		m_RasterizerState = new BERasterizerState();
 		m_RasterizerState->Initialize();
-		m_ResourceManager = new BEResourceManager();
-		m_ResourceManager->Initialize();
 
 		m_MeshColor.X = 0.7f;
 		m_MeshColor.Y = 0.7f;
@@ -78,10 +81,8 @@ namespace BlackEngine
 		///creamos y seteamos el vertex buffer.
 		m_GraphicsAPI->m_pGraphicsAPIData->m_IL->CreateInputLayout(*m_GraphicsAPI->m_pGraphicsAPIData, m_VS);
 
-		///guardo la graphic api en la variable miembra del resource manager.
-		m_ResourceManager->m_GA = m_GraphicsAPI;
 		///cargo los recursos y los introduzco en el vector.
-		m_ResourceVector.push_back(m_ResourceManager->LoadResourceFromFile("Resources\\Models\\samus.fbx"));
+		m_ResourceVector.push_back(g_ResourceManager().LoadResourceFromFile("Resources\\Models\\samus.fbx"));
 
 		/// select which primtive type we are using
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->IASetPrimitiveTopology

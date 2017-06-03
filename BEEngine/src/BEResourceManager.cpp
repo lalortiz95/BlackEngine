@@ -40,6 +40,7 @@ namespace BlackEngine
 
 	BEResource* BEResourceManager::LoadResourceFromFile(const String& fileName)
 	{
+		BEResource* pResourceToLoad = nullptr;
 		BEParser parser;
 		Vector<String> data;
 
@@ -59,32 +60,26 @@ namespace BlackEngine
 		{
 		case RT_TEXTURE:
 		{
-			BETextureResource* TextureToLoad = nullptr;
-			TextureToLoad = new BETextureResource();
-			TextureToLoad->Initialize();
-			m_resourceToLoad = new BETextureResource();
-			TextureToLoad->m_GA = m_GA;
-			m_resourceToLoad = TextureToLoad;
+			pResourceToLoad = new BETextureResource();
+			BETextureResource* pTexture = dynamic_cast<BETextureResource*>(pResourceToLoad);
+			pTexture->m_GA = m_GA;
 			break;
 		}
 		case RT_MODEL:
 		{
-			BEModelResource* ModelToLoad = nullptr;
-			ModelToLoad = new BEModelResource();
-			ModelToLoad->Initialize();
-			m_resourceToLoad = new BEModelResource();
-			ModelToLoad->m_GA = m_GA;
-			m_resourceToLoad = ModelToLoad;
+			pResourceToLoad = new BEModelResource();
+			BEModelResource* pModel = dynamic_cast<BEModelResource*>(pResourceToLoad);
+			pModel->m_GA = m_GA;
 			break;
 		}
 		};
 
-		if (nullptr != m_resourceToLoad)
+		if (nullptr != pResourceToLoad)
 		{
-			m_resourceToLoad->Initialize();
-			m_resourceToLoad->Load(fileName);
-			m_ResourcesMap[fileName] = m_resourceToLoad;
-			return m_resourceToLoad;
+			pResourceToLoad->Initialize();
+			pResourceToLoad->Load(fileName);
+			m_ResourcesMap[fileName] = pResourceToLoad;
+			return pResourceToLoad;
 		}
 
 		return nullptr;
@@ -122,5 +117,10 @@ namespace BlackEngine
 	{
 		BEParser parser;
 		return parser.ParseToStr(fileName, ".", 0);
+	}
+	
+	BEResourceManager& g_ResourceManager()
+	{
+		return BEResourceManager::Instance();
 	}
 }

@@ -16,7 +16,7 @@ namespace BlackEngine
 		bool Initialize();
 		void Destroy();
 
-		bool Create(const GraphicsAPIData* GData,/*, const String& Addr*/BETexture data);
+		bool Create(const GraphicsAPIData* GData,/*, const String& Addr*/const BETexture* data);
 
 		ShaderResourceViewData* m_SRVData;
 	};

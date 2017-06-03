@@ -16,13 +16,7 @@ namespace BlackEngine
 
 		void Initialize();
 		void Destroy();
-		/*
-		BEResource* m_Diffuse;
-		BEResource* m_Ambiental;
-		BEResource* m_Specular;
-		BEResource* m_Emisive;
-		BEResource* m_Normal;
-		*/
+
 		BEShaderResourceView* m_Textures[aiTextureType_UNKNOWN];
 
 		///coeficiente de brillo.

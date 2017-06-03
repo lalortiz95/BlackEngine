@@ -21,6 +21,7 @@ namespace BlackEngine
 
 	void BEMaterial::Initialize()
 	{
+		//TODO: corregir esto, supongo...
 		for (SIZE_T i = 0; i < aiTextureType_UNKNOWN; ++i)
 		{
 			m_Textures[i] = new BEShaderResourceView();

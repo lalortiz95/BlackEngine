@@ -47,9 +47,9 @@ namespace BlackEngine
 
 	bool BEModel::LoadModel(const String& pFile, const GraphicsAPIData * pGraphicData)
 	{
-		BEResourceManager* RM = new BEResourceManager();
-		RM->Initialize();
-		RM->m_GA->m_pGraphicsAPIData = const_cast<GraphicsAPIData*>(pGraphicData);
+		//objeto de clase BETexture que almacena la  textura que se está cargando del modelo
+		BETextureResource* TextureToLoad = nullptr;
+
 		///importer de assimp.
 		Assimp::Importer importer;
 		///mesh de assimp
@@ -128,7 +128,7 @@ namespace BlackEngine
 				{
 					///creamos un material y un string de assimp.
 					aiMaterial* material;
-					aiString fileAdrr = (aiString)"";
+					aiString fileAdrr("");
 
 					///obtenemos la textura diffuse.
 					material = Scene->mMaterials[Mesh->mMaterialIndex];
@@ -152,25 +152,17 @@ namespace BlackEngine
 								String TextureToLoadStr = "";
 
 								///veo que tipo de textura se cargó. Cuardo la ruta desde bin.
-								if (TextureName.length() > 0)
+								if (TextureName.length())
 								{
-									//objeto de clase BETexture que almacena la  textura que se está cargando del modelo
-									BETexture TextureToLoad;
-									//recurso donde se almacena la textura. E inicializamos.
-									BEResource* TextureResource = new BETextureResource();
-									TextureResource->Initialize();
 									//guardamos el nombre de la textura con la dirección que le corresponde.
 									TextureToLoadStr = "Resources\\";
 									TextureName.erase(0, 3);
 									TextureToLoadStr += TextureName;
-									//a partir del resource manager, cargamos la textura que obtuvimos del material del mesh.
-									TextureResource = RM->LoadResourceFromFile(TextureToLoadStr);
-									//lo guardamos en una BETexture
-									TextureToLoad = *dynamic_cast<BETextureResource&>(*TextureResource).m_Texture;
 
-									m_Meshes[k].m_Material.m_Textures[ktt] = new BEShaderResourceView();
-									m_Meshes[k].m_Material.m_Textures[ktt]->Initialize();
-									m_Meshes[k].m_Material.m_Textures[ktt]->Create(pGraphicData, TextureToLoad);
+									//a partir del resource manager, cargamos la textura que obtuvimos del material del mesh.
+									TextureToLoad = dynamic_cast<BETextureResource*>(g_ResourceManager().LoadResourceFromFile(TextureToLoadStr));
+									
+									m_Meshes[k].m_Material.m_Textures[ktt]->Create(pGraphicData, TextureToLoad->m_Texture);
 								}//cierre if textureName.lenght() > 0
 							}
 						}//cierre for anidado que ve que tipo de textura es.
@@ -178,6 +170,9 @@ namespace BlackEngine
 				}
 			}
 		}
+
+		BEResourceManager* pRM = BEResourceManager::InstancePtr();
+
 		return true;
 	}
 
@@ -266,10 +261,16 @@ namespace BlackEngine
 				&stride, &offset
 			);
 
-			pGraphicData->m_DeviceContext->PSSetShaderResources
-			(
-				i, 1, &m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE]->m_SRVData->m_SRV
-			);
+			if(m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE])
+			{
+				pGraphicData->m_DeviceContext->PSSetShaderResources(0,
+					1,
+					&m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE]->m_SRVData->m_SRV);
+			}
+			else
+			{
+				pGraphicData->m_DeviceContext->PSSetShaderResources(0, 1, NULL);
+			}
 
 			pGraphicData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);
 		}
