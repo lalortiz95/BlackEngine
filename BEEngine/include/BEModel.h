@@ -25,6 +25,11 @@ namespace BlackEngine
 		bool CreateBuffers(const GraphicsAPIData * pGraphicData);
 		///setea los buffers de vertices e indices.
 		void SetBuffers(const GraphicsAPIData * pGraphicData);
+		///del string que nos da el material que cargamos del modelo, obtenemos el nombre
+		///del archivo. Después lo cambiamos para que tenga la ruta necesaria para que carge
+		///la textura.
+		void SetTextureName(String& TextureFromMaterial);
+
 		///regresa cuantos indices tiene el mesh seleccionado dentro del modelo.
 		uint32 GetIndicesSize(int32 wichMesh) { return m_Meshes[wichMesh].m_IB.GetIndicesSize(); }
 		///Rendereamos todos los meshes
@@ -32,9 +37,6 @@ namespace BlackEngine
 
 	private:
 		Vector<BEMesh> m_Meshes;
-		//Vector<BEMaterial> m_Materials;
-
-		//Vector<String> m_Textures;
 
 		void CreateVB(const GraphicsAPIData * pGraphicData);
 		void SetVB(const GraphicsAPIData * pGraphicData);

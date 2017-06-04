@@ -9,12 +9,14 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <BEParser.h>
 
 namespace BlackEngine
 {
 	BEModel::BEModel()
 	{
 		m_Meshes.clear();
+		Initialize();
 	}
 
 	BEModel::~BEModel()
@@ -47,7 +49,7 @@ namespace BlackEngine
 
 	bool BEModel::LoadModel(const String& pFile, const GraphicsAPIData * pGraphicData)
 	{
-		//objeto de clase BETexture que almacena la  textura que se está cargando del modelo
+		///objeto de clase BETextureResource que almacena el recurso que se está cargando del modelo
 		BETextureResource* TextureToLoad = nullptr;
 
 		///importer de assimp.
@@ -149,19 +151,37 @@ namespace BlackEngine
 								///como lo proporciona assimp al leerlo del modelo.
 								String TextureName = fileAdrr.C_Str();
 								///TextureToLoad almacena la ruta completa donde se encuentra la textura.
-								String TextureToLoadStr = "";
+								//String TextureToLoadStr = "";
+								Vector<String> stringVector;
 
 								///veo que tipo de textura se cargó. Cuardo la ruta desde bin.
 								if (TextureName.length())
 								{
-									//guardamos el nombre de la textura con la dirección que le corresponde.
-									TextureToLoadStr = "Resources\\";
-									TextureName.erase(0, 3);
-									TextureToLoadStr += TextureName;
+									//TODO: hacer una funcion que revise el string que me da de derecha a izq
+									//cuando encuentre un \, que se detenga, para que guarde el nombre.
+									//y asignarle como la ruta que necesite.
+									//for (SIZE_T i = TextureName.length(); i > 0; --i)
+									//{
+									//	int iSeparation = TextureName.find("/", i);
 
-									//a partir del resource manager, cargamos la textura que obtuvimos del material del mesh.
-									TextureToLoad = dynamic_cast<BETextureResource*>(g_ResourceManager().LoadResourceFromFile(TextureToLoadStr));
-									
+									//	if (iSeparation != std::string::npos)
+									//	{
+									//		///tomamos la parte de la cadena que queremos y la guardamos en una lista.
+									//		stringVector.push_back(TextureName.substr(i, iSeparation));
+									//	}
+									//}
+									///adaptamos el nombre para poder cargarlo desde el RM
+									SetTextureName(TextureName);
+
+									//TEMP
+									//guardamos el nombre de la textura con la dirección que le corresponde.
+									//TextureToLoadStr = "Resources\\";
+									//TextureName.erase(0, 3);
+									//TextureToLoadStr += TextureName;
+
+									///a partir del resource manager, cargamos la textura que obtuvimos del material del mesh.
+									TextureToLoad = dynamic_cast<BETextureResource*>(g_ResourceManager().LoadResourceFromFile(TextureName));
+
 									m_Meshes[k].m_Material.m_Textures[ktt]->Create(pGraphicData, TextureToLoad->m_Texture);
 								}//cierre if textureName.lenght() > 0
 							}
@@ -170,8 +190,6 @@ namespace BlackEngine
 				}
 			}
 		}
-
-		BEResourceManager* pRM = BEResourceManager::InstancePtr();
 
 		return true;
 	}
@@ -193,6 +211,37 @@ namespace BlackEngine
 		SetVB(pGraphicData);
 		///seteamos index buffer.
 		SetIB(pGraphicData);
+	}
+
+	void BEModel::SetTextureName(String & TextureFromMaterial)
+	{
+		Vector<String> ParsedString;
+		BEParser parser;
+		String Addr = "Resources\\Textures\\";
+		String tempTexture;
+		//TODO, en el vector guardar la cadena y leerlo al revés, y cuando encuentre un '/'
+		//salir del ciclo, y poner el nombre de la textura (una vez volteada a la normalidad) 
+		//al resto de la ruta.
+
+		ParsedString.resize(TextureFromMaterial.length());
+
+		for (int i = TextureFromMaterial.length() - 1, j = 0; i >= 0; --i, j++)
+		{
+			/*	ParsedString[j].push_ba((char)TextureFromMaterial.substr(i, 1).c_str());*/
+			ParsedString[j] = TextureFromMaterial.substr(i, 1);
+			if (ParsedString[j] == "\\")
+			{
+				ParsedString.resize(j);
+				break;;
+			}
+		}
+		TextureFromMaterial = "";
+		for (int k = ParsedString.size()-1; k >= 0; --k)
+		{
+			Addr += ParsedString[k];
+		}
+		TextureFromMaterial += Addr;
+		/*ParsedString = parser.ParseToStr(ParsedString, "\\", 0);*/
 	}
 
 	void BEModel::CreateVB(const GraphicsAPIData * pGraphicData)
@@ -261,7 +310,7 @@ namespace BlackEngine
 				&stride, &offset
 			);
 
-			if(m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE])
+			if (m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE])
 			{
 				pGraphicData->m_DeviceContext->PSSetShaderResources(0,
 					1,

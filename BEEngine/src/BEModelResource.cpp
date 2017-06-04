@@ -9,6 +9,7 @@ namespace BlackEngine
 	BEModelResource::BEModelResource()
 	{
 		m_Model = nullptr;
+		Initialize();
 	}
 
 
@@ -28,7 +29,6 @@ namespace BlackEngine
 	{
 		Destroy();
 		m_Model = new BEModel();
-		m_Model->Initialize();
 	}
 
 	void BEModelResource::Destroy()
