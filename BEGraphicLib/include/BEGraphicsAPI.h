@@ -32,7 +32,7 @@ namespace BlackEngine
 		bool Initialize(int32 scrHandle, int32 width, int32 height, int32 numBB, bool isFullScreen);
 		void ClearBackBuffer(float r = 0, float g = 1.f, float b = 0, float a = 0);
 
-		bool CreateRenderTargetView(BETexture*, BERenderTargetView*&);
+		//bool CreateRenderTargetView(BETexture*, BERenderTargetView*&);
 		void SetRenderTargetAndDepthStencil(BERenderTargetView*, BEDepthStencilView*);
 		bool CreateDepthStencilView(BETexture*, BEDepthStencilView*&);
 		RTVData* GetRTV();
@@ -53,7 +53,6 @@ namespace BlackEngine
 		BERenderTargetView* m_RTV;
 		BEDepthStencilView* m_DSV;
 		BETexture* m_BackBuffer;
-		//BETexture* m_RenderTarget;
 		BETexture* m_DSVTexture;
 
 		BEVertexShader* m_VS;

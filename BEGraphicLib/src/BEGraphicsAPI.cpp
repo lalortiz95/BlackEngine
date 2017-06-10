@@ -123,7 +123,7 @@ namespace BlackEngine
 			(void**)&m_BackBuffer->m_TextureData->m_Texture2D);
 
 		///creamos el render target view.
-		CreateRenderTargetView(m_BackBuffer, m_RTV);
+		m_RTV->Create(m_BackBuffer, m_pGraphicsAPIData);
 		///creanos el depth stencil view.
 		CreateDepthStencilView(m_DSVTexture, m_DSV);
 		///seteamos el render target view.
@@ -194,25 +194,7 @@ namespace BlackEngine
 
 	void BEGraphicsAPI::LinkDepthStencil()
 	{
-		//esto ya estaba en create render target..
-		//m_pGraphicsAPIData->m_DeviceContext->OMSetRenderTargets(1, &(m_pGraphicsAPIData->m_RenderTargetView), NULL);
-	}
-
-	bool BEGraphicsAPI::CreateRenderTargetView(BETexture* texture, BERenderTargetView*& rtv)
-	{
-		///create our render target.
-		HRESULT hr;
-		hr = m_pGraphicsAPIData->m_Device->CreateRenderTargetView(
-			texture->m_TextureData->m_Texture2D,
-			NULL,
-			&(rtv->m_RTVData->m_RenderTargetView));
-
-		if (FAILED(hr))
-		{
-			return false;
-		}
-
-		return true;
+		
 	}
 
 	void BEGraphicsAPI::SetRenderTargetAndDepthStencil(BERenderTargetView* RTV, BEDepthStencilView* DSV)

@@ -53,8 +53,6 @@ namespace BlackEngine
 		g_ResourceManager().Initialize();
 		g_ResourceManager().m_GA = m_GraphicsAPI;
 
-		//Esto debería ser un modulo.
-
 		m_ColorSampler = new BESampler();
 		m_ColorSampler->Initialize();
 		m_Model = new BEModel();
@@ -117,9 +115,12 @@ namespace BlackEngine
 		(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
 	}
 
-	void GraphicsUnitTest::Update(float /*delta*/)
+	void GraphicsUnitTest::Update(float delta)
 	{
-
+		//TODO: mover la camera, oh yeah baby!
+		//TODO: obtener que tanto se va a mover según la tecla que presionó.
+		//input
+		//m_View.Translate();
 	}
 
 	void GraphicsUnitTest::Render()
