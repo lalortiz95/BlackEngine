@@ -15,6 +15,7 @@ namespace BlackEngine
 	class BEResource;
 	class BETextureResource;
 	class BEModelResource;
+	class BERenderTargetView;
 
 	class GraphicsUnitTest : public BEApplication
 	{
@@ -38,15 +39,19 @@ namespace BlackEngine
 		BEModel* m_Model;
 
 	private:
+		///This function returns true if it managed to succesfully create
+		///both vertex, and pixel shader. Otherwise, it will return false.
 		bool CreatePixelAndVertexShader();
 
+		///The Engine's Vertex Shader class
 		BEVertexShader* m_VS;
+		///The Engine's Pixel Shader class
 		BEPixelShader* m_PS;
-		//BEShaderResourceView* m_ColorMap;
+		///vector que almacena los diferentes render target views.
+		Vector<BERenderTargetView> m_RtvVector;
 		BESampler* m_ColorSampler;
 		BERasterizerState* m_RasterizerState;
 
-		//TODO: cambiar todo lo del vector de recursos y usar el resource manager
 		Vector<BEResource*> m_ResourceVector;
 	};
 }

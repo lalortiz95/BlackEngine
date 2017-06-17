@@ -127,6 +127,9 @@ namespace BlackEngine
 	{
 		//esto es si queremos que tome la función render del padre.
 		//__super::Render();
+		//TODO: crear los rtv, a partir de las texturas del modelo,
+		//y lo mando al api.
+		
 
 		///limpiamos el back buffer.
 		Vector4D CleanUpColor = { 0.0f, 0.125f, 0.3f, 1.0f };
@@ -156,10 +159,10 @@ namespace BlackEngine
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
 			m_BChangesEveryFrame->m_BufferData->m_Buffer, 0, NULL, &cb, 0, 0);
 
-		///pinto el modelo
+		///seteo el vertex shader.
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->VSSetShader
 		(m_VS->m_VSData->m_VertexShader, NULL, 0);
-
+		///se setean los constant buffers.
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
 		(0, 1, &m_BNeverChanges->m_BufferData->m_Buffer);
 
@@ -168,13 +171,13 @@ namespace BlackEngine
 
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
 		(2, 1, &m_BChangesEveryFrame->m_BufferData->m_Buffer);
-
+		///se setea el pixel shader.
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetShader
 		(m_PS->m_PSData->m_PixelShader, NULL, 0);
-
+		///se setean los samplers.
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetSamplers
 		(0, 1, &m_ColorSampler->m_SD->m_samplerState);
-
+		///mando el render de los modelos.
 		for(auto& res : m_ResourceVector)
 		{
 			if (res->GetResourceType() == RT_MODEL)

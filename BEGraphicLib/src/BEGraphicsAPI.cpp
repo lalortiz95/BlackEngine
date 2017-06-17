@@ -209,7 +209,7 @@ namespace BlackEngine
 
 	bool BEGraphicsAPI::CreateDepthStencilView(BETexture *Texture, BEDepthStencilView*& DSV)
 	{
-		if (!Texture->CreateAsDepthStencil(m_pGraphicsAPIData, m_width, m_height, Texture))
+		if (!Texture->CreateAsDepthStencil(m_pGraphicsAPIData, m_width, m_height/*, Texture*/))
 		{
 			return false;
 		}

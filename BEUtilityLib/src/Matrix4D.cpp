@@ -200,7 +200,7 @@ namespace BlackEngine
 	Matrix4D Matrix4D::RotateX(float angle)
 	{
 		Matrix4D RotateX;
-		RotateX.Zero();
+		RotateX = RotateX.Zero();
 		RotateX.m[0][0] = 1;
 		RotateX.m[1][1] = Math::Cos(angle);
 		RotateX.m[1][2] = -Math::Sin(angle);
@@ -215,7 +215,7 @@ namespace BlackEngine
 	Matrix4D Matrix4D::RotateY(float angle)
 	{
 		Matrix4D RotateY;
-		RotateY.Zero();
+		RotateY = RotateY.Zero();
 		RotateY.m[0][0] = Math::Cos(angle);
 		RotateY.m[0][2] = Math::Sin(angle);
 		RotateY.m[1][1] = 1;
@@ -230,7 +230,7 @@ namespace BlackEngine
 	Matrix4D Matrix4D::RotateZ(float angle)
 	{
 		Matrix4D RotateZ;
-		RotateZ.Zero();
+		RotateZ = RotateZ.Zero();
 
 		RotateZ.m[0][0] = Math::Cos(angle);
 		RotateZ.m[0][1] = -Math::Sin(angle);

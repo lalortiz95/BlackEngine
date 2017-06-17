@@ -17,6 +17,7 @@ namespace BlackEngine
 	BETexture::BETexture()
 	{
 		m_TextureData = nullptr;
+		Initialize();
 	}
 
 	BETexture::~BETexture()
@@ -32,7 +33,7 @@ namespace BlackEngine
 		m_TextureData = new TextureData();
 	}
 
-	bool BETexture::CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height, BETexture*& DSVTexture)
+	bool BETexture::CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height/*, BETexture*& DSVTexture*/)
 	{
 		Initialize();
 
@@ -53,13 +54,25 @@ namespace BlackEngine
 
 		///creamos la textura.
 		HRESULT hres = GData->m_Device->CreateTexture2D(&descDepth, NULL,
-			&DSVTexture->m_TextureData->m_Texture2D);
+			&m_TextureData->m_Texture2D/*DSVTexture->m_TextureData->m_Texture2D*/);
 
+		///verificamos que se haya creado correctamente.
 		if (FAILED(hres))
 		{
 			return false;
 		}
 		return true;
+	}
+
+	bool BETexture::CreateAsRenderTarget(const GraphicsAPIData * GData, int width, int height)
+	{
+		///Se manda  a llamar la función crear del RTV.
+		if (m_RTV.Create(this, GData))
+		{
+			///si se creó correctamente, se regresa true.
+			return true;
+		}
+		return false;
 	}
 
 	void BETexture::Destroy()
@@ -94,7 +107,7 @@ namespace BlackEngine
 		return true;
 	}
 
-	bool BETexture::CreateTextureFromFile(const String& name, const GraphicsAPIData *GData)
+	bool BETexture::CreateTextureFromFile(const GraphicsAPIData *GData, const String& name)
 	{
 		BETexture FlippedTexture;
 
