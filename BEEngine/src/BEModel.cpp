@@ -145,7 +145,6 @@ namespace BlackEngine
 								///como lo proporciona assimp al leerlo del modelo.
 								String TextureName = fileAdrr.C_Str();
 								///TextureToLoad almacena la ruta completa donde se encuentra la textura.
-								//String TextureToLoadStr = "";
 								Vector<String> stringVector;
 
 								///veo que tipo de textura se cargó. Cuardo la ruta desde bin.

@@ -152,6 +152,11 @@ namespace BlackEngine
 		{
 			m_DepthStencilView = nullptr;
 		}
+
+		void Destroy()
+		{
+			m_DepthStencilView->Release();
+		}
 	};
 
 	struct RTVData

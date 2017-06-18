@@ -33,36 +33,36 @@ namespace BlackEngine
 		m_TextureData = new TextureData();
 	}
 
-	bool BETexture::CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height/*, BETexture*& DSVTexture*/)
-	{
-		Initialize();
-
-		///descriptor de la textura
-		D3D11_TEXTURE2D_DESC descDepth;
-		ZeroMemory(&descDepth, sizeof(descDepth));
-		descDepth.Width = width;
-		descDepth.Height = height;
-		descDepth.MipLevels = 1;
-		descDepth.ArraySize = 1;
-		descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		descDepth.SampleDesc.Count = 1;
-		descDepth.SampleDesc.Quality = 0;
-		descDepth.Usage = D3D11_USAGE_DEFAULT;
-		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-		descDepth.CPUAccessFlags = 0;
-		descDepth.MiscFlags = 0;
-
-		///creamos la textura.
-		HRESULT hres = GData->m_Device->CreateTexture2D(&descDepth, NULL,
-			&m_TextureData->m_Texture2D/*DSVTexture->m_TextureData->m_Texture2D*/);
-
-		///verificamos que se haya creado correctamente.
-		if (FAILED(hres))
-		{
-			return false;
-		}
-		return true;
-	}
+	//bool BETexture::CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height/*, BETexture*& DSVTexture*/)
+	//{
+	//	Initialize();
+	//
+	//	///descriptor de la textura
+	//	D3D11_TEXTURE2D_DESC descDepth;
+	//	ZeroMemory(&descDepth, sizeof(descDepth));
+	//	descDepth.Width = width;
+	//	descDepth.Height = height;
+	//	descDepth.MipLevels = 1;
+	//	descDepth.ArraySize = 1;
+	//	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	//	descDepth.SampleDesc.Count = 1;
+	//	descDepth.SampleDesc.Quality = 0;
+	//	descDepth.Usage = D3D11_USAGE_DEFAULT;
+	//	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	//	descDepth.CPUAccessFlags = 0;
+	//	descDepth.MiscFlags = 0;
+	//
+	//	///creamos la textura.
+	//	HRESULT hres = GData->m_Device->CreateTexture2D(&descDepth, NULL,
+	//		&m_TextureData->m_Texture2D);
+	//
+	//	///verificamos que se haya creado correctamente.
+	//	if (FAILED(hres))
+	//	{
+	//		return false;
+	//	}
+	//	return true;
+	//}
 
 	bool BETexture::CreateAsRenderTarget(const GraphicsAPIData * GData, int width, int height)
 	{
@@ -85,25 +85,48 @@ namespace BlackEngine
 		}
 	}
 
-	bool BETexture::CreateTexture(const GraphicsAPIData * GData, int width, int height)
+	bool BETexture::CreateTexture(const GraphicsAPIData * GData, int width, int height, uint32 flags)
 	{
-		Initialize();
+		//Initialize();
+		HRESULT hRes;
 		D3D11_TEXTURE2D_DESC TextureDesc;
 
 		ZeroMemory(&TextureDesc, sizeof(D3D11_TEXTURE2D_DESC));
 		TextureDesc.ArraySize = 1;
-		TextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		
 		TextureDesc.CPUAccessFlags = 0;
-		TextureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		TextureDesc.Format = DXGI_FORMAT_R8G8B8A8_UINT;
+
+		if (flags & TEXTURE_CREATION::kRenderTarget)
+		{
+			TextureDesc.BindFlags |= D3D11_BIND_RENDER_TARGET;
+		}
+
+		else if (flags & TEXTURE_CREATION::kDepthStencil)
+		{
+			TextureDesc.BindFlags |= D3D11_BIND_DEPTH_STENCIL;
+			TextureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		}
+
+		else if (flags & TEXTURE_CREATION::kShaderResource)
+		{
+			TextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		}
+
 		TextureDesc.Height = height;
 		TextureDesc.MipLevels = 1;
 		TextureDesc.MiscFlags = 0;
-		TextureDesc.SampleDesc.Count = 4;
-		TextureDesc.SampleDesc.Quality = 1;
+		TextureDesc.SampleDesc.Count = 1;
+		TextureDesc.SampleDesc.Quality = 0;
 		TextureDesc.Usage = D3D11_USAGE_DEFAULT;
 		TextureDesc.Width = width;
 
-		GData->m_Device->CreateTexture2D(&TextureDesc, NULL, &m_TextureData->m_Texture2D);
+		hRes = GData->m_Device->CreateTexture2D(&TextureDesc, NULL, &m_TextureData->m_Texture2D);
+
+		if (FAILED(hRes))
+		{
+			return false;
+		}
 		return true;
 	}
 
@@ -116,7 +139,7 @@ namespace BlackEngine
 		D3D11_SUBRESOURCE_DATA SubresourceData;
 		FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(name.c_str(), 0);
 		FreeImage_SetOutputMessage(FreeImageErrorHandler);
-		
+
 		FIBITMAP* bitmap = FreeImage_Load(fif, name.c_str());
 		if (!bitmap)
 		{
@@ -130,13 +153,14 @@ namespace BlackEngine
 		uint32 bpp = FreeImage_GetBPP(bitmap);
 		uint32 channels = bpp / 8;
 		uint32 finalFormat = static_cast<DXGI_FORMAT>(DXGI_FORMAT_R8G8B8A8_UNORM);
-		
+
 		char* bitmapBytes = (char*)FreeImage_GetBits(bitmap);
 		SIZE_T bitmapSize = FreeImage_GetWidth(bitmap) * FreeImage_GetHeight(bitmap);
 		bool asigned = false;
 
 		if (true)
-		{ //Invierte canales Rojo y Azul
+		{
+			///Invierte canales Rojo y Azul
 			for (int j = 0; j < bitmapSize; ++j) {
 				uint8 R = bitmapBytes[j * 4 + 2];
 				uint8 B = bitmapBytes[j * 4 + 0];
@@ -160,13 +184,13 @@ namespace BlackEngine
 		TextureDesc.Height = FreeImage_GetHeight(bitmap);
 
 		ZeroMemory(&SubresourceData, sizeof(D3D11_SUBRESOURCE_DATA));
-			SubresourceData.pSysMem = bitmapBytes;
-			//se calcula cuantos bits tiene por pixel, 
-			SubresourceData.SysMemPitch = FreeImage_GetLine(bitmap) /** (p/8)*/;
-		
+		SubresourceData.pSysMem = bitmapBytes;
+		///se calcula cuantos bits tiene por pixel, 
+		SubresourceData.SysMemPitch = FreeImage_GetLine(bitmap) /** (p/8)*/;
+
 		HRESULT hRes = GData->m_Device->CreateTexture2D(&TextureDesc, &SubresourceData, &m_TextureData->m_Texture2D);
 
-		if(asigned) delete bitmapBytes;
+		if (asigned) delete bitmapBytes;
 
 		if (FAILED(hRes))
 		{

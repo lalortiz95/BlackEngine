@@ -96,11 +96,8 @@ namespace BlackEngine
 		m_pGraphicsAPIData = new GraphicsAPIData();
 		m_pGraphicsAPIData->Initialize();
 		m_BackBuffer = new BETexture();
-		m_BackBuffer->Initialize();
 		m_DSVTexture = new BETexture();
-		m_DSVTexture->Initialize();
 		m_DSV = new BEDepthStencilView();
-		m_DSV->Initialize();
 		m_RTV = new BERenderTargetView();
 		m_RTV->Initialize();
 
@@ -209,7 +206,7 @@ namespace BlackEngine
 
 	bool BEGraphicsAPI::CreateDepthStencilView(BETexture *Texture, BEDepthStencilView*& DSV)
 	{
-		if (!Texture->CreateAsDepthStencil(m_pGraphicsAPIData, m_width, m_height/*, Texture*/))
+		if (!Texture->CreateTexture(m_pGraphicsAPIData, m_width, m_height,TEXTURE_CREATION::kDepthStencil/*, Texture*/))
 		{
 			return false;
 		}

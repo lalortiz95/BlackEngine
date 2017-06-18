@@ -8,10 +8,12 @@ namespace BlackEngine
 	BEDepthStencilView::BEDepthStencilView()
 	{
 		m_DSVData = nullptr;
+		Initialize();
 	}
 
 	BEDepthStencilView::~BEDepthStencilView()
 	{
+		Destroy();
 	}
 
 	void BEDepthStencilView::Initialize()
@@ -21,6 +23,11 @@ namespace BlackEngine
 
 	void BEDepthStencilView::Destroy()
 	{
-		delete(this);
+		if (m_DSVData != nullptr)
+		{
+			m_DSVData->Destroy();
+			delete m_DSVData;
+			m_DSVData = nullptr;
+		}
 	}
 }
