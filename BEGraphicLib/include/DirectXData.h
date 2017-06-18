@@ -3,26 +3,32 @@
 #include <Vector3D.h>
 #include <Vector2D.h>
 
+///This headers check if the engine is being runed in a windows operative
+///sysetm, and if so, it fill it's API variables with DirectX variables.
+#ifdef BE_PLATFORM_WIN32
 #include <dxgi.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 
-//#include <Directxmathmatrix.inl>
-//#include <xnamath.h>
+///The engine's namespace.
 namespace BlackEngine
 {
+	///Forward declarations.
 	class BEVertexBuffer;
 	class BEIndexBuffer;
 	class BEInputLayout;
 
+	///Structs that hides the directx variables with one of our own.
 	struct BufferData
 	{
+		///Directx buffer.
 		ID3D11Buffer* m_Buffer;
+		///Default constructor.
 		BufferData()
 		{
 			m_Buffer = nullptr;
 		}
-
+		///Releses memory
 		void Destroy()
 		{
 			if (m_Buffer != nullptr)
@@ -35,14 +41,16 @@ namespace BlackEngine
 
 	struct TextureData
 	{
+		///Directx texture2D.
 		ID3D11Texture2D* m_Texture2D;
 
-
+		///Default constructor.
 		TextureData()
 		{
 			m_Texture2D = nullptr;
 		}
 
+		///Releases the memory.
 		void Destroy()
 		{
 			if (m_Texture2D != nullptr)
@@ -54,8 +62,10 @@ namespace BlackEngine
 
 	struct InputLayoutData
 	{
+		///Directx Input Layout.
 		ID3D11InputLayout* m_InputLayout;
 
+		///Default constructor.
 		InputLayoutData()
 		{
 			m_InputLayout = nullptr;
@@ -66,6 +76,7 @@ namespace BlackEngine
 
 	struct ShaderData
 	{
+		///Directx blob.
 		ID3DBlob* m_Blob;
 
 		ShaderData()
@@ -214,3 +225,4 @@ namespace BlackEngine
 		void Destroy();
 	};
 }
+#endif // BE_PLATFORM_WIN32

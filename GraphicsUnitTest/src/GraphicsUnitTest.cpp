@@ -127,9 +127,6 @@ namespace BlackEngine
 	{
 		//esto es si queremos que tome la función render del padre.
 		//__super::Render();
-		//TODO: crear los rtv, a partir de las texturas del modelo,
-		//y lo mando al api.
-		
 
 		///limpiamos el back buffer.
 		Vector4D CleanUpColor = { 0.0f, 0.125f, 0.3f, 1.0f };

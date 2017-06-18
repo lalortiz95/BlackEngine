@@ -3,10 +3,13 @@
 #include "BEGraphicsAPI.h"
 #include "BERenderTargetView.h"
 
+///The engine's namespace.
 namespace BlackEngine
 {
+	///Forward declarations.
 	struct TextureData;
 
+	///Namespace for the Texture creation flags.
 	namespace TEXTURE_CREATION 
 	{
 		enum E 
@@ -18,23 +21,30 @@ namespace BlackEngine
 		};
 	}
 
+	///Declaration of the texture class.
 	class BE_GRAPHICS_EXPORT BETexture
 	{
 	public:
+		///Default constructor and destructor.
 		BETexture();
 		~BETexture();
 
+		///This functions give and release memory from the class' variables.
 		void Initialize();
-		bool CreateTexture(const GraphicsAPIData* GData, int width, int height, uint32 flags = TEXTURE_CREATION::kDefault);
-		bool CreateTextureFromFile(const GraphicsAPIData*, const String& name);
-		//bool CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height);
-		bool CreateAsRenderTarget(const GraphicsAPIData* GData, int width, int height);
 		void Destroy();
 
+		///Creates a texture with a given width, height, and the type of texture that it will be.
+		bool CreateTexture(const GraphicsAPIData* GData, int width, int height, uint32 flags = TEXTURE_CREATION::kDefault);
+		///Creates a texture from a given file.
+		bool CreateTextureFromFile(const GraphicsAPIData*, const String& name);
+		///Creates a new render target texture.
+		bool CreateAsRenderTarget(const GraphicsAPIData* GData, int width, int height);
+
+		///The texture data
 		TextureData* m_TextureData;
+
 	private:
-		///variable que almacena el nuevo RTV
+		///variable that stores the new RTV
 		BERenderTargetView m_RTV;
-		
 	};
 }

@@ -33,9 +33,6 @@
     <ClInclude Include="include\BEGraphicsAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BEModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\DirectXData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
