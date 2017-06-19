@@ -46,6 +46,11 @@ namespace BlackEngine
 
 		data = GetExtension(fileName);
 
+		if (data.size() == 0)
+		{
+			return nullptr;
+		}
+
 		RESOURCE_TYPE resType = GetResourceTypeFromExtension(data.at(data.size() - 1));
 
 		///Revisamos si el archivo ya habia sido cargado
@@ -91,18 +96,19 @@ namespace BlackEngine
 		BEUtilityString UtilString;
 		String stringToCompare;
 
-		extensionsType[".bmp"] = RT_TEXTURE;
-		extensionsType[".png"] = RT_TEXTURE;
-		extensionsType[".jpg"] = RT_TEXTURE;
-		extensionsType[".jpeg"] = RT_TEXTURE;
-		extensionsType[".fbx"] = RT_MODEL;
-		extensionsType[".dae"] = RT_MODEL;
-		extensionsType[".obj"] = RT_MODEL;
-		extensionsType[".x"  ] = RT_MODEL;
-		extensionsType[".max"] = RT_MODEL;
-		extensionsType[".3ds"] = RT_MODEL;
-		extensionsType[".blend"] = RT_MODEL;
-		extensionsType[".ase"] = RT_MODEL;
+		extensionsType[".bmp"]   =	RT_TEXTURE;
+		extensionsType[".png"]   =	RT_TEXTURE;
+		extensionsType[".jpg"]   =	RT_TEXTURE;
+		extensionsType[".jpeg"]  =	RT_TEXTURE;
+		extensionsType[".fbx"]   =	RT_MODEL;
+		extensionsType[".dae"]   =	RT_MODEL;
+		extensionsType[".obj"]   =	RT_MODEL;
+		extensionsType[".x"  ]   =	RT_MODEL;
+		extensionsType[".max"]   =	RT_MODEL;
+		extensionsType[".3ds"]   =	RT_MODEL;
+		extensionsType[".blend"] =	RT_MODEL;
+		extensionsType[".ase"]   =	RT_MODEL;
+		extensionsType[".mtl"]   =	RT_MODEL;
 
 
 		//TODO: arreglar esto.

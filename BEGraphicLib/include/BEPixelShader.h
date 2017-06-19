@@ -20,7 +20,7 @@ namespace BlackEngine
 		virtual bool Initialize();
 		virtual void Destroy();
 
-		//virtual void Reflect();
+		virtual void Reflect();
 		///Creates the pixel shader, and if succeded, returns true.
 		virtual bool CreateShader(const GraphicsAPIData* pGraphicData, const String& FileName, const String& Target = "ps_5_0", const String& EntryPoint = "PS");
 

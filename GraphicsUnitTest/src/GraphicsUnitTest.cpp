@@ -105,7 +105,7 @@ namespace BlackEngine
 
 		Matrix4D M;
 		///inicializamos la matriz de vista.
-		Vector4D Eye(5.0f, 5.0f, -5.0f, 0.0f);
+		Vector4D Eye(5.0f, 5.0f, -15.0f, 0.0f);
 		Vector4D At(0.0f, 0.0f, 0.0f, 0.0f);
 		Vector4D Up(0.0f, 1.0f, 0.0f, 0.0f);
 		m_View = M.LookAtLH(Eye, At, Up);

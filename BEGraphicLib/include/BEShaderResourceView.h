@@ -24,7 +24,6 @@ namespace BlackEngine
 		///Creates the shader resource with the device, upon a given texture.
 		bool Create(const GraphicsAPIData* GData, const BETexture* data);
 
-	private:
 		///this variable stores the shader resource view data.
 		ShaderResourceViewData* m_SRVData;
 	};

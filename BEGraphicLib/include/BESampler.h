@@ -23,7 +23,6 @@ namespace BlackEngine
 		///Creates the sampler.
 		void Create(const GraphicsAPIData* GData);
 	
-	private:
 		///This variable stores the sampler data.
 		SamplerData* m_SD;
 	};

@@ -28,7 +28,6 @@ namespace BlackEngine
 		///creates the RTV
 		bool Create(BETexture* Texture, const GraphicsAPIData * pGraphicData);
 		
-		private:
 		///This variable stores the RTV data.
 		RTVData* m_RTVData;
 	};
