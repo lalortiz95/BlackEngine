@@ -40,6 +40,8 @@ namespace BlackEngine
 		virtual void MoveViewBack() override;
 		virtual void MoveViewLeft() override;
 		virtual void MoveViewRight() override;
+		virtual void MoveViewUp() override;
+		virtual void MoveViewDown() override;
 
 		///World, view, and projection matrices.
 		Matrix4D m_World;

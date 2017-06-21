@@ -48,6 +48,14 @@ namespace BlackEngine
 				///D key.
 				g_AppBase->MoveViewRight();
 			}
+			if (wParam == VK_SHIFT)
+			{
+				g_AppBase->MoveViewUp();
+			}
+			if (wParam == VK_CONTROL)
+			{
+				g_AppBase->MoveViewDown();
+			}
 			return 0;
 
 		case WM_DESTROY:
@@ -167,6 +175,15 @@ namespace BlackEngine
 	void BEApplication::MoveViewRight()
 	{
 
+	}
+
+	void BEApplication::MoveViewUp()
+	{
+
+	}
+
+	void BEApplication::MoveViewDown()
+	{
 	}
 
 	bool BEApplication::InitializeWindow(int width, int height, bool windowed)

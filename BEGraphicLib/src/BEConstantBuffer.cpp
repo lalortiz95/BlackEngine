@@ -7,6 +7,7 @@ namespace BlackEngine
 	BEConstantBuffer::BEConstantBuffer()
 	{
 		m_BufferData = nullptr;
+		Initialize();
 	}
 
 	BEConstantBuffer::~BEConstantBuffer()

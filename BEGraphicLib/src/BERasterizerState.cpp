@@ -6,6 +6,7 @@ namespace BlackEngine
 	BERasterizerState::BERasterizerState()
 	{
 		m_RSData = nullptr;
+		Initialize();
 	}
 
 	BERasterizerState::~BERasterizerState()

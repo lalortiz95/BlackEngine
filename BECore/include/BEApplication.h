@@ -48,6 +48,8 @@ namespace BlackEngine
 		virtual void MoveViewBack();
 		virtual void MoveViewLeft();
 		virtual void MoveViewRight();
+		virtual void MoveViewUp();
+		virtual void MoveViewDown();
 
 	protected:
 		BEGraphicsAPI* m_GraphicsAPI;

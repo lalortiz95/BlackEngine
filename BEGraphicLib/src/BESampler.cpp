@@ -6,6 +6,7 @@ namespace BlackEngine
 	BESampler::BESampler()
 	{
 		m_SD = nullptr;
+		Initialize();
 	}
 
 	BESampler::~BESampler()
@@ -23,6 +24,7 @@ namespace BlackEngine
 		if (m_SD != nullptr)
 		{
 			m_SD->Destroy();
+			delete m_SD;
 			m_SD = nullptr;
 		}
 	}

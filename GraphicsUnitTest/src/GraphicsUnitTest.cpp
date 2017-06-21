@@ -54,17 +54,12 @@ namespace BlackEngine
 		g_ResourceManager().m_GA = m_GraphicsAPI;
 
 		m_ColorSampler = new BESampler();
-		m_ColorSampler->Initialize();
 
 		///constant buffers.
 		m_BNeverChanges = new BEConstantBuffer();
-		m_BNeverChanges->Initialize();
 		m_BChangeOnResize = new BEConstantBuffer();
-		m_BChangeOnResize->Initialize();
 		m_BChangesEveryFrame = new BEConstantBuffer();
-		m_BChangesEveryFrame->Initialize();
 		m_RasterizerState = new BERasterizerState();
-		m_RasterizerState->Initialize();
 
 		m_MeshColor.X = 0.7f;
 		m_MeshColor.Y = 0.7f;
@@ -116,10 +111,6 @@ namespace BlackEngine
 
 	void GraphicsUnitTest::Update(float delta)
 	{
-		//TODO: mover la camera, oh yeah baby!
-		//TODO: obtener que tanto se va a mover según la tecla que presionó.
-		//input
-		//m_View.Translate();
 	}
 
 	void GraphicsUnitTest::Render()
@@ -215,6 +206,22 @@ namespace BlackEngine
 		///The position where it will move.
 		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
 		pos.X -= 0.1f;
+		m_View = m_View.Translate(pos);
+	}
+
+	void GraphicsUnitTest::MoveViewUp()
+	{
+		///The position where it will move.
+		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		pos.Y -= 0.1f;
+		m_View = m_View.Translate(pos);
+	}
+
+	void GraphicsUnitTest::MoveViewDown()
+	{
+		///The position where it will move.
+		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		pos.Y += 0.1f;
 		m_View = m_View.Translate(pos);
 	}
 
