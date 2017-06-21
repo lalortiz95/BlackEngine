@@ -28,6 +28,26 @@ namespace BlackEngine
 			{
 				DestroyWindow(hwnd);
 			}
+			if (wParam == 0x57)
+			{
+				///W key.
+				g_AppBase->MoveViewForward();
+			}
+			if (wParam == 0x53)
+			{
+				///S key.
+				g_AppBase->MoveViewBack();
+			}
+			if (wParam == 0x41)
+			{
+				///A key.
+				g_AppBase->MoveViewLeft();
+			}
+			if (wParam == 0x44)
+			{
+				///D key.
+				g_AppBase->MoveViewRight();
+			}
 			return 0;
 
 		case WM_DESTROY:
@@ -126,6 +146,25 @@ namespace BlackEngine
 	}
 
 	void BEApplication::OnSize(int32 /*request*/, int32 /*width*/, int32 /*height*/)
+	{
+
+	}
+
+	void BEApplication::MoveViewForward()
+	{
+		//TODO: en la clase hija hacer un override y mover la matriz de vista.
+	}
+
+	void BEApplication::MoveViewBack()
+	{
+	}
+
+	void BEApplication::MoveViewLeft()
+	{
+
+	}
+
+	void BEApplication::MoveViewRight()
 	{
 
 	}

@@ -4,20 +4,29 @@
 #include <BEGraphicsAPI.h>
 #include <BETexture.h>
 
+///The engine's namespace.
 namespace BlackEngine
 {
+	///Forward declarations.
 	struct ApplicationData;
 	struct BufferData;
 
+	///Declaration of the application class.
 	class BE_CORE_EXPORT BEApplication
 	{
 	public:
+		///Default constructor and destructor.
 		BEApplication();
 		virtual ~BEApplication();
 
+		///Updates EveryFrame.
 		virtual void Update(float /*delta*/) {};
 
+		///Ests función llama a todas las necesarias para crear una ventana, inicializar el pipeline grafico
+		///Y dejar toda al app lista.
 		int Run();
+		///When overwritten, this function initializes variables right before ending this class'
+		///Initialize function.
 		virtual void OnPreInitialize();
 		virtual void OnInitialize();
 		virtual void OnPostInitialize(); //also called as OnInitialized.
@@ -31,7 +40,14 @@ namespace BlackEngine
 		int GetWidth() { return m_Width; }
 		int GetHeight() { return m_Height; }
 
+		///The render function.
 		virtual void Render() {};
+
+		///This funcion will move the camera forward
+		virtual void MoveViewForward();
+		virtual void MoveViewBack();
+		virtual void MoveViewLeft();
+		virtual void MoveViewRight();
 
 	protected:
 		BEGraphicsAPI* m_GraphicsAPI;

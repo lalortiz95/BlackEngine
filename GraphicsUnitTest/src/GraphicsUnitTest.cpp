@@ -55,7 +55,6 @@ namespace BlackEngine
 
 		m_ColorSampler = new BESampler();
 		m_ColorSampler->Initialize();
-		m_Model = new BEModel();
 
 		///constant buffers.
 		m_BNeverChanges = new BEConstantBuffer();
@@ -175,7 +174,7 @@ namespace BlackEngine
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->PSSetSamplers
 		(0, 1, &m_ColorSampler->m_SD->m_samplerState);
 		///mando el render de los modelos.
-		for(auto& res : m_ResourceVector)
+		for (auto& res : m_ResourceVector)
 		{
 			if (res->GetResourceType() == RT_MODEL)
 			{
@@ -185,6 +184,38 @@ namespace BlackEngine
 
 		///switch the back buffer and the front buffer
 		m_GraphicsAPI->m_pGraphicsAPIData->m_SwapChain->Present(0, 0);
+	}
+
+	void GraphicsUnitTest::MoveViewForward()
+	{
+		///The position where it will move.
+		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		pos.Z -= 0.5f;
+		m_View = m_View.Translate(pos);
+	}
+
+	void GraphicsUnitTest::MoveViewBack()
+	{
+		///The position where it will move.
+		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		pos.Z += 0.5f;
+		m_View = m_View.Translate(pos);
+	}
+
+	void GraphicsUnitTest::MoveViewLeft()
+	{
+		///The position where it will move.
+		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		pos.X += 0.1f;
+		m_View = m_View.Translate(pos);
+	}
+
+	void GraphicsUnitTest::MoveViewRight()
+	{
+		///The position where it will move.
+		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		pos.X -= 0.1f;
+		m_View = m_View.Translate(pos);
 	}
 
 	bool GraphicsUnitTest::CreatePixelAndVertexShader()

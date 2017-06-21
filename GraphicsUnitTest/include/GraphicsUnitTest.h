@@ -4,6 +4,7 @@
 
 namespace BlackEngine
 {
+	///Forward Declarions
 	class BEConstantBuffer;
 	class BESampler;
 	class BEModel;
@@ -17,26 +18,39 @@ namespace BlackEngine
 	class BEModelResource;
 	class BERenderTargetView;
 
+	///A class to test the graphic api, it inherits from application, making it one as well.
+	///This means it creates a window and handles itself.
 	class GraphicsUnitTest : public BEApplication
 	{
 	public:
+		///Default constructor and destructor.
 		GraphicsUnitTest();
 		~GraphicsUnitTest();
 
+		///Override the on initialize, this means anything that we initialize on that function
+		///will be called right before finishing the parent's Initialize function.
 		virtual void OnInitialize() override;
+		///Updates every frame.
 		virtual void Update(float delta) override;
+		///Calls  all functions needed to render a 3D object in a tridimentional space.
 		virtual void Render() override;
 
+		///This functions move the view matrix forward in a 3D space. It's called in the message bomb.
+		virtual void MoveViewForward() override;
+		virtual void MoveViewBack() override;
+		virtual void MoveViewLeft() override;
+		virtual void MoveViewRight() override;
+
+		///World, view, and projection matrices.
 		Matrix4D m_World;
 		Matrix4D m_View;
 		Matrix4D m_Projection;
 		Vector4D m_MeshColor;
 
+		///Constant buffers.
 		BEConstantBuffer* m_BNeverChanges;
 		BEConstantBuffer* m_BChangeOnResize;
 		BEConstantBuffer* m_BChangesEveryFrame;
-
-		BEModel* m_Model;
 
 	private:
 		///This function returns true if it managed to succesfully create
@@ -47,11 +61,13 @@ namespace BlackEngine
 		BEVertexShader* m_VS;
 		///The Engine's Pixel Shader class
 		BEPixelShader* m_PS;
-		///vector que almacena los diferentes render target views.
+		///Vector that stores the different render target views.
 		Vector<BERenderTargetView> m_RtvVector;
+		///This variable is used to create a sampler state.
 		BESampler* m_ColorSampler;
+		///Used to create the rasterizer state.
 		BERasterizerState* m_RasterizerState;
-
+		///A vector were all the resources are stored.
 		Vector<BEResource*> m_ResourceVector;
 	};
 }
