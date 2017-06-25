@@ -1,6 +1,7 @@
 #include "BEBuffer.h"
 #include "DirectXData.h"
 
+///The engine's namespace.
 namespace BlackEngine
 {
 
@@ -35,9 +36,7 @@ namespace BlackEngine
 	//	///The buffer description.
 	//	D3D11_BUFFER_DESC bufferDesc = { 0 };
 	//	ZeroMemory(&bufferDesc, sizeof(bufferDesc));
-
 	//	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
-
 	//	if (flags & TEXTURE_CREATION::kRenderTarget)
 	//	{
 	//		///INDEX BUFFER

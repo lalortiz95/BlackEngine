@@ -44,12 +44,9 @@ namespace BlackEngine
 		virtual void Render() {};
 
 		///This funcion will move the camera forward
-		virtual void MoveViewForward();
-		virtual void MoveViewBack();
-		virtual void MoveViewLeft();
-		virtual void MoveViewRight();
-		virtual void MoveViewUp();
-		virtual void MoveViewDown();
+		virtual void MoveForward(float z);
+		virtual void MoveRight(float x);
+		virtual void MoveUp(float y);
 
 	protected:
 		BEGraphicsAPI* m_GraphicsAPI;

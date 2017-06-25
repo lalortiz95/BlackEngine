@@ -31,30 +31,38 @@ namespace BlackEngine
 			if (wParam == 0x57)
 			{
 				///W key.
-				g_AppBase->MoveViewForward();
+				g_AppBase->MoveForward(1);
 			}
 			if (wParam == 0x53)
 			{
 				///S key.
-				g_AppBase->MoveViewBack();
+				g_AppBase->MoveForward(-1);
 			}
 			if (wParam == 0x41)
 			{
 				///A key.
-				g_AppBase->MoveViewLeft();
+				g_AppBase->MoveRight(-1);
 			}
 			if (wParam == 0x44)
 			{
 				///D key.
-				g_AppBase->MoveViewRight();
+				g_AppBase->MoveRight(1);
 			}
 			if (wParam == VK_SHIFT)
 			{
-				g_AppBase->MoveViewUp();
+				g_AppBase->MoveUp(1);
 			}
 			if (wParam == VK_CONTROL)
 			{
-				g_AppBase->MoveViewDown();
+				g_AppBase->MoveUp(-1);
+			}
+			return 0;
+
+		case WM_KEYUP:
+			if (wParam == 0x57)
+			{
+				///W key.
+				//TODO: llamar funcion dejar de mover.
 			}
 			return 0;
 
@@ -158,32 +166,21 @@ namespace BlackEngine
 
 	}
 
-	void BEApplication::MoveViewForward()
+	void BEApplication::MoveForward(float z)
 	{
-		//TODO: en la clase hija hacer un override y mover la matriz de vista.
+		//TODO: el valor que reciba, positivo o negativo. va a depender si se mueve para adelante o para
+		//Atrás. En el override de esta función, se multiplica el valor del parametro por la velocidad
+		//por el tiempo.
 	}
 
-	void BEApplication::MoveViewBack()
-	{
-	}
-
-	void BEApplication::MoveViewLeft()
-	{
-
-	}
-
-	void BEApplication::MoveViewRight()
+	void BEApplication::MoveRight(float x)
 	{
 
 	}
 
-	void BEApplication::MoveViewUp()
+	void BEApplication::MoveUp(float y)
 	{
 
-	}
-
-	void BEApplication::MoveViewDown()
-	{
 	}
 
 	bool BEApplication::InitializeWindow(int width, int height, bool windowed)

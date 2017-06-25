@@ -1,7 +1,9 @@
 #pragma once
 #include <BEApplication.h>
 #include <Matrix4D.h>
+#include <BECamera.h>
 
+///The engine's namespace.
 namespace BlackEngine
 {
 	///Forward Declarions
@@ -36,17 +38,14 @@ namespace BlackEngine
 		virtual void Render() override;
 
 		///This functions move the view matrix forward in a 3D space. It's called in the message bomb.
-		virtual void MoveViewForward() override;
-		virtual void MoveViewBack() override;
-		virtual void MoveViewLeft() override;
-		virtual void MoveViewRight() override;
-		virtual void MoveViewUp() override;
-		virtual void MoveViewDown() override;
+		virtual void MoveForward (float z) override;
+		virtual void MoveRight (float x) override;
+		virtual void MoveUp (float y) override;
 
 		///World, view, and projection matrices.
 		Matrix4D m_World;
-		Matrix4D m_View;
-		Matrix4D m_Projection;
+		//Matrix4D m_View;
+		//Matrix4D m_Projection;
 		Vector4D m_MeshColor;
 
 		///Constant buffers.
@@ -71,5 +70,7 @@ namespace BlackEngine
 		BERasterizerState* m_RasterizerState;
 		///A vector were all the resources are stored.
 		Vector<BEResource*> m_ResourceVector;
+		///The camera that will be used.
+		BECamera* m_Camera;
 	};
 }

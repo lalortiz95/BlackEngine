@@ -36,7 +36,7 @@ namespace BlackEngine
 		///identidad de la matriz
 		Matrix4D Identity();
 
-		Matrix4D LookAtLH(Vector4D, Vector4D, Vector4D);
+		Matrix4D LookAtLH(Vector4D eye, Vector4D focus, Vector4D up);
 
 		Matrix4D LookToLH(Vector4D EyePosition, Vector4D EyeDirection, Vector4D UpDirection);
 

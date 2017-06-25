@@ -16,6 +16,8 @@
 #include <BEModelResource.h>
 #include <BEParser.h>
 
+
+#include <Xinput.h>
 #include <BEResourceManager.h>
 //#include <xnamath.h>
 
@@ -48,7 +50,7 @@ namespace BlackEngine
 
 	void GraphicsUnitTest::OnInitialize()
 	{
-		//Inicializacion de modulos sistema
+		///Inicializacion de modulos sistema
 		g_ResourceManager().StartUp();
 		g_ResourceManager().Initialize();
 		g_ResourceManager().m_GA = m_GraphicsAPI;
@@ -102,15 +104,31 @@ namespace BlackEngine
 		Vector4D Eye(5.0f, 5.0f, -15.0f, 0.0f);
 		Vector4D At(0.0f, 0.0f, 0.0f, 0.0f);
 		Vector4D Up(0.0f, 1.0f, 0.0f, 0.0f);
-		m_View = M.LookAtLH(Eye, At, Up);
+		///Asignamos memoria a la cámara, con el eye, el target, y su up definidos.
+		m_Camera = new BECamera(Eye, At, Up);
+		///Seteamos la matriz de vista.
+		m_Camera->SetViewMatrix(M.LookAtLH(Eye, At, Up));
+		//m_View = M.LookAtLH(Eye, At, Up);
 
 		///matriz de proyección.
-		m_Projection = m_Projection.PerspectiveFOVLH
-		(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
+		Matrix4D projMatrix = M.PerspectiveFOVLH(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
+		m_Camera->SetProjectionMatrix(projMatrix);
+		//m_Projection = m_Projection.PerspectiveFOVLH
+		//(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
 	}
 
 	void GraphicsUnitTest::Update(float delta)
 	{
+		//TODO: por medio de direct inpjut, o algo así. ver que tecla se presionó y mover en su respectiva 
+		//dirección a la cámara con  sus funciones moveForwar, moveRight, y MoveUp.
+		XINPUT_KEYSTROKE* keyDown = nullptr;
+		XInputGetKeystroke(XUSER_INDEX_ANY, NULL, keyDown);
+
+		//if (keyDown & XINPUT_KEYSTROKE_KEYDOWN)
+		//{
+
+		//}
+		m_Camera->Update(delta);
 	}
 
 	void GraphicsUnitTest::Render()
@@ -128,13 +146,15 @@ namespace BlackEngine
 			m_GraphicsAPI->GetDSV()->m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		CBNeverChanges cbNeverChanges;
-		cbNeverChanges.m_View = m_View;
+		//cbNeverChanges.m_View = m_View;
+		cbNeverChanges.m_View = m_Camera->GetViewMatrix();
 		cbNeverChanges.m_View.Transpose();
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
 			m_BNeverChanges->m_BufferData->m_Buffer, 0, NULL, &cbNeverChanges, 0, 0);
 
 		CBChangeOnResize cbChangesOnResize;
-		cbChangesOnResize.m_Projection = m_Projection;
+		//cbChangesOnResize.m_Projection = m_Projection;
+		cbChangesOnResize.m_Projection = m_Camera->GetProjectionMatrix();
 		cbChangesOnResize.m_Projection.Transpose();
 		m_GraphicsAPI->m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
 			m_BChangeOnResize->m_BufferData->m_Buffer, 0, NULL, &cbChangesOnResize, 0, 0);
@@ -177,52 +197,52 @@ namespace BlackEngine
 		m_GraphicsAPI->m_pGraphicsAPIData->m_SwapChain->Present(0, 0);
 	}
 
-	void GraphicsUnitTest::MoveViewForward()
+	void GraphicsUnitTest::MoveForward(float z)
 	{
+		float fVel;
+	//	Vector4D movement = fVel * delta * z;
+	//	m_Camera->Move(movement);
+
 		///The position where it will move.
-		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
+		Vector4D pos = {
+			m_Camera->GetViewMatrix()._m.m30,
+			m_Camera->GetViewMatrix()._m.m31,
+			m_Camera->GetViewMatrix()._m.m32,
+			m_Camera->GetViewMatrix()._m.m33 };
+
+		///The  position in the given axis is moved.
 		pos.Z -= 0.5f;
-		m_View = m_View.Translate(pos);
+
+		m_Camera->Move(pos);
+		/*m_View = m_View.Translate(pos);*/
 	}
 
-	void GraphicsUnitTest::MoveViewBack()
+	void GraphicsUnitTest::MoveRight(float x)
 	{
 		///The position where it will move.
-		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
-		pos.Z += 0.5f;
-		m_View = m_View.Translate(pos);
+		Vector4D pos = {
+			m_Camera->GetViewMatrix()._m.m30,
+			m_Camera->GetViewMatrix()._m.m31,
+			m_Camera->GetViewMatrix()._m.m32,
+			m_Camera->GetViewMatrix()._m.m33 };
+
+		pos.X -= 0.5f;
+		m_Camera->Move(pos);
+		//m_View = m_View.Translate(pos);
 	}
 
-	void GraphicsUnitTest::MoveViewLeft()
+	void GraphicsUnitTest::MoveUp(float y)
 	{
 		///The position where it will move.
-		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
-		pos.X += 0.1f;
-		m_View = m_View.Translate(pos);
-	}
+		Vector4D pos = {
+			m_Camera->GetViewMatrix()._m.m30,
+			m_Camera->GetViewMatrix()._m.m31,
+			m_Camera->GetViewMatrix()._m.m32,
+			m_Camera->GetViewMatrix()._m.m33 };
 
-	void GraphicsUnitTest::MoveViewRight()
-	{
-		///The position where it will move.
-		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
-		pos.X -= 0.1f;
-		m_View = m_View.Translate(pos);
-	}
-
-	void GraphicsUnitTest::MoveViewUp()
-	{
-		///The position where it will move.
-		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
 		pos.Y -= 0.1f;
-		m_View = m_View.Translate(pos);
-	}
-
-	void GraphicsUnitTest::MoveViewDown()
-	{
-		///The position where it will move.
-		Vector4D pos = { m_View._m.m30, m_View._m.m31, m_View._m.m32, m_View._m.m33 };
-		pos.Y += 0.1f;
-		m_View = m_View.Translate(pos);
+		m_Camera->Move(pos);
+		//m_View = m_View.Translate(pos);
 	}
 
 	bool GraphicsUnitTest::CreatePixelAndVertexShader()

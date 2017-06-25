@@ -138,6 +138,7 @@ namespace BlackEngine
 
 				if (material)
 				{
+					//Scene->mTextures;
 					///recorro los tipos de textura que hay pa ver cual estoy usando
 					for (SIZE_T ktt = 0; ktt < aiTextureType_UNKNOWN; ++ktt)
 					{
