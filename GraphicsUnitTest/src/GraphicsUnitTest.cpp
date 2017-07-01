@@ -16,8 +16,10 @@
 #include <BEModelResource.h>
 #include <BEParser.h>
 
+#define DIRECTINPUT_VERSION 0x0800
+//#include <Dinput8.h>
+#include <dinput.h>
 
-#include <Xinput.h>
 #include <BEResourceManager.h>
 //#include <xnamath.h>
 
@@ -119,15 +121,48 @@ namespace BlackEngine
 
 	void GraphicsUnitTest::Update(float delta)
 	{
-		//TODO: por medio de direct inpjut, o algo así. ver que tecla se presionó y mover en su respectiva 
+		//TODO: por medio de direct input, o algo así. ver que tecla se presionó y mover en su respectiva 
 		//dirección a la cámara con  sus funciones moveForwar, moveRight, y MoveUp.
-		XINPUT_KEYSTROKE* keyDown = nullptr;
-		XInputGetKeystroke(XUSER_INDEX_ANY, NULL, keyDown);
 
-		//if (keyDown & XINPUT_KEYSTROKE_KEYDOWN)
-		//{
+		///Where we store our inputs.
+		IDirectInput8 *DirectInput;
+		IDirectInputDevice8* keyboard;
+		IDirectInputDevice8* mouse;
+		///Stores which keys ares being pressed.
+		unsigned char keyboardState[256];
+		DIMOUSESTATE mouseState;
 
-		//}
+		HINSTANCE hInstance = ::GetModuleHandleA(NULL);
+
+		HRESULT hRes;
+
+		//Setting up the keyboard:
+		hRes = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DirectInput, NULL);
+		if (FAILED(hRes))
+		{
+		}
+
+		hRes = DirectInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
+		if (FAILED(hRes))
+		{
+		}
+
+		hRes = keyboard->SetDataFormat(&c_dfDIKeyboard);
+		if (FAILED(hRes))
+		{
+		}
+
+		hRes = keyboard->SetCooperativeLevel(reinterpret_cast<HWND>(m_ScrHandle), DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+		if (FAILED(hRes))
+		{
+		}
+
+		hRes = keyboard->Acquire();
+
+		if (!FAILED(hRes))
+		{
+		}
+
 		m_Camera->Update(delta);
 	}
 
@@ -200,10 +235,10 @@ namespace BlackEngine
 	void GraphicsUnitTest::MoveForward(float z)
 	{
 		float fVel;
-	//	Vector4D movement = fVel * delta * z;
-	//	m_Camera->Move(movement);
+		//	Vector4D movement = fVel * delta * z;
+		//	m_Camera->Move(movement);
 
-		///The position where it will move.
+			///The position where it will move.
 		Vector4D pos = {
 			m_Camera->GetViewMatrix()._m.m30,
 			m_Camera->GetViewMatrix()._m.m31,

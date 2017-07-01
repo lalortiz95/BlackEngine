@@ -31,7 +31,7 @@ namespace BlackEngine
 			if (wParam == 0x57)
 			{
 				///W key.
-				g_AppBase->MoveForward(1);
+				//g_AppBase->MoveForward(1);
 			}
 			if (wParam == 0x53)
 			{

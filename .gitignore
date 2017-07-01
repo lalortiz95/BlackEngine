@@ -6,3 +6,6 @@ bin/x86/
 *.db
 bin/x64/
 *.opendb
+*.user
+*.log
+*.lastbuildstate

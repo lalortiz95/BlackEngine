@@ -18,43 +18,36 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\GraphicsUnitTest.cpp" />
-    <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\GraphicsUnitTest.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{695B2648-320D-4CE5-8ADF-F4B91F8FD2A1}</ProjectGuid>
-    <RootNamespace>GraphicsUnitTest</RootNamespace>
+    <ProjectGuid>{CBC38917-CAF2-4CF1-A876-66934A9C498C}</ProjectGuid>
+    <RootNamespace>BEInput</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -75,31 +68,31 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(DXSDK_DIR)include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BECore\include\;$(SolutionDir)BEGraphicLib\include\;$(SolutionDir)BEEngine\include\</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(ASSIMP_DIR_LIB)lib\$(PlatformTarget)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(PlatformTarget)\</IntDir>
+    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
+    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)BEUtilityLib\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <IncludePath>$(SolutionDir)BEUtilityLib\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)BEUtilityLib\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IncludePath>$(DXSDK_DIR)include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BECore\include\;$(SolutionDir)BEGraphicLib\include\;$(SolutionDir)BEEngine\include\</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(ASSIMP_DIR_LIB)lib\$(PlatformTarget)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(PlatformTarget)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(DXSDK_DIR)include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BECore\include\;$(SolutionDir)BEGraphicLib\include\;$(SolutionDir)BEEngine\include\</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(ASSIMP_DIR_LIB)lib\$(PlatformTarget)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(PlatformTarget)\</IntDir>
-    <TargetName>$(ProjectName)d</TargetName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(DXSDK_DIR)include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BECore\include\;$(SolutionDir)BEGraphicLib\include\;$(SolutionDir)BEEngine\include\</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(ASSIMP_DIR_LIB)lib\$(PlatformTarget)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(PlatformTarget)\</IntDir>
+    <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <IncludePath>$(SolutionDir)BEUtilityLib\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,15 +100,18 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BE_INPUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PreprocessorDefinitions>_XM_NO_INTRINSICS_;</PreprocessorDefinitions>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>Dinput8.lib;dxguid.lib;BEEngined.lib;BECored.lib;BEGraphicsLibd.lib;BEUtilityLibd.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
     </BuildLog>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dinput8.lib;dxguid.lib;BEUtilityLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -123,19 +119,18 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_XM_NO_INTRINSICS_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BE_INPUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>Dinput8.lib;dxguid.lib;BEEngined.lib;BECored.lib;BEGraphicsLibd.lib;BEUtilityLibd.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
-      <ProfileGuidedDatabase>$(SolutionDir)lib\$(Configuration)\$(Platform)\$(TargetName).pgd</ProfileGuidedDatabase>
-      <ImportLibrary>$(SolutionDir)lib\$(Configuration)\$(Platform)\$(TargetName).lib</ImportLibrary>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
     </BuildLog>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dinput8.lib;dxguid.lib;BEUtilityLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -145,13 +140,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PreprocessorDefinitions>_XM_NO_INTRINSICS_;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BE_INPUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Dinput8.lib;dxguid.lib;BEEngine.lib;BECore.lib;BEGraphicsLib.lib;BEUtilityLib.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dinput8.lib;dxguid.lib;BEUtilityLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
@@ -165,18 +162,29 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PreprocessorDefinitions>_XM_NO_INTRINSICS_;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BE_INPUT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Dinput8.lib;dxguid.lib;BEEngine.lib;BECore.lib;BEGraphicsLib.lib;BEUtilityLib.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dinput8.lib;dxguid.lib;BEUtilityLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="include\BEMouse.cpp" />
+    <ClCompile Include="src\BEKeyboard.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\BEKeyboard.h" />
+    <ClInclude Include="include\BEMouse.h" />
+    <ClInclude Include="include\BEPrerequisitesInput.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
