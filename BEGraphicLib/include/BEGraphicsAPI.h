@@ -28,7 +28,7 @@ namespace BlackEngine
 		///default constructor.
 		BEGraphicsAPI() {};
 		///constructor with parameters,
-		BEGraphicsAPI(int32 screenHandle, int32 width, int32 height, bool fullscreen, int32 format, int32 backBufferCount, bool vSync);
+		BEGraphicsAPI(void* screenHandle, int32 width, int32 height, bool fullscreen, int32 format, int32 backBufferCount, bool vSync);
 		///Default destructor.
 		virtual ~BEGraphicsAPI();
 
@@ -37,7 +37,7 @@ namespace BlackEngine
 		virtual void OnShutDown() override;
 
 		///Function that initializes the class' variables.
-		bool Initialize(int32 scrHandle, int32 width, int32 height, int32 numBB, bool isFullScreen);
+		bool Initialize(void* scrHandle, int32 width, int32 height, int32 numBB, bool isFullScreen);
 		///Clears the back buffer with a given color.
 		void ClearBackBuffer(float r = 0, float g = 1.f, float b = 0, float a = 0);
 
@@ -55,7 +55,7 @@ namespace BlackEngine
 		GraphicsAPIData* m_pGraphicsAPIData;
 	
 	private:
-		int32 m_screenHandle;
+		void* m_screenHandle;
 		int32 m_width;
 		int32 m_height;
 		///Flag that indicates if we are in fullscreen mode.

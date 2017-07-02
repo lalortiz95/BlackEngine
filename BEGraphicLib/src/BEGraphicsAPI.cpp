@@ -15,7 +15,7 @@
 
 namespace BlackEngine
 {
-	BEGraphicsAPI::BEGraphicsAPI(int32 screenHandle, int32 width, int32 height,
+	BEGraphicsAPI::BEGraphicsAPI(void* screenHandle, int32 width, int32 height,
 		bool fullscreen, int32 format, int32 backBufferCount, bool vSync)
 	{
 		//Copiamos localmente las variables de inicializacion
@@ -88,7 +88,7 @@ namespace BlackEngine
 			m_RTV->m_RTVData->m_RenderTargetView, &color.X);
 	}
 
-	bool BEGraphicsAPI::Initialize(int32 scrHandle, int32 width, int32 height, int32 numBB, bool isFullScr)
+	bool BEGraphicsAPI::Initialize(void* scrHandle, int32 width, int32 height, int32 numBB, bool isFullScr)
 	{
 		Destroy();
 

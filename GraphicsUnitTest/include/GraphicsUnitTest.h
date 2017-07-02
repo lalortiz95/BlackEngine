@@ -37,15 +37,8 @@ namespace BlackEngine
 		///Calls  all functions needed to render a 3D object in a tridimentional space.
 		virtual void Render() override;
 
-		///This functions move the view matrix forward in a 3D space. It's called in the message bomb.
-		virtual void MoveForward (float z) override;
-		virtual void MoveRight (float x) override;
-		virtual void MoveUp (float y) override;
-
 		///World, view, and projection matrices.
 		Matrix4D m_World;
-		//Matrix4D m_View;
-		//Matrix4D m_Projection;
 		Vector4D m_MeshColor;
 
 		///Constant buffers.

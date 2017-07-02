@@ -80,27 +80,27 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
+    <IncludePath>$(SolutionDir)BEInput\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\x86;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
+    <IncludePath>$(SolutionDir)BEInput\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\x86;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
+    <IncludePath>$(SolutionDir)BEInput\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\x86;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)intermediate\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\</OutDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
+    <IncludePath>$(SolutionDir)BEInput\include\;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)BEUtilityLib\include\;$(SolutionDir)BEGraphicLib\include\;$(FREEIMAGE_DIR_LIB)Source\</IncludePath>
     <LibraryPath>$(SolutionDir)\lib\$(PlatformTarget)\;$(DXSDK_DIR)Lib\x86;$(FREEIMAGE_DIR_LIB)Dist\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -117,7 +117,7 @@
       <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>FreeImaged.lib;BEUtilityLibd.lib;BEGraphicsLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEInputd.lib;FreeImaged.lib;BEUtilityLibd.lib;BEGraphicsLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <BuildLog>
@@ -142,7 +142,7 @@
       <SubSystem>Windows</SubSystem>
       <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
       <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>FreeImaged.lib;BEUtilityLibd.lib;BEGraphicsLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEInputd.lib;FreeImaged.lib;BEUtilityLibd.lib;BEGraphicsLibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <BuildLog>
@@ -165,7 +165,7 @@
       <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>FreeImage.lib;BEUtilityLib.lib;BEGraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEInput.lib;FreeImage.lib;BEUtilityLib.lib;BEGraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <BuildLog>
@@ -189,7 +189,7 @@
       <ImportLibrary>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
       <ProfileGuidedDatabase>$(SolutionDir)lib\$(PlatformTarget)\$(TargetName).pgd</ProfileGuidedDatabase>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>FreeImage.lib;BEUtilityLib.lib;BEGraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BEInput.lib;FreeImage.lib;BEUtilityLib.lib;BEGraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\$(Platform)\</AdditionalLibraryDirectories>
     </Link>
     <BuildLog>

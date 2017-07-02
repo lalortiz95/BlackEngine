@@ -177,13 +177,15 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\BEMouse.cpp" />
-    <ClCompile Include="src\BEKeyboard.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="include\BEIOInterface.h" />
     <ClInclude Include="include\BEKeyboard.h" />
     <ClInclude Include="include\BEMouse.h" />
     <ClInclude Include="include\BEPrerequisitesInput.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BEIOInterface.cpp" />
+    <ClCompile Include="src\BEKeyboard.cpp" />
+    <ClCompile Include="src\BEMouse.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

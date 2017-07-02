@@ -121,48 +121,29 @@ namespace BlackEngine
 
 	void GraphicsUnitTest::Update(float delta)
 	{
-		//TODO: por medio de direct input, o algo así. ver que tecla se presionó y mover en su respectiva 
-		//dirección a la cámara con  sus funciones moveForwar, moveRight, y MoveUp.
+		m_InputInterface.Update();
 
-		///Where we store our inputs.
-		IDirectInput8 *DirectInput;
-		IDirectInputDevice8* keyboard;
-		IDirectInputDevice8* mouse;
-		///Stores which keys ares being pressed.
-		unsigned char keyboardState[256];
-		DIMOUSESTATE mouseState;
-
-		HINSTANCE hInstance = ::GetModuleHandleA(NULL);
-
-		HRESULT hRes;
-
-		//Setting up the keyboard:
-		hRes = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DirectInput, NULL);
-		if (FAILED(hRes))
+		if (m_InputInterface.m_Keyboard.IsPressed(DIK_W))
 		{
+			Vector4D tempPos(0, 0, 0.1f, 0);
+			//TODO: calcular cuantas unidades se mueve por segundo la vista, a partir de una vel dada.
+			m_Camera->Move(tempPos);
 		}
-
-		hRes = DirectInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
-		if (FAILED(hRes))
+		if (m_InputInterface.m_Keyboard.IsPressed(DIK_S))
 		{
+			Vector4D tempPos(0, 0, -0.1f, 0);
+			m_Camera->Move(tempPos);
 		}
-
-		hRes = keyboard->SetDataFormat(&c_dfDIKeyboard);
-		if (FAILED(hRes))
+		if (m_InputInterface.m_Keyboard.IsPressed(DIK_A))
 		{
+			Vector4D tempPos(-0.1f, 0, 0, 0);
+			m_Camera->Move(tempPos);
 		}
-
-		hRes = keyboard->SetCooperativeLevel(reinterpret_cast<HWND>(m_ScrHandle), DISCL_FOREGROUND | DISCL_EXCLUSIVE);
-		if (FAILED(hRes))
+		if (m_InputInterface.m_Keyboard.IsPressed(DIK_D))
 		{
+			Vector4D tempPos(0.1f, 0, 0, 0);
+			m_Camera->Move(tempPos);
 		}
-
-		hRes = keyboard->Acquire();
-
-		if (!FAILED(hRes))
-		{
-		}
-
 		m_Camera->Update(delta);
 	}
 
@@ -230,54 +211,6 @@ namespace BlackEngine
 
 		///switch the back buffer and the front buffer
 		m_GraphicsAPI->m_pGraphicsAPIData->m_SwapChain->Present(0, 0);
-	}
-
-	void GraphicsUnitTest::MoveForward(float z)
-	{
-		float fVel;
-		//	Vector4D movement = fVel * delta * z;
-		//	m_Camera->Move(movement);
-
-			///The position where it will move.
-		Vector4D pos = {
-			m_Camera->GetViewMatrix()._m.m30,
-			m_Camera->GetViewMatrix()._m.m31,
-			m_Camera->GetViewMatrix()._m.m32,
-			m_Camera->GetViewMatrix()._m.m33 };
-
-		///The  position in the given axis is moved.
-		pos.Z -= 0.5f;
-
-		m_Camera->Move(pos);
-		/*m_View = m_View.Translate(pos);*/
-	}
-
-	void GraphicsUnitTest::MoveRight(float x)
-	{
-		///The position where it will move.
-		Vector4D pos = {
-			m_Camera->GetViewMatrix()._m.m30,
-			m_Camera->GetViewMatrix()._m.m31,
-			m_Camera->GetViewMatrix()._m.m32,
-			m_Camera->GetViewMatrix()._m.m33 };
-
-		pos.X -= 0.5f;
-		m_Camera->Move(pos);
-		//m_View = m_View.Translate(pos);
-	}
-
-	void GraphicsUnitTest::MoveUp(float y)
-	{
-		///The position where it will move.
-		Vector4D pos = {
-			m_Camera->GetViewMatrix()._m.m30,
-			m_Camera->GetViewMatrix()._m.m31,
-			m_Camera->GetViewMatrix()._m.m32,
-			m_Camera->GetViewMatrix()._m.m33 };
-
-		pos.Y -= 0.1f;
-		m_Camera->Move(pos);
-		//m_View = m_View.Translate(pos);
 	}
 
 	bool GraphicsUnitTest::CreatePixelAndVertexShader()

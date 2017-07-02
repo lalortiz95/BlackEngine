@@ -28,44 +28,7 @@ namespace BlackEngine
 			{
 				DestroyWindow(hwnd);
 			}
-			if (wParam == 0x57)
-			{
-				///W key.
-				//g_AppBase->MoveForward(1);
-			}
-			if (wParam == 0x53)
-			{
-				///S key.
-				g_AppBase->MoveForward(-1);
-			}
-			if (wParam == 0x41)
-			{
-				///A key.
-				g_AppBase->MoveRight(-1);
-			}
-			if (wParam == 0x44)
-			{
-				///D key.
-				g_AppBase->MoveRight(1);
-			}
-			if (wParam == VK_SHIFT)
-			{
-				g_AppBase->MoveUp(1);
-			}
-			if (wParam == VK_CONTROL)
-			{
-				g_AppBase->MoveUp(-1);
-			}
 			return 0;
-
-		case WM_KEYUP:
-			if (wParam == 0x57)
-			{
-				///W key.
-				//TODO: llamar funcion dejar de mover.
-			}
-			return 0;
-
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			return 0;
@@ -102,13 +65,15 @@ namespace BlackEngine
 		///aqui inicializo todos los sistemas del motor.
 		///graphics, audio, input, physics, managers, etc...
 		m_AppData = new ApplicationData();
-		m_GraphicsAPI = new BEGraphicsAPI((int)m_ScrHandle, m_Width, m_Height,
+		m_GraphicsAPI = new BEGraphicsAPI(m_ScrHandle, m_Width, m_Height,
 			false, DXGI_FORMAT_R8G8B8A8_UNORM, 1, true);
 
 		///inicializamos la libreria de free image.
 		FreeImage_Initialise(false);
 
 		m_GraphicsAPI->Initialize(m_ScrHandle, m_Width, m_Height, 1, true);
+
+		m_InputInterface.Initialize(m_ScrHandle);
 
 		OnInitialize();
 		return true;
@@ -118,6 +83,7 @@ namespace BlackEngine
 	{
 		//esto va antes de liberar toda la memoria.
 		OnPreDestroy();
+		m_InputInterface.Destroy();
 		FreeImage_DeInitialise();
 	}
 
@@ -162,23 +128,6 @@ namespace BlackEngine
 	}
 
 	void BEApplication::OnSize(int32 /*request*/, int32 /*width*/, int32 /*height*/)
-	{
-
-	}
-
-	void BEApplication::MoveForward(float z)
-	{
-		//TODO: el valor que reciba, positivo o negativo. va a depender si se mueve para adelante o para
-		//Atrás. En el override de esta función, se multiplica el valor del parametro por la velocidad
-		//por el tiempo.
-	}
-
-	void BEApplication::MoveRight(float x)
-	{
-
-	}
-
-	void BEApplication::MoveUp(float y)
 	{
 
 	}
@@ -250,7 +199,7 @@ namespace BlackEngine
 			return false;
 		}
 
-		m_ScrHandle = reinterpret_cast<int>(hwnd);
+		m_ScrHandle = reinterpret_cast<void*>(hwnd);
 
 		ShowWindow(reinterpret_cast<HWND>(m_ScrHandle), SW_SHOW);
 		UpdateWindow(reinterpret_cast<HWND>(m_ScrHandle));

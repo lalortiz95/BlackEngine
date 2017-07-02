@@ -3,6 +3,7 @@
 #include "BEPrerequisitesCore.h"
 #include <BEGraphicsAPI.h>
 #include <BETexture.h>
+#include <BEIOInterface.h>
 
 ///The engine's namespace.
 namespace BlackEngine
@@ -36,24 +37,22 @@ namespace BlackEngine
 
 		virtual void OnSize(int32 request, int32 width, int32 height);
 
-		int GetScrHandle() { return m_ScrHandle; }
-		int GetWidth() { return m_Width; }
-		int GetHeight() { return m_Height; }
+		void* GetScrHandle() { return m_ScrHandle; }
+		int32 GetWidth() { return m_Width; }
+		int32 GetHeight() { return m_Height; }
 
 		///The render function.
 		virtual void Render() {};
 
-		///This funcion will move the camera forward
-		virtual void MoveForward(float z);
-		virtual void MoveRight(float x);
-		virtual void MoveUp(float y);
-
 	protected:
 		BEGraphicsAPI* m_GraphicsAPI;
 		String m_szTitle;
-		int32 m_ScrHandle;
+		void* m_ScrHandle;
 		int32 m_Width;
 		int32 m_Height;
+
+		/// The interface to handle the inputs.
+		BEIOInterface m_InputInterface;
 
 	private:
 		bool Initialize();
