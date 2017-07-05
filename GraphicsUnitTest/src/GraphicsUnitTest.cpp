@@ -74,6 +74,7 @@ namespace BlackEngine
 		{
 			//Ayudaaaa
 		}
+
 		///creamos y seteamos el vertex buffer.
 		m_GraphicsAPI->m_pGraphicsAPIData->m_IL->CreateInputLayout(*m_GraphicsAPI->m_pGraphicsAPIData, m_VS);
 
@@ -110,13 +111,13 @@ namespace BlackEngine
 		m_Camera = new BECamera(Eye, At, Up);
 		///Seteamos la matriz de vista.
 		m_Camera->SetViewMatrix(M.LookAtLH(Eye, At, Up));
-		//m_View = M.LookAtLH(Eye, At, Up);
 
 		///matriz de proyección.
 		Matrix4D projMatrix = M.PerspectiveFOVLH(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
 		m_Camera->SetProjectionMatrix(projMatrix);
-		//m_Projection = m_Projection.PerspectiveFOVLH
-		//(Math::QUARTER_PI, m_Width, m_Height, 0.01f, 100.0f);
+
+		//TEMP
+		m_Camera->m_Speed = 10;
 	}
 
 	void GraphicsUnitTest::Update(float delta)
@@ -125,25 +126,45 @@ namespace BlackEngine
 
 		if (m_InputInterface.m_Keyboard.IsPressed(DIK_W))
 		{
-			Vector4D tempPos(0, 0, 0.1f, 0);
-			//TODO: calcular cuantas unidades se mueve por segundo la vista, a partir de una vel dada.
+			///We calculate how many units per second the camera moves, with it's speed,
+			///the time, and the dirección it's moving
+			Vector4D tempPos(0, 0, 1, 0);
+			tempPos *= delta * m_Camera->m_Speed;
+			/// We move our camera.
 			m_Camera->Move(tempPos);
 		}
 		if (m_InputInterface.m_Keyboard.IsPressed(DIK_S))
 		{
-			Vector4D tempPos(0, 0, -0.1f, 0);
+			Vector4D tempPos(0, 0, -1, 0);
+			tempPos *= delta * m_Camera->m_Speed;
 			m_Camera->Move(tempPos);
 		}
 		if (m_InputInterface.m_Keyboard.IsPressed(DIK_A))
 		{
-			Vector4D tempPos(-0.1f, 0, 0, 0);
+			Vector4D tempPos(-1, 0, 0, 0);
+			tempPos *= delta * m_Camera->m_Speed;
 			m_Camera->Move(tempPos);
 		}
 		if (m_InputInterface.m_Keyboard.IsPressed(DIK_D))
 		{
-			Vector4D tempPos(0.1f, 0, 0, 0);
+			Vector4D tempPos(1, 0, 0, 0);
+			tempPos *= delta * m_Camera->m_Speed;
 			m_Camera->Move(tempPos);
 		}
+		if (m_InputInterface.m_Keyboard.IsPressed(DIK_LSHIFT))
+		{
+			Vector4D tempPos(0, 1, 0, 0);
+			tempPos *= delta * m_Camera->m_Speed;
+			m_Camera->Move(tempPos);
+		}
+		if (m_InputInterface.m_Keyboard.IsPressed(DIK_LCONTROL))
+		{
+			Vector4D tempPos(0, -1, 0, 0);
+			tempPos *= delta * m_Camera->m_Speed;
+			m_Camera->Move(tempPos);
+		}
+
+		//TODO: checar clicks, si se mueve el mouse, en que dirección, y rotar la camara en base a eso.
 		m_Camera->Update(delta);
 	}
 

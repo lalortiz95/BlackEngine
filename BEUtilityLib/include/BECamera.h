@@ -63,11 +63,14 @@ namespace BlackEngine
 		///Rotates only upon the Z axis
 		void Roll(float z);
 
+		///The camera's speed. Used when needing to move it.
+		float m_Speed;
+
 	private:
 		///Flag that tells us if any changes where made.
 		bool m_Dirty;
 		///Member variables.
-		Vector4D m_position;
+		Vector4D m_Position;
 		///Where the camera is looking at, it's front.
 		Vector4D m_Direction;
 		///The up direction from the camera.

@@ -210,28 +210,32 @@ namespace BlackEngine
 	int BEApplication::messageloop()
 	{
 		LARGE_INTEGER frequency;
-		LARGE_INTEGER counter;
-		QueryPerformanceFrequency(&frequency);
-		QueryPerformanceCounter(&counter);
+		LARGE_INTEGER time1, time2;
 
+		//float startTime = static_cast<float>(counter.QuadPart / frequency.QuadPart);
+		//float endTime = 0;
+		
 		MSG msg;
 		memset(&msg, 0, sizeof(MSG));
-		float startTime = static_cast<float>(counter.QuadPart / frequency.QuadPart);
-		float endTime = 0;
 
 		while (msg.message != WM_QUIT)
 		{
-			endTime = startTime;
-			startTime = static_cast<float>(counter.QuadPart / frequency.QuadPart);
+			QueryPerformanceFrequency(&frequency);
+			QueryPerformanceCounter(&time1);
+			//endTime = startTime;
+			//startTime = static_cast<float>(counter.QuadPart / frequency.QuadPart);
 
 			while (PeekMessage(&msg, NULL, 0, 0, 1))
 			{
 				DispatchMessage(&msg);
 			}
 
-			double deltaTime = (double)startTime - (double)endTime / (double)frequency.QuadPart;
+			QueryPerformanceCounter(&time2);
+			double deltaTime = ((float)( time2.QuadPart - time1.QuadPart ) * 1000) / frequency.QuadPart;
+			//double deltaTime = ((double)endTime - (double)startTime) / (double)frequency.QuadPart;
+			//double deltaTime = ( (double)startTime - (double)endTime ) / (double)frequency.QuadPart;
 
-			Update(startTime - endTime);
+			Update(deltaTime);
 			Render();
 		}
 

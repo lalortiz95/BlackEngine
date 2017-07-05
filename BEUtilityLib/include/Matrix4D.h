@@ -40,7 +40,7 @@ namespace BlackEngine
 
 		Matrix4D LookToLH(Vector4D EyePosition, Vector4D EyeDirection, Vector4D UpDirection);
 
-		Matrix4D PerspectiveFOVLH(float FOVangle, int width, int height,/*float aspect,*/ float nearZ, float farZ);
+		Matrix4D PerspectiveFOVLH(float FOVangle, int width, int height, float nearZ, float farZ);
 
 		Matrix4D Translate(const Vector4D &position);
 
@@ -69,5 +69,8 @@ namespace BlackEngine
 		Matrix4D operator- (Matrix4D M);
 		Matrix4D operator- (Vector4D V);
 		Matrix4D operator-= (Matrix4D& M) { return *this = *this - M; }
+
+		//Matrix4D operator= (float value);
+		//Matrix4D operator= (Matrix4D M);
 	};
 }

@@ -177,12 +177,14 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\BEController.h" />
     <ClInclude Include="include\BEIOInterface.h" />
     <ClInclude Include="include\BEKeyboard.h" />
     <ClInclude Include="include\BEMouse.h" />
     <ClInclude Include="include\BEPrerequisitesInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BEController.cpp" />
     <ClCompile Include="src\BEIOInterface.cpp" />
     <ClCompile Include="src\BEKeyboard.cpp" />
     <ClCompile Include="src\BEMouse.cpp" />

@@ -367,4 +367,20 @@ namespace BlackEngine
 
 		return R;
 	}
+
+	//Matrix4D Matrix4D::operator=(float value)
+	//{
+	//	memset(this, value, sizeof(Matrix4D));
+	//	return *this;
+	//}
+
+	//Matrix4D Matrix4D::operator=(Matrix4D M)
+	//{
+	//	Matrix4D R;
+	//	for (int i = 0; i < 16; ++i)
+	//	{
+	//		R._v[i] = M._v[i];
+	//	}
+	//	return R;
+	//}
 }

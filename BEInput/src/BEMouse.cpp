@@ -72,8 +72,5 @@ namespace BlackEngine
 				m_mouse->Acquire();
 			}
 		}
-
-		//TODO: llamar a la funcion ispressed con la key que se quiera revisar.
-		//ej. Is Pressed(KEY_A);
 	}
 }
