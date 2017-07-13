@@ -152,48 +152,12 @@ namespace BlackEngine
 		//sen	cos		0		0
 		//0		0		1		0
 		//0		0		0		1
-
 		//Matrix4D RotateX;
 		//Matrix4D RotateY;
 		//Matrix4D RotateZ;
-
 		Matrix4D FinalRotation;
 		FinalRotation = RotateX(v.X) * RotateY(v.Y) * RotateZ(v.Z);
-		//RotateX = Zero();
-		//RotateY = Zero();
-		//RotateZ = Zero();
-		/////vemos que tenga rotación en X
-		//if (v.X != 0)
-		//{
-		//	RotateX.m[0][0] = 1;
-		//	RotateX.m[1][1] = Math::Cos(v.X);
-		//	RotateX.m[1][2] = -Math::Sin(v.X);
-		//	RotateX.m[2][1] = Math::Sin(v.X);
-		//	RotateX.m[2][2] = Math::Cos(v.X);
-		//	RotateX.m[3][3] = 1;
-		//}
-		/////rotación en Y
-		//if (v.Y != 0)
-		//{
-		//	RotateY.m[0][0] = Math::Cos(v.Y);
-		//	RotateY.m[0][2] = Math::Sin(v.Y);
-		//	RotateY.m[1][1] = 1;
-		//	RotateY.m[0][2] = -Math::Sin(v.Y);
-		//	RotateY.m[2][2] = Math::Cos(v.Y);
-		//	RotateY.m[3][3] = 1;
-		//}
-		/////Rotación en Z
-		//if (v.Z != 0)
-		//{
-		//	RotateZ.m[0][0] = Math::Cos(v.Z);
-		//	RotateZ.m[0][1] = -Math::Sin(v.Z);
-		//	RotateZ.m[1][0] = Math::Sin(v.Z);
-		//	RotateZ.m[1][1] = Math::Cos(v.Z);
-		//	RotateZ.m[2][2] = 1;
-		//	RotateZ.m[3][3] = 1;
-		//}
-		//FinalRotation = RotateX * RotateY * RotateZ;
-		//FinalRotation.Transpose();
+
 		return FinalRotation;
 	}
 
@@ -219,7 +183,7 @@ namespace BlackEngine
 		RotateY.m[0][0] = Math::Cos(angle);
 		RotateY.m[0][2] = Math::Sin(angle);
 		RotateY.m[1][1] = 1;
-		RotateY.m[0][2] = -Math::Sin(angle);
+		RotateY.m[2][0] = -Math::Sin(angle);
 		RotateY.m[2][2] = Math::Cos(angle);
 		RotateY.m[3][3] = 1;
 
@@ -367,7 +331,6 @@ namespace BlackEngine
 
 		return R;
 	}
-
 	//Matrix4D Matrix4D::operator=(float value)
 	//{
 	//	memset(this, value, sizeof(Matrix4D));

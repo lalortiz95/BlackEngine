@@ -29,8 +29,8 @@ namespace BlackEngine
 		m_Dirty = false;
 		//m_Direction = { 0, 0, 0, 0 };
 		//m_Position = { 0, 0, 0, 0 };
-		//m_Speed = 0;
-		//m_Up = { 0, 0, 0, 0 };
+		m_Speed = 0;
+		m_Up = { 0, 1, 0, 0 };
 		//m_ViewMat = m_ViewMat.Zero();
 	}
 
@@ -39,7 +39,7 @@ namespace BlackEngine
 		m_Dirty = false;
 		//m_Direction = { 0, 0, 0, 0 };
 		//m_Position = { 0, 0, 0, 0 };
-		//m_Speed = 0;
+		m_Speed = 0;
 		//m_Up = { 0, 0, 0, 0 };
 		//m_ViewMat = m_ViewMat.Zero();
 	}

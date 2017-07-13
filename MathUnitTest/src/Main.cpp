@@ -4,6 +4,7 @@
 #include <BEMath.h>
 #include <Vector3D.h>
 #include <BETime.h>
+#include <Matrix3D.h>
 
 using namespace BlackEngine;
 
@@ -44,18 +45,21 @@ int main()
 	///mmin 
 	BE_ASSERT(Math::Min(5, 2) == 2);
 
-	//Matrix3D M1, M2, Result;
-	//memset(&M1, 6, 9);
-	//memset(&M2, 8, 9);
-	//memset(&Result, 144, 9);
-
-	//BE_ASSERT(M1*M2 == Result);
-
 	///funcionalidad del vector 3D
 	vect3.CreateVector({ 20, 20, 20 }, { 5, 5, 5 });
 	BE_ASSERT(vect3 == 15);
 	timer.SetEndTime();
 	delta = timer.ConvertToSeconds();
+
+	Matrix3D M = 
+	{
+		1.0f, -1.0f, 2.0f,
+		-2.0f, 0.0f, 4.0f,
+		0.0f, -2.0f, 7.0f
+	};
+	Matrix3D InverseM = M;
+	InverseM.Inverse();
+	BE_ASSERT(M * InverseM == M.Identity());
 
 	return 0;
 }

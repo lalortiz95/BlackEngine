@@ -207,6 +207,7 @@
     <ClInclude Include="include\Matrix3D.h" />
     <ClInclude Include="include\Matrix4D.h" />
     <ClInclude Include="include\Plane.h" />
+    <ClInclude Include="include\Quaternion.h" />
     <ClInclude Include="include\Radian.h" />
     <ClInclude Include="include\Rect2D.h" />
     <ClInclude Include="include\Rect2DI.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="src\Matrix3D.cpp" />
     <ClCompile Include="src\Matrix4D.cpp" />
     <ClCompile Include="src\Plane.cpp" />
+    <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\Radian.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
   </ItemGroup>

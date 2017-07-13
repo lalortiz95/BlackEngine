@@ -52,7 +52,6 @@ namespace BlackEngine
 		Matrix4D RotateY(float angle);
 		Matrix4D RotateZ(float angle);
 
-
 		///realiza la transpuesta de la matriz.
 		Matrix4D& Transpose();
 		Matrix4D Transpose(Matrix4D M);
@@ -69,8 +68,5 @@ namespace BlackEngine
 		Matrix4D operator- (Matrix4D M);
 		Matrix4D operator- (Vector4D V);
 		Matrix4D operator-= (Matrix4D& M) { return *this = *this - M; }
-
-		//Matrix4D operator= (float value);
-		//Matrix4D operator= (Matrix4D M);
 	};
 }
