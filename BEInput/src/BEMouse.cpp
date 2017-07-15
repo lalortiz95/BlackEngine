@@ -52,9 +52,9 @@ namespace BlackEngine
 	/// Releases memory and deletes memeber variables.
 	void BEMouse::Destroy()
 	{
-		if (m_mouse != nullptr)
+		if (nullptr != m_mouse)
 		{
-			m_mouse->Unacquire();
+			//m_mouse->Unacquire();
 			m_mouse->Release();
 		}
 	}
@@ -72,5 +72,11 @@ namespace BlackEngine
 				m_mouse->Acquire();
 			}
 		}
+	}
+
+	/// Function needed to know if a key of the mouse was pressed.
+	bool BEMouse::IsPressed(uint8 key)
+	{
+		return (m_mouseState.rgbButtons[key] & 0x80);
 	}
 }

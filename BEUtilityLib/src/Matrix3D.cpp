@@ -74,7 +74,6 @@ namespace BlackEngine
 
 			*this = AdjunctedMatrix / determinante;
 		}
-
 	}
 
 	Matrix3D Matrix3D::GetAdjunct(Matrix3D M)

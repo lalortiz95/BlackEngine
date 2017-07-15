@@ -120,10 +120,8 @@ namespace BlackEngine
 		m_Camera->m_Speed = 10;
 	}
 
-	void GraphicsUnitTest::Update(float delta)
+	void GraphicsUnitTest::OnUpdate(float delta)
 	{
-		m_InputInterface.Update();
-
 		if (m_InputInterface.m_Keyboard.IsPressed(DIK_W))
 		{
 			///We calculate how many units per second the camera moves, with it's speed,
@@ -164,11 +162,16 @@ namespace BlackEngine
 			m_Camera->Move(tempPos);
 		}
 
-		//TODO: checar clicks, si se mueve el mouse, en que dirección, y rotar la camara en base a eso.
+		if (m_InputInterface.m_Mouse.IsPressed(0))
+		{
+			Vector3D tempAxis = { 0, (15.f * Math::PI/180.f), 0 };
+			m_Camera->Rotate(tempAxis);
+		}
+
 		m_Camera->Update(delta);
 	}
 
-	void GraphicsUnitTest::Render()
+	void GraphicsUnitTest::OnRender()
 	{
 		//esto es si queremos que tome la función render del padre.
 		//__super::Render();

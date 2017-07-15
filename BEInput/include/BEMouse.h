@@ -23,6 +23,9 @@ namespace BlackEngine
 		/// Update mouse state.
 		void Update();
 
+		/// Function needed to know if a key of the mouse was pressed.
+		bool IsPressed(uint8 key);
+
 		/// Input where we store our mouse.
 		IDirectInputDevice8* m_mouse;
 		/// In this variable we store the mouse state.

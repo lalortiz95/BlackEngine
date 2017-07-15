@@ -33,9 +33,9 @@ namespace BlackEngine
 		///will be called right before finishing the parent's Initialize function.
 		virtual void OnInitialize() override;
 		///Updates every frame.
-		virtual void Update(float delta) override;
+		virtual void OnUpdate(float delta) override;
 		///Calls  all functions needed to render a 3D object in a tridimentional space.
-		virtual void Render() override;
+		virtual void OnRender() override;
 
 		///World, view, and projection matrices.
 		Matrix4D m_World;

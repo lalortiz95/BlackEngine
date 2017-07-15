@@ -75,6 +75,8 @@ namespace BlackEngine
 		Vector4D m_Direction;
 		///The up direction from the camera.
 		Vector4D m_Up;
+		///The target where the camera is looking at.
+		Vector4D m_Target;
 		///Member view matrix
 		Matrix4D m_ViewMat;
 		///Member projection matrix

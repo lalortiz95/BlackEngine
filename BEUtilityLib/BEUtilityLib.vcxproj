@@ -235,6 +235,7 @@
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\Radian.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
+    <ClCompile Include="src\Vector4D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

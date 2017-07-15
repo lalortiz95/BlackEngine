@@ -20,9 +20,6 @@ namespace BlackEngine
 		BEApplication();
 		virtual ~BEApplication();
 
-		///Updates EveryFrame.
-		virtual void Update(float /*delta*/) {};
-
 		///Ests función llama a todas las necesarias para crear una ventana, inicializar el pipeline grafico
 		///Y dejar toda al app lista.
 		int Run();
@@ -42,7 +39,8 @@ namespace BlackEngine
 		int32 GetHeight() { return m_Height; }
 
 		///The render function.
-		virtual void Render() {};
+		virtual void OnUpdate(float delta) {};
+		virtual void OnRender() {};
 
 	protected:
 		BEGraphicsAPI* m_GraphicsAPI;
@@ -59,7 +57,9 @@ namespace BlackEngine
 		void Destroy();
 		bool InitializeWindow(int width, int height, bool windowed);
 		int messageloop();
-
+		///Updates EveryFrame.
+		void Update(float delta);
+		void Render();
 		ApplicationData* m_AppData;
 	};
 }

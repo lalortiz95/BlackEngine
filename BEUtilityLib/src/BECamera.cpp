@@ -15,6 +15,7 @@ namespace BlackEngine
 		m_Position = pos;
 		m_Direction = front;
 		m_Up = up;
+		SetTarget(front);
 		Initialize();
 	}
 
@@ -27,21 +28,14 @@ namespace BlackEngine
 	void BECamera::Initialize()
 	{
 		m_Dirty = false;
-		//m_Direction = { 0, 0, 0, 0 };
-		//m_Position = { 0, 0, 0, 0 };
 		m_Speed = 0;
 		m_Up = { 0, 1, 0, 0 };
-		//m_ViewMat = m_ViewMat.Zero();
 	}
 
 	void BECamera::Destroy()
 	{
 		m_Dirty = false;
-		//m_Direction = { 0, 0, 0, 0 };
-		//m_Position = { 0, 0, 0, 0 };
 		m_Speed = 0;
-		//m_Up = { 0, 0, 0, 0 };
-		//m_ViewMat = m_ViewMat.Zero();
 	}
 
 	void BECamera::Update(float delta)
@@ -88,7 +82,10 @@ namespace BlackEngine
 
 	void BECamera::SetTarget(Vector4D target)
 	{
-		m_Direction = target;
+		m_Direction = target - m_Position;
+		m_Direction.Normalize();
+		m_Target = target;
+		m_Dirty = false;
 	}
 
 	void BECamera::SetUp(Vector4D up)
@@ -101,7 +98,16 @@ namespace BlackEngine
 		///Almaceno en un vector 4D los axis que recibe la función. 
 		Vector4D anglesToRotate = { axis.X, axis.Y, axis.Z, 0 };
 		///Llamo a la función rotar de la matriz, que recibe un vector4D.
-		m_ViewMat.Rotate(anglesToRotate);
+		Matrix4D RotationMatrix = m_ViewMat.RotateY(anglesToRotate.Y);
+
+		Vector4D OriginalPosition = m_Position;
+		//m_Position -= m_Position;
+		m_Target -= m_Position;
+		m_Target *= RotationMatrix;
+		m_Target += m_Position;
+		
+		m_Direction = m_Target - m_Position;
+		m_Direction.Normalize();
 
 		///Seteamos la bandera de que han habido cambios.
 		m_Dirty = true;

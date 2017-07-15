@@ -3,7 +3,9 @@
 
 namespace BlackEngine
 {
-	class Vector4D
+	class Matrix4D;
+
+	class BE_UTILITY_EXPORT Vector4D
 	{
 	public:
 		float X;
@@ -151,6 +153,8 @@ namespace BlackEngine
 			return Result;
 		}
 
+		Vector4D operator*(const Matrix4D& M);
+
 		Vector4D operator/(float rhv)
 		{
 			Vector4D Result;
@@ -224,6 +228,11 @@ namespace BlackEngine
 			Z *= rhv.Z;
 			W *= rhv.W;
 			return *this;
+		}
+
+		Vector4D& operator*=(const Matrix4D& M)
+		{
+			return *this = *this * M;
 		}
 
 		Vector4D& operator/=(float rhv)

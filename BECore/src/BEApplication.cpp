@@ -60,6 +60,18 @@ namespace BlackEngine
 	{
 	}
 
+	void BEApplication::Update(float delta)
+	{
+		m_InputInterface.Update();
+
+		OnUpdate(delta);
+	}
+
+	void BEApplication::Render()
+	{
+		OnRender();
+	}
+
 	bool BEApplication::Initialize()
 	{
 		///aqui inicializo todos los sistemas del motor.

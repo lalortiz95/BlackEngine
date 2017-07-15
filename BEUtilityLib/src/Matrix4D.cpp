@@ -164,46 +164,37 @@ namespace BlackEngine
 	Matrix4D Matrix4D::RotateX(float angle)
 	{
 		Matrix4D RotateX;
-		RotateX = RotateX.Zero();
-		RotateX.m[0][0] = 1;
+		RotateX = RotateX.Identity();
 		RotateX.m[1][1] = Math::Cos(angle);
 		RotateX.m[1][2] = -Math::Sin(angle);
 		RotateX.m[2][1] = Math::Sin(angle);
 		RotateX.m[2][2] = Math::Cos(angle);
-		RotateX.m[3][3] = 1;
 
-		RotateX.Transpose();
 		return RotateX;
 	}
 
 	Matrix4D Matrix4D::RotateY(float angle)
 	{
 		Matrix4D RotateY;
-		RotateY = RotateY.Zero();
+		RotateY = RotateY.Identity();
 		RotateY.m[0][0] = Math::Cos(angle);
-		RotateY.m[0][2] = Math::Sin(angle);
-		RotateY.m[1][1] = 1;
-		RotateY.m[2][0] = -Math::Sin(angle);
+		RotateY.m[0][2] = -Math::Sin(angle);
+		RotateY.m[2][0] = Math::Sin(angle);
 		RotateY.m[2][2] = Math::Cos(angle);
-		RotateY.m[3][3] = 1;
 
-		RotateY.Transpose();
 		return RotateY;
 	}
 
 	Matrix4D Matrix4D::RotateZ(float angle)
 	{
 		Matrix4D RotateZ;
-		RotateZ = RotateZ.Zero();
+		RotateZ = RotateZ.Identity();
 
 		RotateZ.m[0][0] = Math::Cos(angle);
 		RotateZ.m[0][1] = -Math::Sin(angle);
 		RotateZ.m[1][0] = Math::Sin(angle);
 		RotateZ.m[1][1] = Math::Cos(angle);
-		RotateZ.m[2][2] = 1;
-		RotateZ.m[3][3] = 1;
 
-		RotateZ.Transpose();
 		return RotateZ;
 	}
 
