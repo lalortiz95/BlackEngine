@@ -58,6 +58,7 @@ namespace BlackEngine
 
 	BEApplication::~BEApplication()
 	{
+		Destroy();
 	}
 
 	void BEApplication::Update(float delta)
@@ -76,14 +77,14 @@ namespace BlackEngine
 	{
 		///aqui inicializo todos los sistemas del motor.
 		///graphics, audio, input, physics, managers, etc...
-		m_AppData = new ApplicationData();
-		m_GraphicsAPI = new BEGraphicsAPI(m_ScrHandle, m_Width, m_Height,
+		g_GraphicsAPI().StartUp(m_ScrHandle, m_Width, m_Height,
 			false, DXGI_FORMAT_R8G8B8A8_UNORM, 1, true);
+		g_GraphicsAPI().Initialize(m_ScrHandle, m_Width, m_Height, 1, true);
+
+		m_AppData = new ApplicationData();
 
 		///inicializamos la libreria de free image.
 		FreeImage_Initialise(false);
-
-		m_GraphicsAPI->Initialize(m_ScrHandle, m_Width, m_Height, 1, true);
 
 		m_InputInterface.Initialize(m_ScrHandle);
 
@@ -101,7 +102,6 @@ namespace BlackEngine
 
 	int BEApplication::Run()
 	{
-
 		OnPreInitialize();
 		if (!InitializeWindow(m_Width, m_Height, true))
 		{
@@ -115,7 +115,7 @@ namespace BlackEngine
 
 		messageloop();
 
-		///uninitalizwGameSystems();
+		//uninitalizwGameSystems();
 		return 0;
 	}
 

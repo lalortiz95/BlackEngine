@@ -178,8 +178,8 @@ namespace BlackEngine
 		Matrix4D RotateY;
 		RotateY = RotateY.Identity();
 		RotateY.m[0][0] = Math::Cos(angle);
-		RotateY.m[0][2] = -Math::Sin(angle);
-		RotateY.m[2][0] = Math::Sin(angle);
+		RotateY.m[0][2] = Math::Sin(angle);
+		RotateY.m[2][0] = -Math::Sin(angle);
 		RotateY.m[2][2] = Math::Cos(angle);
 
 		return RotateY;

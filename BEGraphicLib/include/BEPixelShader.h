@@ -22,7 +22,7 @@ namespace BlackEngine
 
 		virtual void Reflect();
 		///Creates the pixel shader, and if succeded, returns true.
-		virtual bool CreateShader(const GraphicsAPIData* pGraphicData, const String& FileName, const String& Target = "ps_5_0", const String& EntryPoint = "PS");
+		virtual bool CreateShader(/*const GraphicsAPIData* pGraphicData,*/ const String& FileName, const String& Target = "ps_5_0", const String& EntryPoint = "PS");
 
 		///Variable where we store the PixelShader API data.
 		PixelShaderData* m_PSData;

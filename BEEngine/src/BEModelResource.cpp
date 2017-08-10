@@ -20,9 +20,9 @@ namespace BlackEngine
 
 	void BEModelResource::Load(const String& fileName)
 	{
-		m_Model->LoadModel(fileName, m_GA->m_pGraphicsAPIData);
+		m_Model->LoadModel(fileName, g_GraphicsAPI().m_pGraphicsAPIData);
 		///carga los buffers de vertices y de indices.
-		m_Model->CreateBuffers(m_GA->m_pGraphicsAPIData);
+		m_Model->CreateBuffers(g_GraphicsAPI().m_pGraphicsAPIData);
 	}
 
 	void BEModelResource::Initialize()

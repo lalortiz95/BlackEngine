@@ -9,7 +9,6 @@
 #include "BEInputLayout.h"
 #include "BERenderTargetView.h"
 #include "BEDepthStencilView.h"
-//#include "BEModel.h"
 
 #include <Vector4D.h>
 
@@ -18,7 +17,7 @@ namespace BlackEngine
 	BEGraphicsAPI::BEGraphicsAPI(void* screenHandle, int32 width, int32 height,
 		bool fullscreen, int32 format, int32 backBufferCount, bool vSync)
 	{
-		//Copiamos localmente las variables de inicializacion
+		///Copiamos localmente las variables de inicializacion
 		m_screenHandle = screenHandle;
 		m_width = width;
 		m_height = height;
@@ -40,9 +39,28 @@ namespace BlackEngine
 		Destroy();
 	}
 
-	void BEGraphicsAPI::OnStartUp()
-	{
+	//void BEGraphicsAPI::OnStartUp()
+	//{
 
+	//}
+
+	void BEGraphicsAPI::OnStartUp(void * screenHandle, int32 width, int32 height, bool fullscreen, int32 format, int32 backBufferCount, bool vSync)
+	{
+		///Copiamos localmente las variables de inicializacion
+		m_screenHandle = screenHandle;
+		m_width = width;
+		m_height = height;
+		m_fullscreen = fullscreen;
+		m_format = format;
+		m_backBufferCount = backBufferCount;
+		m_vSync = vSync;
+
+		m_pGraphicsAPIData = nullptr;
+		m_BackBuffer = nullptr;
+		m_DSV = nullptr;
+		m_DSVTexture = nullptr;
+		m_pGraphicsAPIData = nullptr;
+		m_RTV = nullptr;
 	}
 
 	void BEGraphicsAPI::OnShutDown()
@@ -261,5 +279,10 @@ namespace BlackEngine
 		vp.TopLeftY = 0;
 
 		m_pGraphicsAPIData->m_DeviceContext->RSSetViewports(1, &vp);
+	}
+
+	BE_GRAPHICS_EXPORT BEGraphicsAPI & g_GraphicsAPI()
+	{
+		return BEGraphicsAPI::Instance();
 	}
 }

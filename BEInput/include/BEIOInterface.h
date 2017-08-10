@@ -2,6 +2,7 @@
 #include "BEPrerequisitesInput.h"
 #include "BEMouse.h"
 #include "BEKeyboard.h"
+#include "BEController.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -30,5 +31,7 @@ namespace BlackEngine
 		BEMouse m_Mouse;
 		/// Stores our keyboard input.
 		BEKeyboard m_Keyboard;
+		/// Stores our joystick input.
+		BEController m_Controller;
 	};
 }

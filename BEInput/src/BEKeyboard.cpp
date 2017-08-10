@@ -71,7 +71,6 @@ namespace BlackEngine
 				m_keyboard->Acquire();
 			}
 		}
-
 	}
 
 	/// Function needed to know if a key of the keyboard was pressed.

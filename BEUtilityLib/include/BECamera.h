@@ -52,7 +52,7 @@ namespace BlackEngine
 		Matrix4D GetProjectionMatrix() { return m_ProjectionMat; }
 
 		///Rotates the camera with a given rotation.
-		void Rotate(Vector3D axis);
+		void Rotate(Vector3D axis, float RotateAmount);
 		///Given a given axes, X, Y, and Z. Calculates the camera rotation.
 		void Orbitate(Vector3D axis);
 

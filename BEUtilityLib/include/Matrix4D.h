@@ -48,9 +48,9 @@ namespace BlackEngine
 
 		Matrix4D Rotate(const Vector4D& angles);
 
-		Matrix4D RotateX(float angle);
-		Matrix4D RotateY(float angle);
-		Matrix4D RotateZ(float angle);
+		static Matrix4D RotateX(float angle);
+		static Matrix4D RotateY(float angle);
+		static Matrix4D RotateZ(float angle);
 
 		///realiza la transpuesta de la matriz.
 		Matrix4D& Transpose();

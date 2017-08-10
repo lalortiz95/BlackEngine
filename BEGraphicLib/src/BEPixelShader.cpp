@@ -1,4 +1,5 @@
 #include "BEPixelShader.h"
+#include "BEGraphicsAPI.h"
 #include <BEUtilityString.h>
 #include <BEPrerequisitesUtility.h>
 #include <BEFile.h>
@@ -8,6 +9,7 @@ namespace BlackEngine
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
 	BEPixelShader::BEPixelShader()
 	{
+		Initialize();
 	}
 
 	BEPixelShader::~BEPixelShader()
@@ -30,7 +32,7 @@ namespace BlackEngine
 	{
 	}
 
-	bool BEPixelShader::CreateShader(const GraphicsAPIData * pGraphicData, const String& FileName, const String& Target, const String& EntryPoint)
+	bool BEPixelShader::CreateShader(/*const GraphicsAPIData * pGraphicData,*/ const String& FileName, const String& Target, const String& EntryPoint)
 	{
 		BEFile File;
 		HRESULT HRes;
@@ -63,9 +65,12 @@ namespace BlackEngine
 				return false;
 			}
 
-			HRes = pGraphicData->m_Device->CreatePixelShader
+			HRes = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreatePixelShader
 			(m_ShaderData->m_Blob->GetBufferPointer(), m_ShaderData->m_Blob->GetBufferSize(),
 				nullptr, &m_PSData->m_PixelShader);
+			//HRes = pGraphicData->m_Device->CreatePixelShader
+			//(m_ShaderData->m_Blob->GetBufferPointer(), m_ShaderData->m_Blob->GetBufferSize(),
+			//	nullptr, &m_PSData->m_PixelShader);
 
 			if (FAILED(HRes))
 			{

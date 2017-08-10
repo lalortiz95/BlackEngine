@@ -5,7 +5,7 @@
 namespace BlackEngine
 {
 	class BEModel;
-	class BEGraphicsAPI;
+
 	class BE_ENGINE_EXPORT BEModelResource : public BEResource
 	{
 	public:
@@ -21,7 +21,6 @@ namespace BlackEngine
 
 		BEModel* m_Model;
 		///vaiable de la api gráfica para la creación de los buffers.
-		BEGraphicsAPI* m_GA;
 	};
 }
 

@@ -13,16 +13,23 @@ namespace BlackEngine
 
 	BERenderTargetView::~BERenderTargetView()
 	{
+		Destroy();
 	}
 
 	void BERenderTargetView::Initialize()
 	{
+		Destroy();
 		m_RTVData = new RTVData();
 	}
 
 	void BERenderTargetView::Destroy()
 	{
-		delete(this);
+		if (m_RTVData != nullptr)
+		{
+			m_RTVData->Destroy();
+			delete m_RTVData;
+			m_RTVData = nullptr;
+		}
 	}
 
 	void BERenderTargetView::Clear(Vector4D cleanUpColor, const GraphicsAPIData * pGraphicData)

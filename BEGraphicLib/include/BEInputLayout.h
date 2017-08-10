@@ -22,8 +22,7 @@ namespace BlackEngine
 		void Initialize();
 		void Destroy();
 		///Creates the input layout.
-		bool CreateInputLayout(GraphicsAPIData&, BEVertexShader*);
-
+		bool CreateInputLayout(BEVertexShader*);
 
 		///variable where we store de Input Layout data.
 		InputLayoutData* m_ILData;

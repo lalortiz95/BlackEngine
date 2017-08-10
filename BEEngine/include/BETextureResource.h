@@ -5,7 +5,6 @@
 namespace BlackEngine
 {
 	class BETexture;
-	class BEGraphicsAPI;
 
 	class BE_ENGINE_EXPORT BETextureResource : public BEResource
 	{
@@ -22,6 +21,5 @@ namespace BlackEngine
 
 		///textura de la api.
 		BETexture* m_Texture;
-		BEGraphicsAPI* m_GA;
 	};
 }

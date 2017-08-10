@@ -159,11 +159,14 @@ namespace BlackEngine
 	Matrix3D Matrix3D::operator/(float fVal)
 	{
 		Matrix3D R = Zero();
-		for (int i = 0; i < 3; ++i)
+		if (fVal != 0)
 		{
-			for (int j = 0; j < 3; ++j)
+			for (int i = 0; i < 3; ++i)
 			{
-				R.m[i][j] = m[i][j] / fVal;
+				for (int j = 0; j < 3; ++j)
+				{
+					R.m[i][j] = m[i][j] / fVal;
+				}
 			}
 		}
 
@@ -225,13 +228,14 @@ namespace BlackEngine
 			}
 		}
 
-		if (count == 9)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (count == 9);
+		//if (count == 9)
+		//{
+		//	return true;
+		//}
+		//else
+		//{
+		//	return false;
+		//}
 	}
 }

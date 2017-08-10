@@ -43,7 +43,6 @@ namespace BlackEngine
 		virtual void OnRender() {};
 
 	protected:
-		BEGraphicsAPI* m_GraphicsAPI;
 		String m_szTitle;
 		void* m_ScrHandle;
 		int32 m_Width;

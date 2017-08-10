@@ -3,6 +3,7 @@
 #include "Vector3D.h"
 #include "Vector4D.h"
 #include "BEMath.h"
+#include "Quaternion.h"
 
 namespace BlackEngine
 {
@@ -44,7 +45,7 @@ namespace BlackEngine
 		if (m_Dirty)
 		{
 			///calculamos de nuevo el look at, con la nueva posición, y rotación de la cámara.
-			m_ViewMat = m_ViewMat.LookAtLH(m_Position, m_Direction, m_Up);
+			m_ViewMat = m_ViewMat.LookAtLH(m_Position, m_Target, m_Up);
 			///Seteo la bandera de cambios a falso.
 			m_Dirty = false;
 		}
@@ -93,15 +94,19 @@ namespace BlackEngine
 		m_Up = up;
 	}
 
-	void BECamera::Rotate(Vector3D axis)
+	void BECamera::Rotate(Vector3D axis, float RotateAmount)
 	{
+		Quaternion RotatedQuaternion;
 		///Almaceno en un vector 4D los axis que recibe la función. 
-		Vector4D anglesToRotate = { axis.X, axis.Y, axis.Z, 0 };
+		Vector3D anglesToRotate = { axis.X, axis.Y, axis.Z };
+
+		RotatedQuaternion.RotateLocal(anglesToRotate, RotateAmount);
+		RotatedQuaternion.Normalize();
+		Matrix4D RotationMatrix = RotatedQuaternion.ConvertToMatrix();
 		///Llamo a la función rotar de la matriz, que recibe un vector4D.
-		Matrix4D RotationMatrix = m_ViewMat.RotateY(anglesToRotate.Y);
+		//Matrix4D RotationMatrix = Matrix4D::RotateY(anglesToRotate.Y);
 
 		Vector4D OriginalPosition = m_Position;
-		//m_Position -= m_Position;
 		m_Target -= m_Position;
 		m_Target *= RotationMatrix;
 		m_Target += m_Position;

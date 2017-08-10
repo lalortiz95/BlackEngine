@@ -33,7 +33,7 @@ namespace BlackEngine
 		virtual ~BEGraphicsAPI();
 
 		///Functions to create and destroy de module.
-		virtual void OnStartUp() override;
+		virtual void OnStartUp(void* screenHandle, int32 width, int32 height, bool fullscreen, int32 format, int32 backBufferCount, bool vSync);
 		virtual void OnShutDown() override;
 
 		///Function that initializes the class' variables.
@@ -86,4 +86,7 @@ namespace BlackEngine
 		///Sets the viewport.
 		void SetViewPort();
 	};
+
+	/// Get the module's instance.
+	BE_GRAPHICS_EXPORT BEGraphicsAPI& g_GraphicsAPI();
 }

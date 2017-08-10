@@ -21,7 +21,7 @@ namespace BlackEngine
 
 		virtual void Reflect();
 		///Function that creates a VertexShader.
-		virtual bool CreateShader(const GraphicsAPIData* pGraphicData, const String& FileName, const String& Target, const String& EntryPoint);
+		virtual bool CreateShader(/*const GraphicsAPIData* pGraphicData, */const String& FileName, const String& Target, const String& EntryPoint);
 
 		///Variable where we store the vertex shader data
 		VertexShaderData* m_VSData;

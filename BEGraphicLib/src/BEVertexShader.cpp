@@ -1,4 +1,6 @@
 #include "BEVertexShader.h"
+#include "BEGraphicsAPI.h"
+
 #include <BEUtilityString.h>
 #include <BEPrerequisitesUtility.h>
 #include <BEFile.h>
@@ -8,6 +10,7 @@ namespace BlackEngine
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
 	BEVertexShader::BEVertexShader()
 	{
+		Initialize();
 	}
 
 
@@ -33,7 +36,7 @@ namespace BlackEngine
 
 	}
 
-	bool BEVertexShader::CreateShader(const GraphicsAPIData * pGraphicData, const String& FileName, const String& Target, const String& EntryPoint)
+	bool BEVertexShader::CreateShader(const String& FileName, const String& Target, const String& EntryPoint)
 	{
 		BEFile File;
 		String FileData;
@@ -68,13 +71,10 @@ namespace BlackEngine
 			}
 
 			///se crea el vertex shader con el praphic api data.
-			HRes = pGraphicData->m_Device->CreateVertexShader
+			HRes = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateVertexShader
 			(m_ShaderData->m_Blob->GetBufferPointer(), m_ShaderData->m_Blob->GetBufferSize(),
 				nullptr, &m_VSData->m_VertexShader);
 
-
-			///guardo el vs data 
-			//pGraphicData->m_ShaderData->m_Blob = m_ShaderData->m_Blob;
 			///veo que se haya hecho bien.
 			if (FAILED(HRes))
 			{

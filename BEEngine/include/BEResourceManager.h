@@ -9,6 +9,7 @@ namespace BlackEngine
 	class BE_ENGINE_EXPORT BEResourceManager : public Module<BEResourceManager>
 	{
 	public:
+		///Default constructor and destructor.
 		BEResourceManager();
 		~BEResourceManager();
 		
@@ -22,9 +23,6 @@ namespace BlackEngine
 		///mapa que tiene al recurso y un identificador de éste.
 		Map<String, BEResource*> m_ResourcesMap;
 		BEGraphicsAPI* m_GA;
-
-	private:
-		//BEResource* m_resourceToLoad;
 	};
 
 	BE_ENGINE_EXPORT BEResourceManager& g_ResourceManager();

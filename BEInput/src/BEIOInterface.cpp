@@ -29,11 +29,13 @@ namespace BlackEngine
 		/// Set the keyboard input.
 		m_Keyboard.Initialize(ScrHandle, m_DirectInput);
 		m_Mouse.Initialize(ScrHandle, m_DirectInput);
+		m_Controller.Initialize(ScrHandle, m_DirectInput);
 	}
 
 	/// Releases memory and deletes memeber variables.
 	void BEIOInterface::Destroy()
 	{
+		m_Controller.Destroy();
 		m_Mouse.Destroy();
 		m_Keyboard.Destroy();
 
@@ -47,5 +49,6 @@ namespace BlackEngine
 	{
 		m_Keyboard.Update();
 		m_Mouse.Update();
+		m_Controller.Update();
 	}
 }

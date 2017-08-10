@@ -186,18 +186,6 @@
 	#endif
 #endif
 
-//creo que eso estaba repetido.
-////Compiladores de Win_32 usan _DEBUG para especificar builds de debug. Para MinGW, asignamos DEBUG
-//#if defined(_DEBUG) || defined(DEBUG)
-//	#define BE_DEBUG_MODE 1
-//#else
-//	#define BE_DEBUG_MODE 0
-//#endif
-//
-//#if BE_COMPILER == BE_COMPILER_INTEL
-//	#define BE_THREADLOCAL __declspec(thread)
-//#endif
-
 /************************************************************************/
 /* Propiedades específicas de Linux/Apple                               */
 /************************************************************************/

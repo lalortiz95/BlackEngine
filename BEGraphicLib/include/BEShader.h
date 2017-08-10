@@ -24,7 +24,7 @@ namespace BlackEngine
 		virtual void Reflect() = 0;
 
 		///Creates and compiles the shader.
-		virtual bool CreateShader(const GraphicsAPIData* pGraphicData, const String& FileName, const String& Target, const String& EntryPoint) = 0;
+		virtual bool CreateShader(/*const GraphicsAPIData* pGraphicData,*/ const String& FileName, const String& Target, const String& EntryPoint) = 0;
 	
 		///This variable stores the shader data.
 		ShaderData* m_ShaderData;

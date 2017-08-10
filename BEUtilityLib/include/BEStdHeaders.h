@@ -145,22 +145,22 @@ extern "C"
 
 namespace BlackEngine
 {
-	template<typename T, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template<typename T, typename A = std::allocator<T>>
 	using Deque = std::deque<T, A>;
 
-	template <typename T, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template <typename T, typename A =  std::allocator<T>>
 	using Vector = std::vector<T, A>;
 
-	template <typename T, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template <typename T, typename A =  std::allocator<T>>
 	using List = std::list<T, A>;
 
-	template <typename T, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template <typename T, typename A =  std::allocator<T>>
 	using Stack = std::stack<T, std::deque<T, A>>;
 
-	template <typename T, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template <typename T, typename A =  std::allocator<T>>
 	using Queue = std::queue<T, std::deque<T, A>>;
 
-	template <typename T, typename P = std::less<T>, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template <typename T, typename P = std::less<T>, typename A = std::allocator<T>>
 	using Set = std::set<T, P, A>;
 
 	template <typename K, typename V, typename P = std::less<K>, typename A = StdAlloc < std::pair<const K, V>>>
@@ -169,7 +169,7 @@ namespace BlackEngine
 	template <typename K, typename V, typename P = std::less<K>, typename A = StdAlloc < std::pair<const K, V>>>
 	using Multimap = std::multimap<K, V, P, A>;
 
-	template <typename T, typename H = std::hash<T>, typename C = std::equal_to<T>, typename A = /*StdAlloc<T>*/ std::allocator<T>>
+	template <typename T, typename H = std::hash<T>, typename C = std::equal_to<T>, typename A = std::allocator<T>>
 	using UnorderedSet = std::unordered_set<T, H, C, A>;
 
 	template <typename  K, typename V, typename H = std::hash<K>, typename C = std::equal_to<K>, typename A = StdAlloc<std::pair<const K, V>>>

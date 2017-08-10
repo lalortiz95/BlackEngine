@@ -1,4 +1,3 @@
-//#include "BEPrerequisitesCore.h"
 #include "BEResourceManager.h"
 
 #include "BETextureResource.h"
@@ -67,14 +66,14 @@ namespace BlackEngine
 		{
 			pResourceToLoad = new BETextureResource();
 			BETextureResource* pTexture = dynamic_cast<BETextureResource*>(pResourceToLoad);
-			pTexture->m_GA = m_GA;
+			//pTexture->m_GA = m_GA;
 			break;
 		}
 		case RT_MODEL:
 		{
 			pResourceToLoad = new BEModelResource();
 			BEModelResource* pModel = dynamic_cast<BEModelResource*>(pResourceToLoad);
-			pModel->m_GA = m_GA;
+			//pModel->m_GA = m_GA;
 			break;
 		}
 		};
@@ -88,6 +87,11 @@ namespace BlackEngine
 		}
 
 		return nullptr;
+	}
+
+	void BEResourceManager::UnloadResource()
+	{
+		//TODO: unload resource.
 	}
 
 	RESOURCE_TYPE BEResourceManager::GetResourceTypeFromExtension(const String& extension)

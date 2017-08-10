@@ -9,7 +9,7 @@ namespace BlackEngine
 	const float Math::HALF_PI = Math::PI / 2;
 	const float Math::QUARTER_PI = Math::HALF_PI / 2;
 	const float Math::EULER = 2.71828f;
-	const float Math::DELTA = 0.1f;
+	const float Math::DELTA = 0.001f;
 
 	Radian Math::Sqrt(const Radian & value)
 	{

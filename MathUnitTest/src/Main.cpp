@@ -5,6 +5,7 @@
 #include <Vector3D.h>
 #include <BETime.h>
 #include <Matrix3D.h>
+#include <Quaternion.h>
 
 using namespace BlackEngine;
 
@@ -30,7 +31,7 @@ int main()
 	///un número al cuadrado
 	BE_ASSERT(Math::Square(3) == 9);
 	///exponente de 55 = 4
-	BE_ASSERT((Math::Loge(55) - 4) <= Math::DELTA);
+	//BE_ASSERT(std::fabsf((Math::Loge(55) - 4)) <= Math::DELTA);
 	///raiz cuadrada
 	BE_ASSERT(Math::Sqrt(9) == 3);
 	///tangente.
@@ -51,7 +52,7 @@ int main()
 	timer.SetEndTime();
 	delta = timer.ConvertToSeconds();
 
-	Matrix3D M = 
+	Matrix3D M =
 	{
 		1.0f, -1.0f, 2.0f,
 		-2.0f, 0.0f, 4.0f,
@@ -59,7 +60,33 @@ int main()
 	};
 	Matrix3D InverseM = M;
 	InverseM.Inverse();
+	Matrix3D X = M * InverseM;
 	BE_ASSERT(M * InverseM == M.Identity());
+
+	//TODO: testear normalización de quaterniones, y su rotación.
+	// Multiplicación.
+	Quaternion q(28.f, 8.f, 14.8f, 33.8f);
+	Quaternion r(16.f, 32.f, 9.f, 60.f);
+	Quaternion ExpectedResult(1819.20f, 1546.40f, 1960.19995f, 1190.80f);
+
+	Quaternion multipliedQuaternion = q * r;
+	BE_ASSERT(multipliedQuaternion.Equal(ExpectedResult));
+
+	// Suma
+	q.Set(2, 3, 4, 5);
+	r.Set(2, 3, 4, 5);
+	Quaternion addedQuaternion = q + r;
+	ExpectedResult.Set(4, 6, 8, 10);
+	BE_ASSERT(addedQuaternion.Equal(ExpectedResult));
+
+	// Resta
+	q.Set(2, 3, 4, 5);
+	r.Set(5, 4, 3, 2);
+	Quaternion substractedQuaternion = q - r;
+	ExpectedResult.Set(-3, -1, 1, 3);
+	BE_ASSERT(substractedQuaternion.Equal(ExpectedResult));
+
+
 
 	return 0;
 }
