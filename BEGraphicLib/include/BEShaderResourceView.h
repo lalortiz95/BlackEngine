@@ -22,7 +22,7 @@ namespace BlackEngine
 		void Destroy();
 
 		///Creates the shader resource with the device, upon a given texture.
-		bool Create(const GraphicsAPIData* GData, const BETexture* data);
+		bool Create(const BETexture* data);
 
 		///this variable stores the shader resource view data.
 		ShaderResourceViewData* m_SRVData;

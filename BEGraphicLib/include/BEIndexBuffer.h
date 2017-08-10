@@ -17,7 +17,7 @@ namespace BlackEngine
 		///Releases memory, and deletes the class' variables.
 		void Destroy();
 		///Creates a index Buffer.
-		bool CreateBuffer(const GraphicsAPIData* pGraphicData);
+		bool CreateBuffer();
 		///Function that returns how many indices are in the class.
 		uint32 GetIndicesSize() { return (uint32)m_Indices.size(); }
 		///Adds an index to the Index vector.

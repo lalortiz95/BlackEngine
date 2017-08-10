@@ -87,18 +87,18 @@ namespace BlackEngine
 			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 		);
 
-		if (!m_BNeverChanges->CreateBuffer(g_GraphicsAPI().m_pGraphicsAPIData))
+		if (!m_BNeverChanges->CreateBuffer())
 		{
 			//cámara no funciono.
 		}
-		m_BChangeOnResize->CreateBuffer(g_GraphicsAPI().m_pGraphicsAPIData);
-		m_BChangesEveryFrame->CreateBuffer(g_GraphicsAPI().m_pGraphicsAPIData);
+		m_BChangeOnResize->CreateBuffer();
+		m_BChangesEveryFrame->CreateBuffer();
 
 		/// Create the sample state
-		m_ColorSampler->Create(g_GraphicsAPI().m_pGraphicsAPIData);
+		m_ColorSampler->Create();
 
 		///creamos el rasterizer state.
-		m_RasterizerState->Create(g_GraphicsAPI().m_pGraphicsAPIData);
+		m_RasterizerState->Create();
 
 		m_World = m_World.Identity();
 
@@ -242,7 +242,7 @@ namespace BlackEngine
 		{
 			if (res->GetResourceType() == RT_MODEL)
 			{
-				dynamic_cast<BEModelResource*>(res)->m_Model->Render(g_GraphicsAPI().m_pGraphicsAPIData);
+				dynamic_cast<BEModelResource*>(res)->m_Model->Render();
 			}
 		}
 

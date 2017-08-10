@@ -41,7 +41,7 @@ namespace BlackEngine
 	}
 
 	///This function loads a model with it's textures mapped.
-	bool BEModel::LoadModel(const String& pFile, const GraphicsAPIData * pGraphicData)
+	bool BEModel::LoadModel(const String& pFile)
 	{
 		///objeto de clase BETextureResource que almacena el recurso que se está cargando del modelo
 		BETextureResource* TextureToLoad = nullptr;
@@ -161,7 +161,7 @@ namespace BlackEngine
 
 								if (TextureToLoad != nullptr)
 								{
-									m_Meshes[k].m_Material.m_Textures[ktt]->Create(pGraphicData, TextureToLoad->m_Texture);
+									m_Meshes[k].m_Material.m_Textures[ktt]->Create(TextureToLoad->m_Texture);
 								}
 							}//cierre if textureName.lenght() > 0
 						}
@@ -203,30 +203,30 @@ namespace BlackEngine
 					TextureToLoad = dynamic_cast<BETextureResource*>(g_ResourceManager().
 						LoadResourceFromFile(TextureName));
 
-					m_Meshes[i].m_Material.m_Textures[ktt]->Create(pGraphicData, TextureToLoad->m_Texture);
+					m_Meshes[i].m_Material.m_Textures[ktt]->Create(TextureToLoad->m_Texture);
 				}
 		}
 
 		return true;
 	}
 
-	bool BEModel::CreateBuffers(const GraphicsAPIData * pGraphicData)
+	bool BEModel::CreateBuffers()
 	{
 		///creamos el vertex buffer.
-		CreateVB(pGraphicData);
+		CreateVB();
 
 		///creamos el index buffer.
-		CreateIB(pGraphicData);
+		CreateIB();
 
 		return true;
 	}
 
-	void BEModel::SetBuffers(const GraphicsAPIData * pGraphicData)
+	void BEModel::SetBuffers()
 	{
 		///seteamos vertex buffer.
-		SetVB(pGraphicData);
+		SetVB();
 		///seteamos index buffer.
-		SetIB(pGraphicData);
+		SetIB();
 	}
 
 	void BEModel::SetTextureName(String & TextureFromMaterial)
@@ -255,16 +255,16 @@ namespace BlackEngine
 		TextureFromMaterial += Addr;
 	}
 
-	void BEModel::CreateVB(const GraphicsAPIData * pGraphicData)
+	void BEModel::CreateVB()
 	{
 		///creamos los index buffers. Uno por cada mesh.
 		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
 		{
-			m_Meshes[i].m_VB.CreateBuffer(pGraphicData);
+			m_Meshes[i].m_VB.CreateBuffer();
 		}
 	}
 
-	void BEModel::SetVB(const GraphicsAPIData * pGraphicData)
+	void BEModel::SetVB()
 	{
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
@@ -272,28 +272,28 @@ namespace BlackEngine
 		///seteamos todos los vertex buffers que hay.
 		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
 		{
-			pGraphicData->m_DeviceContext->IASetVertexBuffers
+			g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->IASetVertexBuffers
 			(
 				0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer, &stride, &offset
 			);
 		}
 	}
 
-	void BEModel::CreateIB(const GraphicsAPIData * pGraphicData)
+	void BEModel::CreateIB()
 	{
 		///creamos los index buffers. Uno por cada mesh.
 		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
 		{
-			m_Meshes[i].m_IB.CreateBuffer(pGraphicData);
+			m_Meshes[i].m_IB.CreateBuffer();
 		}
 	}
 
-	void BEModel::SetIB(const GraphicsAPIData * pGraphicData)
+	void BEModel::SetIB()
 	{
 		///seteamos todos los index buffers. Uno por cada mesh.
 		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
 		{
-			pGraphicData->m_DeviceContext->IASetIndexBuffer
+			g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->IASetIndexBuffer
 			(
 				m_Meshes[i].m_IB.m_BufferData->m_Buffer,
 				DXGI_FORMAT_R32_UINT,
@@ -302,20 +302,20 @@ namespace BlackEngine
 		}
 	}
 
-	void BEModel::Render(const GraphicsAPIData * pGraphicData)
+	void BEModel::Render()
 	{
 		uint32 stride = sizeof(VERTEX);
 		uint32 offset = 0;
 
 		for (SIZE_T i = 0; i < m_Meshes.size(); ++i)
 		{
-			pGraphicData->m_DeviceContext->IASetIndexBuffer
+			g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->IASetIndexBuffer
 			(
 				m_Meshes[i].m_IB.m_BufferData->m_Buffer,
 				DXGI_FORMAT_R32_UINT,
 				0
 			);
-			pGraphicData->m_DeviceContext->IASetVertexBuffers
+			g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->IASetVertexBuffers
 			(
 				0, 1, &m_Meshes[i].m_VB.m_BufferData->m_Buffer,
 				&stride, &offset
@@ -323,16 +323,16 @@ namespace BlackEngine
 
 			if (m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE])
 			{
-				pGraphicData->m_DeviceContext->PSSetShaderResources(0,
+				g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShaderResources(0,
 					1,
 					&m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE]->m_SRVData->m_SRV);
 			}
 			else
 			{
-				pGraphicData->m_DeviceContext->PSSetShaderResources(0, 1, NULL);
+				g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShaderResources(0, 1, NULL);
 			}
 
-			pGraphicData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);
+			g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->DrawIndexed(m_Meshes[i].m_IB.GetIndicesSize(), 0, 0);
 		}
 	}
 }

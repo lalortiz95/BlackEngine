@@ -21,7 +21,7 @@ namespace BlackEngine
 		void Destroy();
 
 		///Creates a rasterizer state.
-		bool Create(const GraphicsAPIData * gData);
+		bool Create();
 		//TODO: tener variables miembras que llenen la información del descriptor.
 		///variable where we store the Rasterizer state data.
 		RasterizerStateData* m_RSData;

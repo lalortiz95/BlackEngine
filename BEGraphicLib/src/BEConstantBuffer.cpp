@@ -1,5 +1,6 @@
 #include "BEConstantBuffer.h"
 #include "DirectXData.h"
+#include "BEGraphicsAPI.h"
 #include <Matrix4D.h>
 
 namespace BlackEngine
@@ -24,7 +25,7 @@ namespace BlackEngine
 		}
 	}
 
-	bool BEConstantBuffer::CreateBuffer(const GraphicsAPIData * pGraphicData)
+	bool BEConstantBuffer::CreateBuffer()
 	{
 		Destroy();
 		m_BufferData = new BufferData();
@@ -35,7 +36,7 @@ namespace BlackEngine
 		bufferDesc.ByteWidth = sizeof(Matrix4D);
 		bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-		HRESULT hr = pGraphicData->m_Device->CreateBuffer(&bufferDesc, NULL, &m_BufferData->m_Buffer);
+		HRESULT hr = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateBuffer(&bufferDesc, NULL, &m_BufferData->m_Buffer);
 		if (FAILED(hr))
 		{
 			return false;

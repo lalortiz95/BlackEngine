@@ -1,4 +1,5 @@
 #include "BEVertexBuffer.h"
+#include "BEGraphicsAPI.h"
 #include "DirectXData.h"
 #include "BEVertex.h"
 #include <Vector2D.h>
@@ -27,7 +28,7 @@ namespace BlackEngine
 		}
 	}
 
-	bool BEVertexBuffer::CreateBuffer(const GraphicsAPIData * pGraphicData)
+	bool BEVertexBuffer::CreateBuffer()
 	{
 		Destroy();
 		m_BufferData = new BufferData();
@@ -42,7 +43,7 @@ namespace BlackEngine
 		D3D11_SUBRESOURCE_DATA srd = { 0 };
 		srd.pSysMem = &m_Vertices[0];
 
-		HRESULT hRes = pGraphicData->m_Device->CreateBuffer
+		HRESULT hRes = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateBuffer
 		(&bufferDesc, &srd, &m_BufferData->m_Buffer);
 
 		if (FAILED(hRes))

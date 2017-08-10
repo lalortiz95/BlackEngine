@@ -1,4 +1,5 @@
 #include "BERasterizerState.h"
+#include "BEGraphicsAPI.h"
 #include "DirectXData.h"
 
 namespace BlackEngine
@@ -31,7 +32,7 @@ namespace BlackEngine
 		}
 	}
 
-	bool BERasterizerState::Create(const GraphicsAPIData * gData)
+	bool BERasterizerState::Create()
 	{
 		D3D11_RASTERIZER_DESC RD;
 		HRESULT hr;
@@ -40,7 +41,7 @@ namespace BlackEngine
 		RD.CullMode = D3D11_CULL_BACK; //para semitransparencias poner el cullfront.
 		RD.FrontCounterClockwise = true;
 
-		hr = gData->m_Device->CreateRasterizerState(&RD, &m_RSData->m_RS);
+		hr = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateRasterizerState(&RD, &m_RSData->m_RS);
 
 		if (FAILED(hr))
 		{

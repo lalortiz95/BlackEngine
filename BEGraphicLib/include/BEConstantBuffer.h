@@ -19,6 +19,6 @@ namespace BlackEngine
 		void Destroy();
 
 		///creates the buffer.
-		bool CreateBuffer(const GraphicsAPIData * pGraphicData);
+		bool CreateBuffer();
 	};
 }

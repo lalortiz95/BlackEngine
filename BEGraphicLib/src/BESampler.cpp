@@ -1,4 +1,5 @@
 #include "BESampler.h"
+#include "BEGraphicsAPI.h"
 #include "DirectXData.h"
 
 namespace BlackEngine
@@ -29,7 +30,7 @@ namespace BlackEngine
 		}
 	}
 
-	void BESampler::Create(const GraphicsAPIData * GData)
+	void BESampler::Create()
 	{
 		/// Create the sample state
 		D3D11_SAMPLER_DESC sampDesc;
@@ -42,7 +43,7 @@ namespace BlackEngine
 		sampDesc.MinLOD = 0;
 		sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-		HRESULT hr = GData->m_Device->CreateSamplerState(&sampDesc, &m_SD->m_samplerState);
+		HRESULT hr = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateSamplerState(&sampDesc, &m_SD->m_samplerState);
 
 		if (FAILED(hr))
 		{

@@ -22,7 +22,7 @@ namespace BlackEngine
 		void Destroy();
 
 		///Creates a vertex buffer with the device.
-		bool CreateBuffer(const GraphicsAPIData* pGraphicData);
+		bool CreateBuffer();
 
 		///Adds a vertex to the vertex vector.
 		void AddVertex(VERTEX);

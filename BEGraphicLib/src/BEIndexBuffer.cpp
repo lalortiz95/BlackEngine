@@ -1,4 +1,5 @@
 #include "BEIndexBuffer.h"
+#include "BEGraphicsAPI.h"
 #include "DirectXData.h"
 
 namespace BlackEngine
@@ -28,7 +29,7 @@ namespace BlackEngine
 		}
 	}
 
-	bool BEIndexBuffer::CreateBuffer(const GraphicsAPIData * pGraphicData)
+	bool BEIndexBuffer::CreateBuffer()
 	{
 		Destroy();
 		m_BufferData = new BufferData();
@@ -42,7 +43,7 @@ namespace BlackEngine
 		D3D11_SUBRESOURCE_DATA srd = { 0 };
 		srd.pSysMem = &m_Indices[0];
 
-		HRESULT hr = pGraphicData->m_Device->CreateBuffer(&bufferDesc, 
+		HRESULT hr = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateBuffer(&bufferDesc,
 			&srd, &m_BufferData->m_Buffer);
 
 		if (FAILED(hr))

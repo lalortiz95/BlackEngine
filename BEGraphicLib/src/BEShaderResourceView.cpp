@@ -36,7 +36,7 @@ namespace BlackEngine
 		}
 	}
 
-	bool BEShaderResourceView::Create(const GraphicsAPIData * GData, const BETexture* resource)
+	bool BEShaderResourceView::Create(const BETexture* resource)
 	{
 		HRESULT hRes;
 		D3D11_SHADER_RESOURCE_VIEW_DESC SRVD;
@@ -45,7 +45,7 @@ namespace BlackEngine
 		SRVD.Texture2D.MostDetailedMip = 0;
 		SRVD.Texture2D.MipLevels = 1;
 
-		hRes = GData->m_Device->CreateShaderResourceView(
+		hRes = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateShaderResourceView(
 			resource->m_TextureData->m_Texture2D, &SRVD, &m_SRVData->m_SRV);
 
 		if (FAILED(hRes))

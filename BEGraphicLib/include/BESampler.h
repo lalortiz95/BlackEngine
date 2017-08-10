@@ -21,7 +21,7 @@ namespace BlackEngine
 		void Destroy();
 
 		///Creates the sampler.
-		void Create(const GraphicsAPIData* GData);
+		void Create();
 	
 		///This variable stores the sampler data.
 		SamplerData* m_SD;

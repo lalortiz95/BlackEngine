@@ -47,7 +47,6 @@ namespace BlackEngine
 
 		int numElements = ARRAYSIZE(IED);
 
-
 		HRESULT hres = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateInputLayout
 		(
 			IED, numElements, 
