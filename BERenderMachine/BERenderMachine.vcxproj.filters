@@ -21,9 +21,15 @@
     <ClInclude Include="include\BEPrerequisitesRenderMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\BERenderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BEPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BERenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

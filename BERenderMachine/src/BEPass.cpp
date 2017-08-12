@@ -24,9 +24,9 @@ namespace BlackEngine
 	{
 		//TODO: remover los render targets y las texturas del pipeline.
 	}
+
 	bool BEPass::CreatePixelAndVertexShader()
 	{
-		//TODO: modificar el shader para que use el modulo y no reciba el parametro.
 		if (!m_VertexShader.CreateShader("Resources\\Shaders\\VertexShader.hlsl", "vs_5_0", "VSMain"))
 		{
 			return false;

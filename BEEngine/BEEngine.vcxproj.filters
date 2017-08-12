@@ -39,7 +39,7 @@
     <ClInclude Include="include\BEResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BEMaterialResource.h">
+    <ClInclude Include="include\BEMaterialResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="src\BEModelResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BEMaterialResource.cpp">
+    <ClCompile Include="src\BEMaterialResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
