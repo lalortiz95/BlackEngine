@@ -16,6 +16,7 @@
 #include <BEModelResource.h>
 #include <BEParser.h>
 #include <Quaternion.h>
+#include <BERenderManager.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 
@@ -48,6 +49,7 @@ namespace BlackEngine
 
 	GraphicsUnitTest::~GraphicsUnitTest()
 	{
+		OnDestroy();
 	}
 
 	void GraphicsUnitTest::OnInitialize()
@@ -55,28 +57,23 @@ namespace BlackEngine
 		///Inicializacion de modulos sistema
 		g_ResourceManager().StartUp();
 		g_ResourceManager().Initialize();
-		//g_ResourceManager().m_GA = m_GraphicsAPI;
 
-		m_ColorSampler = new BESampler();
-
-		///constant buffers.
-		m_BNeverChanges = new BEConstantBuffer();
-		m_BChangeOnResize = new BEConstantBuffer();
-		m_BChangesEveryFrame = new BEConstantBuffer();
-		m_RasterizerState = new BERasterizerState();
-
-		m_MeshColor.X = 0.7f;
-		m_MeshColor.Y = 0.7f;
-		m_MeshColor.Z = 0.7f;
-		m_MeshColor.W = 1.0f;
-
-		if (!CreatePixelAndVertexShader())
-		{
-			//Ayudaaaa
-		}
-
-		///creamos y seteamos el vertex buffer.
-		g_GraphicsAPI().m_pGraphicsAPIData->m_IL->CreateInputLayout(m_VS);
+		//m_ColorSampler = new BESampler();
+		/////constant buffers.
+		//m_BNeverChanges = new BEConstantBuffer();
+		//m_BChangeOnResize = new BEConstantBuffer();
+		//m_BChangesEveryFrame = new BEConstantBuffer();
+		//m_RasterizerState = new BERasterizerState();
+		//m_MeshColor.X = 0.7f;
+		//m_MeshColor.Y = 0.7f;
+		//m_MeshColor.Z = 0.7f;
+		//m_MeshColor.W = 1.0f;
+		//if (!CreatePixelAndVertexShader())
+		//{
+		//	//Ayudaaaa
+		//}
+		/////creamos y seteamos el vertex buffer.
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_IL->CreateInputLayout(m_VS);
 
 		///cargo los recursos y los introduzco en el vector.
 		m_ResourceVector.push_back(g_ResourceManager().LoadResourceFromFile("Resources\\Models\\samus.fbx"));
@@ -87,18 +84,16 @@ namespace BlackEngine
 			D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 		);
 
-		if (!m_BNeverChanges->CreateBuffer())
-		{
-			//cámara no funciono.
-		}
-		m_BChangeOnResize->CreateBuffer();
-		m_BChangesEveryFrame->CreateBuffer();
-
-		/// Create the sample state
-		m_ColorSampler->Create();
-
-		///creamos el rasterizer state.
-		m_RasterizerState->Create();
+		//if (!m_BNeverChanges->CreateBuffer())
+		//{
+		//	//cámara no funciono.
+		//}
+		//m_BChangeOnResize->CreateBuffer();
+		//m_BChangesEveryFrame->CreateBuffer();
+		///// Create the sample state
+		//m_ColorSampler->Create();
+		/////creamos el rasterizer state.
+		//m_RasterizerState->Create();
 
 		m_World = m_World.Identity();
 
@@ -189,65 +184,76 @@ namespace BlackEngine
 	{
 		//esto es si queremos que tome la función render del padre.
 		//__super::Render();
+		BERenderManager RM;
+		RM.Initialize();
 
-		///limpiamos el back buffer.
-		Vector4D CleanUpColor = { 0.0f, 0.125f, 0.3f, 1.0f };
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
-			g_GraphicsAPI().GetRTV()->m_RenderTargetView, &CleanUpColor.X);
+		BEModel* ModelToRender;
 
-		///limpiamos el depth buffer.
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearDepthStencilView(
-			g_GraphicsAPI().GetDSV()->m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		//TODO: hacer un actor que tenga las posiciones del modelo que queremos.
 
-		CBNeverChanges cbNeverChanges;
-		cbNeverChanges.m_View = m_Camera->GetViewMatrix();
-		cbNeverChanges.m_View.Transpose();
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
-			m_BNeverChanges->m_BufferData->m_Buffer, 0, NULL, &cbNeverChanges, 0, 0);
-
-		CBChangeOnResize cbChangesOnResize;
-		cbChangesOnResize.m_Projection = m_Camera->GetProjectionMatrix();
-		cbChangesOnResize.m_Projection.Transpose();
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
-			m_BChangeOnResize->m_BufferData->m_Buffer, 0, NULL, &cbChangesOnResize, 0, 0);
-
-		///variables que cambian cada frame
-		CBChangesEveryFrame cb;
-		cb.m_World = m_World;
-		cb.m_MeshColor = m_MeshColor;
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
-			m_BChangesEveryFrame->m_BufferData->m_Buffer, 0, NULL, &cb, 0, 0);
-
-		///seteo el vertex shader.
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader
-		(m_VS->m_VSData->m_VertexShader, NULL, 0);
-		///se setean los constant buffers.
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
-		(0, 1, &m_BNeverChanges->m_BufferData->m_Buffer);
-
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
-		(1, 1, &m_BChangeOnResize->m_BufferData->m_Buffer);
-
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
-		(2, 1, &m_BChangesEveryFrame->m_BufferData->m_Buffer);
-		///se setea el pixel shader.
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShader
-		(m_PS->m_PSData->m_PixelShader, NULL, 0);
-		///se setean los samplers.
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetSamplers
-		(0, 1, &m_ColorSampler->m_SD->m_samplerState);
-
+		BEActor actor;
+		actor.Rotation = { 0,0,0 };
+		actor.Rotation = { 0,0,0 };
+		actor.Scale = { 1,1,1 };
 		///mando el render de los modelos.
 		for (auto& res : m_ResourceVector)
 		{
 			if (res->GetResourceType() == RT_MODEL)
 			{
-				dynamic_cast<BEModelResource*>(res)->m_Model->Render();
+				ModelToRender = dynamic_cast<BEModelResource*>(res)->m_Model;
+				RM.Render(ModelToRender, *m_Camera, actor);
 			}
 		}
 
-		///switch the back buffer and the front buffer
-		g_GraphicsAPI().m_pGraphicsAPIData->m_SwapChain->Present(0, 0);
+		/////limpiamos el back buffer.
+		//Vector4D CleanUpColor = { 0.0f, 0.125f, 0.3f, 1.0f };
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
+		//	g_GraphicsAPI().GetRTV()->m_RenderTargetView, &CleanUpColor.X);
+		/////limpiamos el depth buffer.
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearDepthStencilView(
+		//	g_GraphicsAPI().GetDSV()->m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		//CBNeverChanges cbNeverChanges;
+		//cbNeverChanges.m_View = m_Camera->GetViewMatrix();
+		//cbNeverChanges.m_View.Transpose();
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
+		//	m_BNeverChanges->m_BufferData->m_Buffer, 0, NULL, &cbNeverChanges, 0, 0);
+		//CBChangeOnResize cbChangesOnResize;
+		//cbChangesOnResize.m_Projection = m_Camera->GetProjectionMatrix();
+		//cbChangesOnResize.m_Projection.Transpose();
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
+		//	m_BChangeOnResize->m_BufferData->m_Buffer, 0, NULL, &cbChangesOnResize, 0, 0);
+		/////variables que cambian cada frame
+		//CBChangesEveryFrame cb;
+		//cb.m_World = m_World;
+		//cb.m_MeshColor = m_MeshColor;
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
+		//	m_BChangesEveryFrame->m_BufferData->m_Buffer, 0, NULL, &cb, 0, 0);
+		/////seteo el vertex shader.
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader
+		//(m_VS->m_VSData->m_VertexShader, NULL, 0);
+		/////se setean los constant buffers.
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
+		//(0, 1, &m_BNeverChanges->m_BufferData->m_Buffer);
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
+		//(1, 1, &m_BChangeOnResize->m_BufferData->m_Buffer);
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
+		//(2, 1, &m_BChangesEveryFrame->m_BufferData->m_Buffer);
+		/////se setea el pixel shader.
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShader
+		//(m_PS->m_PSData->m_PixelShader, NULL, 0);
+		/////se setean los samplers.
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetSamplers
+		//(0, 1, &m_ColorSampler->m_SD->m_samplerState);
+		/////mando el render de los modelos.
+		//for (auto& res : m_ResourceVector)
+		//{
+		//	if (res->GetResourceType() == RT_MODEL)
+		//	{
+		//		dynamic_cast<BEModelResource*>(res)->m_Model->Render();
+		//	}
+		//}
+		/////switch the back buffer and the front buffer
+		//g_GraphicsAPI().m_pGraphicsAPIData->m_SwapChain->Present(0, 0);
 	}
 
 	bool GraphicsUnitTest::CreatePixelAndVertexShader()

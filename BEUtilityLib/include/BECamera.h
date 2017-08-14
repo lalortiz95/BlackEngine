@@ -47,9 +47,9 @@ namespace BlackEngine
 		void SetViewMatrix(Matrix4D view) { m_ViewMat = view; }
 
 		///Returns the view matrix.
-		Matrix4D GetViewMatrix() { return m_ViewMat; }
+		Matrix4D GetViewMatrix()const { return m_ViewMat; } 
 		///Returns the project matrix.
-		Matrix4D GetProjectionMatrix() { return m_ProjectionMat; }
+		Matrix4D GetProjectionMatrix()const { return m_ProjectionMat; } 
 
 		///Rotates the camera with a given rotation.
 		void Rotate(Vector3D axis, float RotateAmount);
