@@ -46,7 +46,7 @@ namespace BlackEngine
 		m_RTV.Initialize();
 		m_BackBuffer.Initialize();
 		m_DSVTexture.Initialize();
-		m_RTTexture.Initialize();
+		m_LightBuffer.Initialize();
 
 		//TODO: cambiar esto, puede setear uno u otro, y cuantos sean de cada uno.
 		if (!CreateVertexAndPixelShader())
@@ -77,9 +77,12 @@ namespace BlackEngine
 		m_InputLayout.CreateInputLayout(&m_GBufferVS);
 
 		/// Create the constant buffers.
-		m_BNeverChanges->CreateBuffer();
-		m_BChangeOnResize->CreateBuffer();
-		m_BChangesEveryFrame->CreateBuffer();
+		m_BNeverChanges->CreateBuffer(sizeof(Matrix4D));
+		m_BChangeOnResize->CreateBuffer(sizeof(Matrix4D));
+		m_BChangesEveryFrame->CreateBuffer(sizeof(Matrix4D));
+		/// Creates the light constant buffer.
+		m_LightBuffer.CreateBuffer(40);
+
 		/// Create the sample state
 		m_ColorSampler.Create();
 		/// Create the rasterizer state.
@@ -140,6 +143,15 @@ namespace BlackEngine
 		cb.m_MeshColor = MeshColor;
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
 			m_BChangesEveryFrame->m_BufferData->m_Buffer, 0, NULL, &cb, 0, 0);
+
+		/// Set the light buffer.
+		BELight lightBuffer;
+		lightBuffer.Initialize(
+			Vector3D(0, 15, 0),
+			Vector3D(1, 0, 0),
+			Vector4D(0.5f, 0.5f, 0.5f, 0));
+		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
+			m_LightBuffer.m_BufferData->m_Buffer, 0, NULL, &lightBuffer, 0, 0);
 
 		///seteo el vertex shader.
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader

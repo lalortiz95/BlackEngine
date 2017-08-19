@@ -17,6 +17,13 @@ cbuffer tempBuffer : register (b3)
 	float4 vViewPosition;
 }
 
+cbuffer LightBuffer : register(b4)
+{
+	float3 position;
+	float3 direction;
+	float4 color;
+}
+
 struct PS_INPUT
 {
 	float4 Position : SV_Position;

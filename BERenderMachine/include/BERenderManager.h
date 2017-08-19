@@ -11,6 +11,7 @@
 #include <BESampler.h>
 #include <BECamera.h>
 #include <BEModel.h>
+#include <BELight.h>
 
 namespace BlackEngine
 {
@@ -50,6 +51,8 @@ namespace BlackEngine
 		BEConstantBuffer* m_BChangeOnResize;
 		BEConstantBuffer* m_BChangesEveryFrame;
 
+		BEConstantBuffer m_LightBuffer;
+
 		/// The shaders needed for the GBuffer.
 		BEVertexShader m_GBufferVS;
 		BEPixelShader m_GBufferPS;
@@ -59,7 +62,6 @@ namespace BlackEngine
 
 		BETexture m_BackBuffer;
 		BETexture m_DSVTexture;
-		BETexture m_RTTexture;
 
 		/// 
 		BESampler m_ColorSampler;

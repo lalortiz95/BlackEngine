@@ -14,7 +14,6 @@ cbuffer bufferWorld : register (b2)
 	float4 Color;
 }
 
-
 struct VS_INPUT
 {
 	float4 Position : POSITION;

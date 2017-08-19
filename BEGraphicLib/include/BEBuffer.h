@@ -34,7 +34,7 @@ namespace BlackEngine
 		///Releases memory of the variables, and deletes them.
 		void Destroy();
 		///The device creates a buffer.
-		virtual bool CreateBuffer()=0;
+		virtual bool CreateBuffer() { return false; }
 		///variable where the buffer data is stored.
 		BufferData* m_BufferData;
 	};
