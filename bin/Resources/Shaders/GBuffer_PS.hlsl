@@ -208,12 +208,12 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 
 	light1 *= 50;
 	float4 FinalColor = float4(light1 + envColor + irradiance, 1);
-	//FinalColor = pow(FinalColor, 1.0 / 2.2);
+	FinalColor = pow(FinalColor, 1.0 / 2.2);
 
 	PS_OUTPUT Output = (PS_OUTPUT)0;
-	//Output.position = Input.PosWorld;
-	//Output.normal = float4(normal, 0);
-	//Output.color = float4(FinalColor.xyz, 1);
+	Output.position = Input.PosWorld;
+	Output.normal = float4(normal, 0);
+	Output.color = float4(FinalColor.xyz, 1);
 
 	Output.position = float4(FinalColor.xyz, 1);;
 
