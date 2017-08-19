@@ -9,6 +9,7 @@ namespace BlackEngine
 	BERenderTargetView::BERenderTargetView()
 	{
 		m_RTVData = nullptr;
+		Initialize();
 	}
 
 	BERenderTargetView::~BERenderTargetView()
@@ -32,17 +33,17 @@ namespace BlackEngine
 		}
 	}
 
-	void BERenderTargetView::Clear(Vector4D cleanUpColor, const GraphicsAPIData * pGraphicData)
+	void BERenderTargetView::Clear(Vector4D cleanUpColor)
 	{
-		pGraphicData->m_DeviceContext->ClearRenderTargetView(
+		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
 			m_RTVData->m_RenderTargetView, &cleanUpColor.X);
 	}
 
-	bool BERenderTargetView::Create(BETexture * texture, const GraphicsAPIData * pGraphicData)
+	bool BERenderTargetView::Create(BETexture * texture)
 	{
 		///create our render target.
 		HRESULT hr;
-		hr = pGraphicData->m_Device->CreateRenderTargetView(
+		hr = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateRenderTargetView(
 			texture->m_TextureData->m_Texture2D,
 			NULL, &m_RTVData->m_RenderTargetView);
 

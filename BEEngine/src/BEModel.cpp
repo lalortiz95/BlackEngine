@@ -323,9 +323,14 @@ namespace BlackEngine
 
 			if (m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE])
 			{
-				g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShaderResources(0,
-					1,
-					&m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE]->m_SRVData->m_SRV);
+				ID3D11ShaderResourceView* pSRV[] = {
+					m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE]->m_SRVData->m_SRV,
+					m_Meshes[i].m_Material.m_Textures[aiTextureType_NORMALS]->m_SRVData->m_SRV,
+					m_Meshes[i].m_Material.m_Textures[aiTextureType_SPECULAR]->m_SRVData->m_SRV,
+					m_Meshes[i].m_Material.m_Textures[aiTextureType_DISPLACEMENT]->m_SRVData->m_SRV
+				};
+				
+				g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShaderResources(0, 4, pSRV);
 			}
 			else
 			{

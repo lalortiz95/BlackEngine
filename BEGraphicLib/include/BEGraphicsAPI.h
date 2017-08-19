@@ -39,15 +39,13 @@ namespace BlackEngine
 		///Function that initializes the class' variables.
 		bool Initialize(void* scrHandle, int32 width, int32 height, int32 numBB, bool isFullScreen);
 		///Clears the back buffer with a given color.
-		void ClearBackBuffer(float r = 0, float g = 1.f, float b = 0, float a = 0);
+		void ClearBackBuffer(BERenderTargetView& RTV, float r = 0, float g = 1.f, float b = 0, float a = 0);
 
 		///Sets the render target, and the depth stencil view.
 		void SetRenderTargetAndDepthStencil(BERenderTargetView*, BEDepthStencilView*);
 		///The device creates a DSV.
-		bool CreateDepthStencilView(BETexture*, BEDepthStencilView*&);
-		///Returns the RTV, and DSV member variables.
-		RTVData* GetRTV();
-		DSVData* GetDSV();
+		bool CreateDepthStencilView(BETexture*, BEDepthStencilView*);
+
 		///Returns the vertex and pixel shader member variables.
 		VertexShaderData* GetVS(); 
 		PixelShaderData* GetPS();
@@ -66,10 +64,10 @@ namespace BlackEngine
 		///Flag that indicates if we are in fullscreen mode.
 		bool m_vSync;
 
-		BERenderTargetView* m_RTV;
-		BEDepthStencilView* m_DSV;
-		BETexture* m_BackBuffer;
-		BETexture* m_DSVTexture;
+		//BERenderTargetView* m_RTV;
+		//BEDepthStencilView* m_DSV;
+		//BETexture* m_BackBuffer;
+		//BETexture* m_DSVTexture;
 
 		BEVertexShader* m_VS;
 		BEPixelShader* m_PS;

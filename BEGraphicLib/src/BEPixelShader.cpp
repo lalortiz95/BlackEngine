@@ -32,7 +32,7 @@ namespace BlackEngine
 	{
 	}
 
-	bool BEPixelShader::CreateShader(/*const GraphicsAPIData * pGraphicData,*/ const String& FileName, const String& Target, const String& EntryPoint)
+	bool BEPixelShader::CreateShader(const String& FileName, const String& Target, const String& EntryPoint)
 	{
 		BEFile File;
 		HRESULT HRes;

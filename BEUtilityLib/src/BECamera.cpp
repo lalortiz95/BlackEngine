@@ -79,6 +79,8 @@ namespace BlackEngine
 	void BECamera::SetPosition(Vector4D pos)
 	{
 		m_Position = pos;
+
+		m_Dirty = true;
 	}
 
 	void BECamera::SetTarget(Vector4D target)

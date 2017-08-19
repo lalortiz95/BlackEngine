@@ -27,22 +27,13 @@ namespace BlackEngine
 		m_vSync = vSync;
 
 		m_pGraphicsAPIData = nullptr;
-		m_BackBuffer = nullptr;
-		m_DSV = nullptr;
-		m_DSVTexture = nullptr;
 		m_pGraphicsAPIData = nullptr;
-		m_RTV = nullptr;
 	}
 
 	BEGraphicsAPI::~BEGraphicsAPI()
 	{
 		Destroy();
 	}
-
-	//void BEGraphicsAPI::OnStartUp()
-	//{
-
-	//}
 
 	void BEGraphicsAPI::OnStartUp(void * screenHandle, int32 width, int32 height, bool fullscreen, int32 format, int32 backBufferCount, bool vSync)
 	{
@@ -56,11 +47,7 @@ namespace BlackEngine
 		m_vSync = vSync;
 
 		m_pGraphicsAPIData = nullptr;
-		m_BackBuffer = nullptr;
-		m_DSV = nullptr;
-		m_DSVTexture = nullptr;
 		m_pGraphicsAPIData = nullptr;
-		m_RTV = nullptr;
 	}
 
 	void BEGraphicsAPI::OnShutDown()
@@ -70,24 +57,6 @@ namespace BlackEngine
 
 	void BEGraphicsAPI::Destroy()
 	{
-		if (m_RTV != nullptr)
-		{
-			m_RTV->Destroy();
-		}
-		if (m_DSV != nullptr)
-		{
-			m_DSV->Destroy();
-		}
-		if (m_DSVTexture != nullptr)
-		{
-			m_DSVTexture->Destroy();
-			m_DSVTexture = nullptr;
-		}
-		if (m_BackBuffer != nullptr)
-		{
-			m_BackBuffer->Destroy();
-			m_BackBuffer = nullptr;
-		}
 		if (m_pGraphicsAPIData != nullptr)
 		{
 			m_pGraphicsAPIData->Destroy();
@@ -99,11 +68,11 @@ namespace BlackEngine
 		m_width = 0;
 	}
 
-	void BEGraphicsAPI::ClearBackBuffer(float r, float g, float b, float a)
+	void BEGraphicsAPI::ClearBackBuffer(BERenderTargetView& RTV, float r, float g, float b, float a)
 	{
 		Vector4D color(r, g, b, a);
 		m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
-			m_RTV->m_RTVData->m_RenderTargetView, &color.X);
+			RTV.m_RTVData->m_RenderTargetView, &color.X);
 	}
 
 	bool BEGraphicsAPI::Initialize(void* scrHandle, int32 width, int32 height, int32 numBB, bool isFullScr)
@@ -113,11 +82,6 @@ namespace BlackEngine
 		///asigno memoria
 		m_pGraphicsAPIData = new GraphicsAPIData();
 		m_pGraphicsAPIData->Initialize();
-		m_BackBuffer = new BETexture();
-		m_DSVTexture = new BETexture();
-		m_DSV = new BEDepthStencilView();
-		m_RTV = new BERenderTargetView();
-		m_RTV->Initialize();
 
 		///inicializamos variables miembras 
 		m_width = width;
@@ -133,20 +97,10 @@ namespace BlackEngine
 		///el swap chain cambia entre los back buffers y el front buffer
 		CreateSwapChain();
 
-		///le pedimos al swap chain el buffer que queremos a  manera de textura
-		m_pGraphicsAPIData->m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D),
-			(void**)&m_BackBuffer->m_TextureData->m_Texture2D);
-
-		///creamos el render target view.
-		m_RTV->Create(m_BackBuffer, m_pGraphicsAPIData);
-		///creanos el depth stencil view.
-		CreateDepthStencilView(m_DSVTexture, m_DSV);
-		///seteamos el render target view.
-		SetRenderTargetAndDepthStencil(m_RTV, m_DSV);
 		///seteamos el view port.
 		SetViewPort();
 		///limpiamos los pixeles almacenados en el back buffer.
-		ClearBackBuffer();
+		//ClearBackBuffer();
 
 		return true;
 	}
@@ -222,9 +176,9 @@ namespace BlackEngine
 			&pRenderTargetView, pDepthStencilView);
 	}
 
-	bool BEGraphicsAPI::CreateDepthStencilView(BETexture *Texture, BEDepthStencilView*& DSV)
+	bool BEGraphicsAPI::CreateDepthStencilView(BETexture *Texture, BEDepthStencilView* DSV)
 	{
-		if (!Texture->CreateTexture(m_pGraphicsAPIData, m_width, m_height,TEXTURE_CREATION::kDepthStencil/*, Texture*/))
+		if (!Texture->CreateTexture(m_width, m_height,TEXTURE_CREATION::kDepthStencil))
 		{
 			return false;
 		}
@@ -245,16 +199,6 @@ namespace BlackEngine
 			return true;
 		}
 		return false;
-	}
-
-	RTVData * BEGraphicsAPI::GetRTV()
-	{
-		return m_RTV->m_RTVData;
-	}
-
-	DSVData * BEGraphicsAPI::GetDSV()
-	{
-		return m_DSV->m_DSVData;
 	}
 
 	VertexShaderData * BEGraphicsAPI::GetVS()

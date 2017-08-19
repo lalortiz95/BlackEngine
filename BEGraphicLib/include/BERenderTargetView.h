@@ -24,9 +24,9 @@ namespace BlackEngine
 		void Destroy();
 
 		///Cleans the render target view.
-		void Clear(Vector4D cleanUpColor, const GraphicsAPIData * pGraphicData);
+		void Clear(Vector4D cleanUpColor);
 		///creates the RTV
-		bool Create(BETexture* Texture, const GraphicsAPIData * pGraphicData);
+		bool Create(BETexture* Texture);
 		
 		///This variable stores the RTV data.
 		RTVData* m_RTVData;

@@ -201,9 +201,9 @@ namespace BlackEngine
 	Matrix4D& Matrix4D::Transpose()
 	{
 		Matrix4D R;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; ++i)
 		{
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < 4; ++j)
 			{
 				R.m[i][j] = m[j][i];
 			}

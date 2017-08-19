@@ -31,14 +31,15 @@ namespace BlackEngine
 
 		///This functions give and release memory from the class' variables.
 		void Initialize();
+		void Initialize(BERenderTargetView RTV);
 		void Destroy();
 
 		///Creates a texture with a given width, height, and the type of texture that it will be.
-		bool CreateTexture(const GraphicsAPIData* GData, int width, int height, uint32 flags = TEXTURE_CREATION::kDefault);
+		bool CreateTexture(int width, int height, uint32 flags = TEXTURE_CREATION::kDefault);
 		///Creates a texture from a given file.
-		bool CreateTextureFromFile(const GraphicsAPIData*, const String& name);
+		bool CreateTextureFromFile(const String& name);
 		///Creates a new render target texture.
-		bool CreateAsRenderTarget(const GraphicsAPIData* GData, int width, int height);
+		bool CreateAsRenderTarget();
 
 		///The texture data
 		TextureData* m_TextureData;

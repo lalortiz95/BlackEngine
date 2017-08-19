@@ -1,25 +1,31 @@
 #define M_PI 3.14159265359
 
-sampler AlbedoSampler;
-sampler NormalSampler;
-sampler MetallicSampler;
-sampler RoughnessSampler;
+SamplerState LinearSampler : register(s0);
 
-sampler EnviromentSampler;
-sampler IrradianceSampler;
+Texture2D AlbedoSampler : register(t0);
+Texture2D NormalSampler : register(t1);
+Texture2D MetallicSampler : register(t2);
+Texture2D RoughnessSampler : register(t3);
 
-float3 g_LightPosition;
-float4 g_LightColor;
-float4 vViewPosition;
+TextureCube EnviromentSampler : register(t4);
+TextureCube IrradianceSampler : register(t5);
+
+cbuffer tempBuffer : register (b3)
+{
+	float3 g_LightPosition;
+	float4 g_LightColor;
+	float4 vViewPosition;
+}
 
 struct PS_INPUT
 {
-	float3 Normal	: NORMAL0;
-	float2 TexCoord : TEXCOORD0;
-	float3x3 TBN	: TEXCOORD1;
-	float4 PosWorld : NORMAL1;
-	float4 ViewPos	: NORMAL2;
-	float4 ViewNormal : NORMAL3; // Direccion de vista normalizada.
+	float4 Position : SV_Position;
+	float3 Normal	: TEXCOORD0;
+	float2 TexCoord : TEXCOORD1;
+	float3x3 TBN	: TEXCOORD5;
+	float4 PosWorld : TEXCOORD2;
+	float4 ViewPos	: TEXCOORD3;
+	float4 ViewNormal : TEXCOORD4; // Direccion de vista normalizada.
 };
 
 float3 Diffuse(float3 albedoColor)
@@ -141,34 +147,34 @@ float3  ComputeLight(float3 albedoColor,
 
 struct PS_OUTPUT
 {
-	float4 position  : COLOR0;
-	float4 normal    : COLOR1;
-	float4 color     : COLOR2;
+	float4 position  : SV_Target0;
+	float4 normal    : SV_Target1;
+	float4 color     : SV_Target2;
 };
 
 PS_OUTPUT ps_main(PS_INPUT Input)
 {
 	// Albedo y Normal son estandar.
-	float3 albedoColor = tex2D(AlbedoSampler, Input.TexCoord).xyz;
+	float3 albedoColor = AlbedoSampler.Sample(LinearSampler, Input.TexCoord).xyz;
 
-	float3 normal = tex2D(NormalSampler, Input.TexCoord).xyz;
+	float3 normal = NormalSampler.Sample(LinearSampler, Input.TexCoord).xyz;
 	normal = normalize(2.0f * normal - 1.0f);
 	normal = normalize(mul(normal, Input.TBN));
 
 	//Metallic - Disney BRDF.
-	float metallic = tex2D(MetallicSampler, Input.TexCoord).x;
+	float metallic = MetallicSampler.Sample(LinearSampler, Input.TexCoord).x;
 
 	//Inversa para convertir de Glossiness a Roughness.
-	float roughness = 1.0 - tex2D(RoughnessSampler, Input.TexCoord).x;
+	float roughness = 1.0 - RoughnessSampler.Sample(LinearSampler, Input.TexCoord).x;
 
 	//Corrección de gama.
-	albedoColor = pow(albedoColor, 2.2);
+	albedoColor = pow(abs(albedoColor), 2.2f);
 
 	//Calculamos los parametros de color real.
 	float3 realAlbedo = albedoColor - (albedoColor * metallic);
 	float3 realSpecularColor = lerp(0.03f, albedoColor, metallic);
 
-	float3 pos = Input.PosWorld / Input.PosWorld.w;
+	float3 pos = Input.PosWorld.xyz / Input.PosWorld.w;
 	float3 viewDir = normalize(vViewPosition.xyz - pos);
 	float3 lightDir = normalize(g_LightPosition - pos);
 
@@ -184,23 +190,25 @@ PS_OUTPUT ps_main(PS_INPUT Input)
 	float mipIndex = roughness * roughness * 9.0;
 	float3 reflectVector = reflect(normal, -viewDir);
 	float4 EnvVector = float4(reflectVector.xyz, mipIndex);
-	float3 envColor = texCUBElod(EnviromentSampler, EnvVector);
-	float3 irradiance = texCUBE(IrradianceSampler, normal);
+	float3 envColor = EnviromentSampler.Sample(LinearSampler, EnvVector).xyz;
+	float3 irradiance = IrradianceSampler.Sample(LinearSampler, normal).xyz;
 
 	float3 envFresnel = Specular_F_Roughness(realSpecularColor, normal, viewDir, roughness * roughness);
 	envColor = envColor * envFresnel;
 
-	envColor = pow(envColor, 2.2);
-	irradiance = pow(irradiance, 2.2) * 0.03f;
+	envColor = pow(abs(envColor), 2.2f);
+	irradiance = pow(abs(irradiance), 2.2f) * 0.03f;
 
 	light1 *= 50;
 	float4 FinalColor = float4(light1 + envColor + irradiance, 1);
 	//FinalColor = pow(FinalColor, 1.0 / 2.2);
 
 	PS_OUTPUT Output = (PS_OUTPUT)0;
-	Output.position = Input.PosWorld;
-	Output.normal = float4(normal, 0);
-	Output.color = float4(FinalColor.xyz, 1);
+	//Output.position = Input.PosWorld;
+	//Output.normal = float4(normal, 0);
+	//Output.color = float4(FinalColor.xyz, 1);
+
+	Output.position = float4(FinalColor.xyz, 1);;
 
 	return Output;
 }

@@ -14,8 +14,6 @@ namespace BlackEngine
 		m_VB->Initialize();
 		m_IB = new BEIndexBuffer();
 		m_IB->Initialize();
-		m_IL = new BEInputLayout();
-		m_IL->Initialize();
 	}
 
 	void GraphicsAPIData::Destroy()
@@ -34,11 +32,6 @@ namespace BlackEngine
 		{
 			m_DeviceContext->Release();
 			m_DeviceContext = nullptr;
-		}
-		if (m_IL != nullptr)
-		{
-			m_IL->Destroy();
-			m_IL = nullptr;
 		}
 		if (m_IB != nullptr)
 		{

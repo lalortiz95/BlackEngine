@@ -40,16 +40,49 @@ namespace BlackEngine
 		m_BChangeOnResize = new BEConstantBuffer();
 		m_BChangesEveryFrame = new BEConstantBuffer();
 
-		CreateVertexAndPixelShader();
+		/// We initialize our input layout object.
+		m_InputLayout.Initialize();
+		m_DSV.Initialize();
+		m_RTV.Initialize();
+		m_BackBuffer.Initialize();
+		m_DSVTexture.Initialize();
+		m_RTTexture.Initialize();
 
-		g_GraphicsAPI().m_pGraphicsAPIData->m_IL->CreateInputLayout(&m_GBufferVS);
+		//TODO: cambiar esto, puede setear uno u otro, y cuantos sean de cada uno.
+		if (!CreateVertexAndPixelShader())
+		{
+			throw std::exception("Error al compilar shaders");
+			return;
+		}
 
+		///le pedimos al swap chain el buffer que queremos a  manera de textura
+		g_GraphicsAPI().m_pGraphicsAPIData->m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D),
+			(void**)&m_BackBuffer.m_TextureData->m_Texture2D);
+
+		//TODO: crear textura de render target.
+		///creamos el render target view.
+		m_RTV.Create(&m_BackBuffer);
+		///creanos el depth stencil view.
+		g_GraphicsAPI().CreateDepthStencilView(&m_DSVTexture, &m_DSV);
+		//m_RTTexture.Initialize(*m_RTV);
+		//m_RTTexture.CreateTextureFromFile();
+		//m_RTTexture.CreateAsRenderTarget();
+		///seteamos el render target view.
+		g_GraphicsAPI().SetRenderTargetAndDepthStencil(&m_RTV, &m_DSV);
+
+		/// Clear the back bufffer.
+		g_GraphicsAPI().ClearBackBuffer(m_RTV);
+
+		/// Create out input layout.
+		m_InputLayout.CreateInputLayout(&m_GBufferVS);
+
+		/// Create the constant buffers.
 		m_BNeverChanges->CreateBuffer();
 		m_BChangeOnResize->CreateBuffer();
 		m_BChangesEveryFrame->CreateBuffer();
 		/// Create the sample state
 		m_ColorSampler.Create();
-
+		/// Create the rasterizer state.
 		m_RasterizerState.Create();
 	}
 
@@ -85,15 +118,9 @@ namespace BlackEngine
 		MeshColor.Z = 0.7f;
 		MeshColor.W = 1.0f;
 
-		//TODO: hacer que ni el RTV ni el DSV dependan de graphics api.
-		///limpiamos el back buffer.
-		Vector4D CleanUpColor = { 0.0f, 0.125f, 0.3f, 1.0f };
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
-			g_GraphicsAPI().GetRTV()->m_RenderTargetView, &CleanUpColor.X);
-
 		///limpiamos el depth buffer.
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearDepthStencilView(
-			g_GraphicsAPI().GetDSV()->m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+			m_DSV.m_DSVData->m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		CBNeverChanges cbNeverChanges;
 		cbNeverChanges.m_View = Camera.GetViewMatrix();
@@ -117,6 +144,10 @@ namespace BlackEngine
 		///seteo el vertex shader.
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader
 		(m_GBufferVS.m_VSData->m_VertexShader, NULL, 0);
+
+		///Se setea  el input layout.
+		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->IASetInputLayout(
+			m_InputLayout.m_ILData->m_InputLayout);
 
 		///se setean los constant buffers.
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetConstantBuffers
@@ -147,11 +178,14 @@ namespace BlackEngine
 	{
 		if (!m_GBufferVS.CreateShader("Resources\\Shaders\\GBuffer_VS.hlsl", "vs_5_0", "vs_main"))
 		{
-			std::cout << "no se pudo crear VS" << std::endl;
+			//std::cout << "no se pudo crear VS" << std::endl;
+			throw std::exception("No se pudo crear VS");
+			return false;
 		}
 		if (!m_GBufferPS.CreateShader("Resources\\Shaders\\GBuffer_PS.hlsl", "ps_5_0", "ps_main"))
 		{
 			std::cout << "no se puedo crear PS" << std::endl;
+			return false;
 		}
 
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader(m_GBufferVS.m_VSData->m_VertexShader, 0, 0);

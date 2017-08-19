@@ -19,7 +19,7 @@ namespace BlackEngine
 
 	void BETextureResource::Load(const String& fileName)
 	{
-		m_Texture->CreateTextureFromFile(g_GraphicsAPI().m_pGraphicsAPIData, fileName);
+		m_Texture->CreateTextureFromFile(fileName);
 	}
 
 	void BETextureResource::Initialize()

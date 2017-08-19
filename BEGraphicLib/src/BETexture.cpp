@@ -33,6 +33,11 @@ namespace BlackEngine
 		m_TextureData = new TextureData();
 	}
 
+	void BETexture::Initialize(BERenderTargetView RTV)
+	{
+		m_RTV = RTV;
+	}
+
 	//bool BETexture::CreateAsDepthStencil(const GraphicsAPIData* GData, int width, int height/*, BETexture*& DSVTexture*/)
 	//{
 	//	Initialize();
@@ -64,10 +69,10 @@ namespace BlackEngine
 	//	return true;
 	//}
 
-	bool BETexture::CreateAsRenderTarget(const GraphicsAPIData * GData, int width, int height)
+	bool BETexture::CreateAsRenderTarget()
 	{
 		///Se manda  a llamar la función crear del RTV.
-		if (m_RTV.Create(this, GData))
+		if (m_RTV.Create(this))
 		{
 			///si se creó correctamente, se regresa true.
 			return true;
@@ -85,7 +90,7 @@ namespace BlackEngine
 		}
 	}
 
-	bool BETexture::CreateTexture(const GraphicsAPIData * GData, int width, int height, uint32 flags)
+	bool BETexture::CreateTexture(int width, int height, uint32 flags)
 	{
 		//Initialize();
 		HRESULT hRes;
@@ -121,7 +126,7 @@ namespace BlackEngine
 		TextureDesc.Usage = D3D11_USAGE_DEFAULT;
 		TextureDesc.Width = width;
 
-		hRes = GData->m_Device->CreateTexture2D(&TextureDesc, NULL, &m_TextureData->m_Texture2D);
+		hRes = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateTexture2D(&TextureDesc, NULL, &m_TextureData->m_Texture2D);
 
 		if (FAILED(hRes))
 		{
@@ -130,7 +135,7 @@ namespace BlackEngine
 		return true;
 	}
 
-	bool BETexture::CreateTextureFromFile(const GraphicsAPIData *GData, const String& name)
+	bool BETexture::CreateTextureFromFile(const String& name)
 	{
 		BETexture FlippedTexture;
 
@@ -188,7 +193,7 @@ namespace BlackEngine
 		///se calcula cuantos bits tiene por pixel, 
 		SubresourceData.SysMemPitch = FreeImage_GetLine(bitmap) /** (p/8)*/;
 
-		HRESULT hRes = GData->m_Device->CreateTexture2D(&TextureDesc, &SubresourceData, &m_TextureData->m_Texture2D);
+		HRESULT hRes = g_GraphicsAPI().m_pGraphicsAPIData->m_Device->CreateTexture2D(&TextureDesc, &SubresourceData, &m_TextureData->m_Texture2D);
 
 		if (asigned) delete bitmapBytes;
 

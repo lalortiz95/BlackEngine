@@ -58,6 +58,8 @@ namespace BlackEngine
 		g_ResourceManager().StartUp();
 		g_ResourceManager().Initialize();
 
+		m_RM.Initialize();
+
 		//m_ColorSampler = new BESampler();
 		/////constant buffers.
 		//m_BNeverChanges = new BEConstantBuffer();
@@ -184,9 +186,6 @@ namespace BlackEngine
 	{
 		//esto es si queremos que tome la función render del padre.
 		//__super::Render();
-		BERenderManager RM;
-		RM.Initialize();
-
 		BEModel* ModelToRender;
 
 		//TODO: hacer un actor que tenga las posiciones del modelo que queremos.
@@ -195,13 +194,20 @@ namespace BlackEngine
 		actor.Rotation = { 0,0,0 };
 		actor.Rotation = { 0,0,0 };
 		actor.Scale = { 1,1,1 };
+
+		///limpiamos el back buffer.
+		Vector4D CleanUpColor = { 0.0f, 0.125f, 0.3f, 1.0f };
+
+		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
+			m_RM.m_RTV.m_RTVData->m_RenderTargetView, &CleanUpColor.X);
+
 		///mando el render de los modelos.
 		for (auto& res : m_ResourceVector)
 		{
 			if (res->GetResourceType() == RT_MODEL)
 			{
 				ModelToRender = dynamic_cast<BEModelResource*>(res)->m_Model;
-				RM.Render(ModelToRender, *m_Camera, actor);
+				m_RM.Render(ModelToRender, *m_Camera, actor);
 			}
 		}
 

@@ -181,7 +181,10 @@ namespace BlackEngine
 
 		void Destroy()
 		{
-			m_RenderTargetView->Release();
+			if (m_RenderTargetView != nullptr)
+			{
+				m_RenderTargetView->Release();
+			}
 		}
 	};
 
@@ -208,7 +211,6 @@ namespace BlackEngine
 		ShaderData* m_ShaderData;
 		BEVertexBuffer* m_VB;
 		BEIndexBuffer* m_IB;
-		BEInputLayout* m_IL;
 
 		GraphicsAPIData()
 		{
@@ -218,7 +220,6 @@ namespace BlackEngine
 			m_ShaderData = nullptr;
 			m_VB = nullptr;
 			m_IB = nullptr;
-			m_IL = nullptr;
 		}
 
 		void Initialize();

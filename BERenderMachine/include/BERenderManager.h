@@ -1,11 +1,13 @@
 #pragma once
 #include "BEPrerequisitesRenderMachine.h"
 #include <BERenderTargetView.h>
+#include <BEDepthStencilView.h>
 #include <BERasterizerState.h>
 #include <BEConstantBuffer.h>
 #include <BEVertexShader.h>
 #include <BEPixelShader.h>
 #include <BEInputLayout.h>
+#include <BETexture.h>
 #include <BESampler.h>
 #include <BECamera.h>
 #include <BEModel.h>
@@ -52,12 +54,21 @@ namespace BlackEngine
 		BEVertexShader m_GBufferVS;
 		BEPixelShader m_GBufferPS;
 
+		BEDepthStencilView m_DSV;
+		BERenderTargetView m_RTV;
+
+		BETexture m_BackBuffer;
+		BETexture m_DSVTexture;
+		BETexture m_RTTexture;
+
 		/// 
 		BESampler m_ColorSampler;
 
-		/// 
+		/// the rasterizer state.
 		BERasterizerState m_RasterizerState;
 
+		/// The input layout.
+		BEInputLayout m_InputLayout;
 	private:
 		bool CreateVertexAndPixelShader();
 	};

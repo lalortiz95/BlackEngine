@@ -1,4 +1,5 @@
 #pragma once
+#include <BERenderManager.h>
 #include <BEApplication.h>
 #include <Matrix4D.h>
 #include <BECamera.h>
@@ -50,6 +51,8 @@ namespace BlackEngine
 		///This function returns true if it managed to succesfully create
 		///both vertex, and pixel shader. Otherwise, it will return false.
 		bool CreatePixelAndVertexShader();
+
+		BERenderManager m_RM;
 
 		///The Engine's Vertex Shader class
 		BEVertexShader* m_VS;
