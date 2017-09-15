@@ -73,6 +73,7 @@ namespace BlackEngine
 		Vector4D color(r, g, b, a);
 		m_pGraphicsAPIData->m_DeviceContext->ClearRenderTargetView(
 			RTV.m_RTVData->m_RenderTargetView, &color.X);
+
 	}
 
 	bool BEGraphicsAPI::Initialize(void* scrHandle, int32 width, int32 height, int32 numBB, bool isFullScr)
