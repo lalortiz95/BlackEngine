@@ -66,14 +66,12 @@ namespace BlackEngine
 		{
 			pResourceToLoad = new BETextureResource();
 			BETextureResource* pTexture = dynamic_cast<BETextureResource*>(pResourceToLoad);
-			//pTexture->m_GA = m_GA;
 			break;
 		}
 		case RT_MODEL:
 		{
 			pResourceToLoad = new BEModelResource();
 			BEModelResource* pModel = dynamic_cast<BEModelResource*>(pResourceToLoad);
-			//pModel->m_GA = m_GA;
 			break;
 		}
 		};
@@ -100,19 +98,19 @@ namespace BlackEngine
 		BEUtilityString UtilString;
 		String stringToCompare;
 
-		extensionsType[".bmp"]   =	RT_TEXTURE;
-		extensionsType[".png"]   =	RT_TEXTURE;
-		extensionsType[".jpg"]   =	RT_TEXTURE;
-		extensionsType[".jpeg"]  =	RT_TEXTURE;
-		extensionsType[".fbx"]   =	RT_MODEL;
-		extensionsType[".dae"]   =	RT_MODEL;
-		extensionsType[".obj"]   =	RT_MODEL;
-		extensionsType[".x"  ]   =	RT_MODEL;
-		extensionsType[".max"]   =	RT_MODEL;
-		extensionsType[".3ds"]   =	RT_MODEL;
-		extensionsType[".blend"] =	RT_MODEL;
-		extensionsType[".ase"]   =	RT_MODEL;
-		extensionsType[".mtl"]   =	RT_MODEL;
+		extensionsType[".bmp"] = RT_TEXTURE;
+		extensionsType[".png"] = RT_TEXTURE;
+		extensionsType[".jpg"] = RT_TEXTURE;
+		extensionsType[".jpeg"] = RT_TEXTURE;
+		extensionsType[".fbx"] = RT_MODEL;
+		extensionsType[".dae"] = RT_MODEL;
+		extensionsType[".obj"] = RT_MODEL;
+		extensionsType[".x"] = RT_MODEL;
+		extensionsType[".max"] = RT_MODEL;
+		extensionsType[".3ds"] = RT_MODEL;
+		extensionsType[".blend"] = RT_MODEL;
+		extensionsType[".ase"] = RT_MODEL;
+		extensionsType[".mtl"] = RT_MODEL;
 
 
 		//TODO: arreglar esto.
@@ -134,7 +132,7 @@ namespace BlackEngine
 		BEParser parser;
 		return parser.ParseToStr(fileName, ".", 0);
 	}
-	
+
 	BEResourceManager& g_ResourceManager()
 	{
 		return BEResourceManager::Instance();

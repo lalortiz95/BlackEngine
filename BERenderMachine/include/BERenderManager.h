@@ -13,6 +13,8 @@
 #include <BEModel.h>
 #include <BELight.h>
 
+#include "BEPass.h"
+
 namespace BlackEngine
 {
 	struct BEActor

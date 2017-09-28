@@ -13,6 +13,11 @@ namespace BlackEngine
 		BEPass();
 		~BEPass();
 
+		/// 
+		void Init();
+		/// 
+		void Destroy();
+
 		/// Sets the textures, render targets, and shaders. Afterwards it draws.
 		void StartPass();
 		/// removes the render targets and textures from the pipeline.
@@ -24,9 +29,9 @@ namespace BlackEngine
 		bool CreateRenderTargets();
 		
 		/// Input textures for the pass.
-		BETexture m_InputTextures;
-		/// The pass' render target view
-		BERenderTargetView m_RTV;
+		BETexture* m_InputTextures;
+		/// The pass' render target views
+		BERenderTargetView* m_RTV;
 		/// The pass' pixel and vertex shader.
 		BEPixelShader m_PixelShader;
 		BEVertexShader m_VertexShader;

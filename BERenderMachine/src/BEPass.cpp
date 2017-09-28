@@ -12,6 +12,16 @@ namespace BlackEngine
 
 	}
 
+	void BEPass::Init()
+	{
+
+	}
+
+	void BEPass::Destroy()
+	{
+
+	}
+
 	void BEPass::StartPass()
 	{
 		/// Se setean en el pipeline las texturas, los render targets, y los shaders.
@@ -49,6 +59,7 @@ namespace BlackEngine
 
 	bool BEPass::CreateRenderTargets()
 	{
+		//m_RTV->Create();
 		return false;
 	}
 }

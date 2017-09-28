@@ -1,9 +1,9 @@
 #pragma once
 #include "BEPrerequisitesEngine.h"
+#include "BETextureResource.h"
 #include "BEModelResource.h"
 #include <Vector3D.h>
 
-#include "BETextureResource.h"
 
 namespace BlackEngine
 {
@@ -13,6 +13,13 @@ namespace BlackEngine
 		/// Default constructor and destructor.
 		BEParticle();
 		~BEParticle();
+
+		/// 
+		void Initialize(Vector3D pos, Vector3D dir, float speed, float spanTime);
+		/// 
+		void Destroy();
+		/// 
+		void Update(float fDelta);
 
 		/// Particle's position.
 		Vector3D m_Position;

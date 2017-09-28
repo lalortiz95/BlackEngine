@@ -177,7 +177,6 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BEParticle.h" />
     <ClInclude Include="include\BEForce.h" />
     <ClInclude Include="include\BELight.h" />
     <ClInclude Include="include\BEMaterial.h" />
@@ -185,6 +184,7 @@
     <ClInclude Include="include\BEMesh.h" />
     <ClInclude Include="include\BEModel.h" />
     <ClInclude Include="include\BEModelResource.h" />
+    <ClInclude Include="include\BEParticle.h" />
     <ClInclude Include="include\BEParticleSystem.h" />
     <ClInclude Include="include\BEPrerequisitesEngine.h" />
     <ClInclude Include="include\BEResource.h" />
@@ -193,7 +193,6 @@
     <ClInclude Include="include\BETransmitter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BEParticle.cpp" />
     <ClCompile Include="src\BEForce.cpp" />
     <ClCompile Include="src\BELight.cpp" />
     <ClCompile Include="src\BEMaterial.cpp" />
@@ -201,6 +200,7 @@
     <ClCompile Include="src\BEMesh.cpp" />
     <ClCompile Include="src\BEModel.cpp" />
     <ClCompile Include="src\BEModelResource.cpp" />
+    <ClCompile Include="src\BEParticle.cpp" />
     <ClCompile Include="src\BEParticleSystem.cpp" />
     <ClCompile Include="src\BEResource.cpp" />
     <ClCompile Include="src\BEResourceManager.cpp" />

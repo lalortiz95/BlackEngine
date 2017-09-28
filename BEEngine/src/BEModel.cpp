@@ -321,6 +321,8 @@ namespace BlackEngine
 				&stride, &offset
 			);
 
+
+			//TODO: agregar todos los tipos de texturas.
 			if (m_Meshes[i].m_Material.m_Textures[aiTextureType_DIFFUSE])
 			{
 				ID3D11ShaderResourceView* pSRV[] = {

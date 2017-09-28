@@ -10,4 +10,19 @@ namespace BlackEngine
 	BEForce::~BEForce()
 	{
 	}
+
+	void BEForce::Initialize()
+	{
+	
+	}
+
+	void BEForce::Destroy()
+	{
+	
+	}
+
+	void BEForce::Update(float fDelta)
+	{
+	
+	}
 }

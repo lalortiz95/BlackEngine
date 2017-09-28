@@ -54,7 +54,7 @@
     <ClInclude Include="include\BETransmitter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BEParticle.h">
+    <ClInclude Include="include\BEParticle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClCompile Include="src\BETransmitter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BEParticle.cpp">
+    <ClCompile Include="src\BEParticle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

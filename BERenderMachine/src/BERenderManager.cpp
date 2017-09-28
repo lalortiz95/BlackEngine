@@ -49,11 +49,17 @@ namespace BlackEngine
 		m_LightBuffer.Initialize();
 
 		//TODO: cambiar esto, puede setear uno u otro, y cuantos sean de cada uno.
-		if (!CreateVertexAndPixelShader())
+		if (!m_GBufferVS.CreateShader("Resources\\Shaders\\GBuffer_VS.hlsl", "vs_5_0", "vs_main"))
 		{
-			throw std::exception("Error al compilar shaders");
-			return;
+			throw std::exception("No se pudo crear VS");
 		}
+		if (!m_GBufferPS.CreateShader("Resources\\Shaders\\GBuffer_PS.hlsl", "ps_5_0", "ps_main"))
+		{
+			std::cout << "no se puedo crear PS" << std::endl;
+		}
+
+		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader(m_GBufferVS.m_VSData->m_VertexShader, 0, 0);
+		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShader(m_GBufferPS.m_PSData->m_PixelShader, 0, 0);
 
 		///le pedimos al swap chain el buffer que queremos a  manera de textura
 		g_GraphicsAPI().m_pGraphicsAPIData->m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D),
@@ -80,6 +86,7 @@ namespace BlackEngine
 		m_BNeverChanges->CreateBuffer(sizeof(Matrix4D));
 		m_BChangeOnResize->CreateBuffer(sizeof(Matrix4D));
 		m_BChangesEveryFrame->CreateBuffer(sizeof(Matrix4D));
+
 		/// Creates the light constant buffer.
 		m_LightBuffer.CreateBuffer(40);
 
@@ -145,13 +152,8 @@ namespace BlackEngine
 			m_BChangesEveryFrame->m_BufferData->m_Buffer, 0, NULL, &cb, 0, 0);
 
 		/// Set the light buffer.
-		BELight lightBuffer;
-		lightBuffer.Initialize(
-			Vector3D(0, 15, 0),
-			Vector3D(1, 0, 0),
-			Vector4D(0.5f, 0.5f, 0.5f, 0));
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->UpdateSubresource(
-			m_LightBuffer.m_BufferData->m_Buffer, 0, NULL, &lightBuffer, 0, 0);
+			m_LightBuffer.m_BufferData->m_Buffer, 0, NULL, &m_LightBuffer, 0, 0);
 
 		///seteo el vertex shader.
 		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader
@@ -188,20 +190,7 @@ namespace BlackEngine
 
 	bool BERenderManager::CreateVertexAndPixelShader()
 	{
-		if (!m_GBufferVS.CreateShader("Resources\\Shaders\\GBuffer_VS.hlsl", "vs_5_0", "vs_main"))
-		{
-			//std::cout << "no se pudo crear VS" << std::endl;
-			throw std::exception("No se pudo crear VS");
-			return false;
-		}
-		if (!m_GBufferPS.CreateShader("Resources\\Shaders\\GBuffer_PS.hlsl", "ps_5_0", "ps_main"))
-		{
-			std::cout << "no se puedo crear PS" << std::endl;
-			return false;
-		}
 
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->VSSetShader(m_GBufferVS.m_VSData->m_VertexShader, 0, 0);
-		g_GraphicsAPI().m_pGraphicsAPIData->m_DeviceContext->PSSetShader(m_GBufferPS.m_PSData->m_PixelShader, 0, 0);
 
 		return true;
 	}
